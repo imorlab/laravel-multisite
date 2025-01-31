@@ -15,7 +15,7 @@
                 <div class="flex justify-between h-16">
                     <div class="flex">
                         <div class="flex-shrink-0 flex items-center">
-                            <a href="{{ $site->is_main ? url('/') : url($site->domain) }}" class="text-2xl font-bold text-gray-800">
+                            <a href="{{ $site->is_main ? url('/') : url('/' . $site->domain) }}" class="text-2xl font-bold text-gray-800">
                                 {{ $site->getName() }}
                             </a>
                         </div>

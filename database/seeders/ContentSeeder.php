@@ -15,45 +15,28 @@ class ContentSeeder extends Seeder
 {
     public function run(): void
     {
-        // Crear el sitio principal si no existe
-        $mainSite = Site::firstOrCreate(
-            ['domain' => 'laravel-multisite.test'],
-            [
-                'name' => json_encode([
-                    'es' => 'Beon Entertainment',
-                    'en' => 'Beon Entertainment'
-                ]),
-                'is_active' => true,
-                'is_main' => true
-            ]
-        );
+        // Sitio principal (Beon Entertainment)
+        $mainSite = Site::create([
+            'name' => json_encode([
+                'es' => 'Beon Entertainment',
+                'en' => 'Beon Entertainment'
+            ]),
+            'domain' => '', // Dominio vacío para el sitio principal
+            'is_active' => true
+        ]);
 
-        // Si el sitio ya existía, asegurarse de que sea el principal
-        if (!$mainSite->is_main) {
-            $mainSite->update(['is_main' => true]);
-        }
+        // Sitio secundario (El Fantasma de la Ópera)
+        $phantomSite = Site::create([
+            'name' => json_encode([
+                'es' => 'El Fantasma de la Ópera',
+                'en' => 'The Phantom of the Opera'
+            ]),
+            'domain' => 'phantom',
+            'is_active' => true
+        ]);
 
-        // Asegurarse de que ningún otro sitio sea principal
-        Site::where('id', '!=', $mainSite->id)->update(['is_main' => false]);
-
-        // Crear un sitio secundario de ejemplo
-        $showSite = Site::firstOrCreate(
-            ['domain' => 'phantom.laravel-multisite.test'],
-            [
-                'name' => json_encode([
-                    'es' => 'El Fantasma de la Ópera',
-                    'en' => 'The Phantom of the Opera'
-                ]),
-                'is_active' => true,
-                'is_main' => false
-            ]
-        );
-
-        // Contenido para el sitio principal
         $this->createMainSiteContent($mainSite);
-
-        // Contenido para el sitio del show
-        $this->createShowSiteContent($showSite);
+        $this->createShowSiteContent($phantomSite);
     }
 
     private function createMainSiteContent(Site $site): void
@@ -65,7 +48,7 @@ class ContentSeeder extends Seeder
                 'es' => 'Bienvenidos a Beon Entertainment',
                 'en' => 'Welcome to Beon Entertainment'
             ]),
-            'slug' => 'home-' . $site->id,
+            'slug' => 'home',
             'content' => json_encode([
                 'es' => 'Beon Entertainment es una productora líder en el sector del entretenimiento, especializada en la creación y producción de espectáculos teatrales de primer nivel.',
                 'en' => 'Beon Entertainment is a leading entertainment production company, specialized in creating and producing top-tier theatrical shows.'
@@ -85,7 +68,7 @@ class ContentSeeder extends Seeder
                 'es' => 'Nueva temporada de espectáculos anunciada',
                 'en' => 'New season of shows announced'
             ]),
-            'slug' => 'nueva-temporada-2025-' . $site->id,
+            'slug' => 'nueva-temporada-2025',
             'content' => json_encode([
                 'es' => 'Nos complace anunciar nuestra nueva temporada de espectáculos para 2025, incluyendo nuevas producciones y el regreso de favoritos del público.',
                 'en' => 'We are pleased to announce our new 2025 season of shows, including new productions and the return of audience favorites.'
@@ -105,17 +88,36 @@ class ContentSeeder extends Seeder
                 'es' => 'María González',
                 'en' => 'Maria Gonzalez'
             ]),
+            'slug' => 'maria-gonzalez',
             'role' => json_encode([
                 'es' => 'Directora General',
                 'en' => 'General Director'
             ]),
             'bio' => json_encode([
-                'es' => 'Con más de 20 años de experiencia en la industria del entretenimiento...',
-                'en' => 'With over 20 years of experience in the entertainment industry...'
+                'es' => 'María González es una profesional con más de 20 años de experiencia en el sector del entretenimiento...',
+                'en' => 'Maria Gonzalez is a professional with over 20 years of experience in the entertainment industry...'
             ]),
-            'slug' => 'maria-gonzalez',
             'is_active' => true,
             'order' => 1
+        ]);
+
+        Staff::create([
+            'site_id' => $site->id,
+            'name' => json_encode([
+                'es' => 'Juan Pérez',
+                'en' => 'Juan Perez'
+            ]),
+            'slug' => 'juan-perez',
+            'role' => json_encode([
+                'es' => 'Director de Producción',
+                'en' => 'Production Director'
+            ]),
+            'bio' => json_encode([
+                'es' => 'Juan Pérez ha supervisado más de 50 producciones teatrales en los últimos 15 años...',
+                'en' => 'Juan Perez has overseen more than 50 theatrical productions in the last 15 years...'
+            ]),
+            'is_active' => true,
+            'order' => 2
         ]);
     }
 
@@ -128,14 +130,14 @@ class ContentSeeder extends Seeder
                 'es' => 'El Fantasma de la Ópera',
                 'en' => 'The Phantom of the Opera'
             ]),
-            'slug' => 'home-' . $site->id,
+            'slug' => 'home',
             'content' => json_encode([
                 'es' => 'El musical más exitoso de todos los tiempos llega a España...',
-                'en' => 'The most successful musical of all time comes to Spain...'
+                'en' => 'The most successful musical of all time arrives in Spain...'
             ]),
             'meta_description' => json_encode([
-                'es' => 'El Fantasma de la Ópera - El musical en Madrid',
-                'en' => 'The Phantom of the Opera - The musical in Madrid'
+                'es' => 'El Fantasma de la Ópera - El musical más exitoso de todos los tiempos',
+                'en' => 'The Phantom of the Opera - The most successful musical of all time'
             ]),
             'is_published' => true,
             'order' => 1
@@ -145,17 +147,17 @@ class ContentSeeder extends Seeder
         News::create([
             'site_id' => $site->id,
             'title' => json_encode([
-                'es' => 'Anuncio del elenco principal',
-                'en' => 'Main cast announcement'
+                'es' => 'Próximo estreno en Madrid',
+                'en' => 'Coming soon to Madrid'
             ]),
-            'slug' => 'anuncio-elenco-principal-' . $site->id,
+            'slug' => 'estreno-en-madrid-2025',
             'content' => json_encode([
-                'es' => 'Nos complace anunciar el elenco principal de El Fantasma de la Ópera...',
-                'en' => 'We are pleased to announce the main cast of The Phantom of the Opera...'
+                'es' => 'El Fantasma de la Ópera se estrenará en el Teatro Real de Madrid...',
+                'en' => 'The Phantom of the Opera will premiere at the Royal Theater in Madrid...'
             ]),
             'excerpt' => json_encode([
-                'es' => 'Conoce a las estrellas que darán vida a esta historia legendaria',
-                'en' => 'Meet the stars who will bring this legendary story to life'
+                'es' => 'El musical más exitoso llega a Madrid',
+                'en' => 'The most successful musical comes to Madrid'
             ]),
             'is_published' => true,
             'published_at' => now()
@@ -164,33 +166,79 @@ class ContentSeeder extends Seeder
         // Elenco principal
         Cast::create([
             'site_id' => $site->id,
-            'name' => 'Carlos Martín',
+            'name' => json_encode([
+                'es' => 'Carlos Martín',
+                'en' => 'Carlos Martin'
+            ]),
+            'slug' => 'carlos-martin',
             'character_name' => json_encode([
                 'es' => 'El Fantasma',
                 'en' => 'The Phantom'
             ]),
             'bio' => json_encode([
                 'es' => 'Carlos Martín ha protagonizado numerosos musicales de éxito...',
-                'en' => 'Carlos Martín has starred in numerous successful musicals...'
+                'en' => 'Carlos Martin has starred in numerous successful musicals...'
             ]),
             'is_active' => true,
             'order' => 1
         ]);
 
+        Cast::create([
+            'site_id' => $site->id,
+            'name' => json_encode([
+                'es' => 'Ana López',
+                'en' => 'Ana Lopez'
+            ]),
+            'slug' => 'ana-lopez',
+            'character_name' => json_encode([
+                'es' => 'Christine Daaé',
+                'en' => 'Christine Daaé'
+            ]),
+            'bio' => json_encode([
+                'es' => 'Ana López es una de las voces más destacadas del teatro musical español...',
+                'en' => 'Ana Lopez is one of the most prominent voices in Spanish musical theater...'
+            ]),
+            'is_active' => true,
+            'order' => 2
+        ]);
+
         // Equipo creativo
         CreativeTeam::create([
             'site_id' => $site->id,
-            'name' => 'Laura Sánchez',
+            'name' => json_encode([
+                'es' => 'Laura Sánchez',
+                'en' => 'Laura Sanchez'
+            ]),
+            'slug' => 'laura-sanchez',
             'role' => json_encode([
                 'es' => 'Directora Musical',
                 'en' => 'Musical Director'
             ]),
             'bio' => json_encode([
-                'es' => 'Con una extensa carrera en la dirección musical...',
-                'en' => 'With an extensive career in musical direction...'
+                'es' => 'Laura Sánchez ha dirigido musicalmente más de 20 producciones internacionales...',
+                'en' => 'Laura Sanchez has musically directed more than 20 international productions...'
             ]),
             'is_active' => true,
             'order' => 1
+        ]);
+
+        CreativeTeam::create([
+            'site_id' => $site->id,
+            'name' => json_encode([
+                'es' => 'Roberto García',
+                'en' => 'Roberto Garcia'
+            ]),
+            'slug' => 'roberto-garcia',
+            'role' => json_encode([
+                'es' => 'Director de Escena',
+                'en' => 'Stage Director'
+            ]),
+            'bio' => json_encode([
+                'es' => 'Roberto García es reconocido por su innovadora visión en la dirección escénica...',
+                'en' => 'Roberto Garcia is recognized for his innovative vision in stage direction...'
+            ]),
+            'is_active' => true,
+            'order' => 2
         ]);
     }
 }

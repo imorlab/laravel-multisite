@@ -15,12 +15,15 @@ return new class extends Migration
             $table->id();
             $table->foreignId('site_id')->constrained()->onDelete('cascade');
             $table->json('title');
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->json('content');
             $table->json('excerpt');
             $table->boolean('is_published')->default(false);
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
+
+            // Hacer el slug único por sitio
+            $table->unique(['site_id', 'slug']);
         });
     }
 

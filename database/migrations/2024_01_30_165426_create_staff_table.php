@@ -10,14 +10,17 @@ return new class extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('site_id')->constrained('sites')->onDelete('cascade');
+            $table->foreignId('site_id')->constrained()->onDelete('cascade');
             $table->json('name');
+            $table->string('slug');
             $table->json('role');
             $table->json('bio');
-            $table->string('slug')->unique();
-            $table->integer('order')->default(0);
             $table->boolean('is_active')->default(true);
+            $table->integer('order')->default(0);
             $table->timestamps();
+
+            // Hacer el slug único por sitio
+            $table->unique(['site_id', 'slug']);
         });
     }
 

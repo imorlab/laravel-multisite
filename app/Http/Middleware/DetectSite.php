@@ -6,36 +6,45 @@ use App\Models\Site;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\View;
 use Symfony\Component\HttpFoundation\Response;
 
 class DetectSite
 {
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        // Si es la ruta principal, buscar el sitio principal
-        if (!$request->segment(1)) {
-            $site = Site::where('is_main', true)->first();
-            Log::info('Main site search', ['site' => $site]);
-            if (!$site) {
-                abort(404, 'No se encontró el sitio principal');
-            }
-            $request->attributes->set('site', $site);
-            return $next($request);
-        }
+        try {
+            // Obtener el primer segmento de la URL
+            $domain = $request->segment(1);
 
-        // Para otros sitios, buscar por el segmento de la URL
-        $domain = $request->segment(1);
-        
-        if ($domain) {
-            $site = Site::where('domain', $domain)->first();
-            Log::info('Domain site search', ['domain' => $domain, 'site' => $site]);
-            if (!$site) {
-                abort(404, 'Sitio no encontrado');
-            }
-            $request->attributes->set('site', $site);
-            return $next($request);
-        }
+            Log::info('DetectSite middleware', [
+                'domain' => $domain,
+                'segments' => $request->segments()
+            ]);
 
-        abort(404, 'Sitio no encontrado');
+            // Si no hay dominio o es una ruta de administración, asumimos el sitio principal
+            if (!$domain || $domain === 'admin') {
+                $site = Site::where('domain', '')->firstOrFail();
+            } else {
+                $site = Site::where('domain', $domain)->firstOrFail();
+            }
+
+            Log::info('Site detected', [
+                'site_id' => $site->id,
+                'domain' => $site->domain
+            ]);
+
+            // Compartir el sitio con todas las vistas
+            View::share('site', $site);
+
+            return $next($request);
+
+        } catch (\Exception $e) {
+            Log::error('Error in DetectSite middleware', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            throw $e;
+        }
     }
 }

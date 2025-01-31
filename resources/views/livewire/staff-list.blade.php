@@ -6,9 +6,18 @@
             <div class="p-6">
                 <h3 class="text-xl font-semibold mb-2">{{ $member->getName() }}</h3>
                 <p class="text-gray-600 mb-4">{{ $member->getRole() }}</p>
-                <a href="{{ route('site.staff.show', ['domain' => $site->domain, 'slug' => $member->slug]) }}" 
-                   class="text-blue-600 hover:text-blue-800">
-                    {{ $translations['view_profile'] }} →
+                @php
+                    $slug = $member->slug;
+                    \Illuminate\Support\Facades\Log::info('Staff member slug', [
+                        'slug' => $slug,
+                        'member_id' => $member->id,
+                        'site_id' => $site->id,
+                        'domain' => $site->domain
+                    ]);
+                @endphp
+                <a href="{{ route('site.staff.show', ['domain' => $site->domain ?: null, 'slug' => $slug]) }}" 
+                    class="text-blue-600 hover:text-blue-800">
+                    {{ __('Ver perfil') }} →
                 </a>
             </div>
         </div>

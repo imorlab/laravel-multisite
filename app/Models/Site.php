@@ -61,4 +61,23 @@ class Site extends Model
         ]);
         return is_array($description) ? ($description[$locale] ?? $description['es'] ?? '') : $description;
     }
+
+    public function getIsMainAttribute(): bool
+    {
+        return empty($this->domain);
+    }
+
+    public function getPath(): string
+    {
+        return $this->domain;
+    }
+
+    public function getRouteParams(array $additionalParams = []): array
+    {
+        $params = $additionalParams;
+        if ($this->domain !== '') {
+            $params['domain'] = $this->domain;
+        }
+        return $params;
+    }
 }

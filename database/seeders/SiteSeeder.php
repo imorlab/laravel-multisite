@@ -15,7 +15,7 @@ class SiteSeeder extends Seeder
                 'es' => 'Sitio Principal',
                 'en' => 'Main Site'
             ]),
-            'domain' => 'laravel-multisite.test',
+            'domain' => '',
             'description' => json_encode([
                 'es' => 'Sitio principal de la plataforma',
                 'en' => 'Main platform site'
@@ -30,7 +30,7 @@ class SiteSeeder extends Seeder
                 'es' => 'Show de Prueba',
                 'en' => 'Test Show'
             ]),
-            'domain' => 'show.laravel-multisite.test',
+            'domain' => 'show',
             'description' => json_encode([
                 'es' => 'Show de prueba para desarrollo',
                 'en' => 'Test show for development'

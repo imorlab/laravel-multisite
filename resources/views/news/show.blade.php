@@ -4,8 +4,10 @@
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-4xl mx-auto">
         <div class="mb-8">
-            <a href="{{ $site->is_main ? route('news') : route('site.news', ['domain' => $site->domain]) }}" 
-               class="text-blue-600 hover:text-blue-800">
+            <a href="{{ $site->domain ? 
+                route('site.domain.news', ['domain' => $site->domain]) : 
+                route('site.news') }}" 
+               class="text-blue-600 hover:text-blue-800 mb-4 inline-block">
                 ← {{ __('Volver a Noticias') }}
             </a>
         </div>

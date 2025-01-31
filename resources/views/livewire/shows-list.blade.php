@@ -5,7 +5,10 @@
         <div class="bg-white shadow-lg rounded-lg overflow-hidden">
             <div class="p-6">
                 <h3 class="text-xl font-semibold mb-2">{{ $show->getName() }}</h3>
-                <a href="{{ url($show->domain) }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                <a href="{{ $show->domain ? 
+                    route('site.domain.home', ['domain' => $show->domain]) : 
+                    route('site.home') }}" 
+                   class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
                     {{ $translations['view_more'] }}
                 </a>
             </div>

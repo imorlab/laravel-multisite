@@ -5,40 +5,79 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use App\Models\Site;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class NewsController extends Controller
 {
     public function index(Request $request, $domain = null)
     {
-        if ($domain) {
-            $site = Site::where('domain', $domain)->firstOrFail();
-        } else {
-            $site = Site::where('is_main', true)->firstOrFail();
+        try {
+            if ($domain) {
+                $site = Site::where('domain', $domain)->firstOrFail();
+            } else {
+                $site = Site::where('domain', '')->firstOrFail();
+            }
+
+            $news = News::where('site_id', $site->id)
+                       ->where('is_published', true)
+                       ->orderBy('published_at', 'desc')
+                       ->paginate(10);
+
+            return view('news.index', compact('site', 'news'));
+        } catch (\Exception $e) {
+            Log::error('Error in NewsController@index', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            throw $e;
         }
-
-        $news = News::where('site_id', $site->id)
-                   ->where('is_published', true)
-                   ->orderBy('published_at', 'desc')
-                   ->paginate(10);
-
-        return view('news.index', compact('site', 'news'));
     }
 
     public function show(Request $request, $domain = null, $slug = null)
     {
-        // Si no se proporciona el slug, significa que estamos en la ruta principal
-        if (!$slug) {
+        // Si el slug viene como primer parámetro, ajustamos los valores
+        if ($domain && !$slug) {
             $slug = $domain;
-            $site = Site::where('is_main', true)->firstOrFail();
-        } else {
-            $site = Site::where('domain', $domain)->firstOrFail();
+            $domain = null;
         }
 
-        $news = News::where('site_id', $site->id)
-                   ->where('slug', $slug)
-                   ->where('is_published', true)
-                   ->firstOrFail();
+        Log::info('NewsController@show', [
+            'domain' => $domain,
+            'slug' => $slug,
+            'segments' => $request->segments()
+        ]);
 
-        return view('news.show', compact('site', 'news'));
+        try {
+            if ($domain) {
+                $site = Site::where('domain', $domain)->firstOrFail();
+            } else {
+                $site = Site::where('domain', '')->firstOrFail();
+            }
+
+            Log::info('Site found', [
+                'site_id' => $site->id,
+                'domain' => $site->domain
+            ]);
+
+            $news = News::where('site_id', $site->id)
+                       ->where('slug', $slug)
+                       ->where('is_published', true)
+                       ->firstOrFail();
+
+            Log::info('News found', [
+                'news_id' => $news->id,
+                'slug' => $news->slug,
+                'site_id' => $site->id
+            ]);
+
+            return view('news.show', compact('site', 'news'));
+
+        } catch (\Exception $e) {
+            Log::error('Error in NewsController@show', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            throw $e;
+        }
     }
 }

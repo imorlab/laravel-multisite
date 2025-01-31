@@ -12,7 +12,7 @@
                     <h2 class="text-2xl font-semibold mb-2">{{ $item->getTitle() }}</h2>
                     <p class="text-gray-600 mb-4">{{ $item->getExcerpt() }}</p>
                     <div class="flex justify-between items-center">
-                        <a href="{{ $site->is_main ? route('news.show', $item->slug) : route('site.news.show', ['domain' => $site->domain, 'slug' => $item->slug]) }}" 
+                        <a href="{{ route('site.news.show', $site->getRouteParams(['slug' => $item->slug])) }}" 
                            class="text-blue-600 hover:text-blue-800">
                             {{ __('Leer más') }} →
                         </a>

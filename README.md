@@ -62,11 +62,14 @@ php artisan migrate:fresh --seed
 npm run dev
 ```
 
-7. Configurar hosts virtuales:
+7. Configurar host virtual:
 ```
 127.0.0.1 laravel-multisite.test
-127.0.0.1 phantom.laravel-multisite.test
 ```
+
+Los sitios serán accesibles de la siguiente manera:
+- Sitio principal: https://laravel-multisite.test
+- Otros sitios: https://laravel-multisite.test/{nombre-del-sitio} (ejemplo: https://laravel-multisite.test/phantom)
 
 ## Estructura del Proyecto
 

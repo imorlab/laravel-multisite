@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('casts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('site_id')->constrained()->onDelete('cascade');
-            $table->string('name');
+            $table->json('name');
+            $table->string('slug');
             $table->json('character_name');
             $table->json('bio')->nullable();
             $table->string('photo')->nullable();
@@ -22,6 +23,9 @@ return new class extends Migration
             $table->integer('order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
+
+            // Hacer el slug único por sitio
+            $table->unique(['site_id', 'slug']);
         });
     }
 
