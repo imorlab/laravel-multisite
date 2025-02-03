@@ -41,12 +41,6 @@ class NewsController extends Controller
             $domain = null;
         }
 
-        Log::info('NewsController@show', [
-            'domain' => $domain,
-            'slug' => $slug,
-            'segments' => $request->segments()
-        ]);
-
         try {
             if ($domain) {
                 $site = Site::where('domain', $domain)->firstOrFail();
@@ -54,21 +48,11 @@ class NewsController extends Controller
                 $site = Site::where('domain', '')->firstOrFail();
             }
 
-            Log::info('Site found', [
-                'site_id' => $site->id,
-                'domain' => $site->domain
-            ]);
-
             $news = News::where('site_id', $site->id)
                        ->where('slug', $slug)
                        ->where('is_published', true)
                        ->firstOrFail();
 
-            Log::info('News found', [
-                'news_id' => $news->id,
-                'slug' => $news->slug,
-                'site_id' => $site->id
-            ]);
 
             return view('news.show', compact('site', 'news'));
 

@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cast;
-use App\Models\CreativeTeam;
 use App\Models\News;
 use App\Models\Page;
+use App\Models\Person;
+use App\Models\Show;
 use App\Models\Site;
-use App\Models\Staff;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -82,8 +81,9 @@ class ContentSeeder extends Seeder
         ]);
 
         // Staff corporativo
-        Staff::create([
+        Person::create([
             'site_id' => $site->id,
+            'type' => 'staff',
             'name' => json_encode([
                 'es' => 'María González',
                 'en' => 'Maria Gonzalez'
@@ -101,8 +101,9 @@ class ContentSeeder extends Seeder
             'order' => 1
         ]);
 
-        Staff::create([
+        Person::create([
             'site_id' => $site->id,
+            'type' => 'staff',
             'name' => json_encode([
                 'es' => 'Juan Pérez',
                 'en' => 'Juan Perez'
@@ -124,7 +125,7 @@ class ContentSeeder extends Seeder
     private function createShowSiteContent(Site $site): void
     {
         // Página de inicio del show
-        Page::create([
+        $showPage = Page::create([
             'site_id' => $site->id,
             'title' => json_encode([
                 'es' => 'El Fantasma de la Ópera',
@@ -164,8 +165,10 @@ class ContentSeeder extends Seeder
         ]);
 
         // Elenco principal
-        Cast::create([
+        Person::create([
             'site_id' => $site->id,
+            'page_id' => $showPage->id,
+            'type' => 'cast',
             'name' => json_encode([
                 'es' => 'Carlos Martín',
                 'en' => 'Carlos Martin'
@@ -183,8 +186,10 @@ class ContentSeeder extends Seeder
             'order' => 1
         ]);
 
-        Cast::create([
+        Person::create([
             'site_id' => $site->id,
+            'page_id' => $showPage->id,
+            'type' => 'cast',
             'name' => json_encode([
                 'es' => 'Ana López',
                 'en' => 'Ana Lopez'
@@ -203,8 +208,10 @@ class ContentSeeder extends Seeder
         ]);
 
         // Equipo creativo
-        CreativeTeam::create([
+        Person::create([
             'site_id' => $site->id,
+            'page_id' => $showPage->id,
+            'type' => 'creative',
             'name' => json_encode([
                 'es' => 'Laura Sánchez',
                 'en' => 'Laura Sanchez'
@@ -222,8 +229,10 @@ class ContentSeeder extends Seeder
             'order' => 1
         ]);
 
-        CreativeTeam::create([
+        Person::create([
             'site_id' => $site->id,
+            'page_id' => $showPage->id,
+            'type' => 'creative',
             'name' => json_encode([
                 'es' => 'Roberto García',
                 'en' => 'Roberto Garcia'
