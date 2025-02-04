@@ -51,18 +51,6 @@ Route::middleware('web')->group(function () {
     Route::get('/staff/{slug}', [PersonController::class, 'show'])
         ->name('site.staff.show');
 
-    // Personas (cast)
-    Route::get('/cast', [PersonController::class, 'index'])
-        ->name('site.cast');
-    Route::get('/cast/{slug}', [PersonController::class, 'show'])
-        ->name('site.cast.show');
-
-    // Personas (creative)
-    Route::get('/creative-team', [PersonController::class, 'index'])
-        ->name('site.creative');
-    Route::get('/creative-team/{slug}', [PersonController::class, 'show'])
-        ->name('site.creative.show');
-
     /*
     |--------------------------------------------------------------------------
     | Rutas para sitios con dominio
