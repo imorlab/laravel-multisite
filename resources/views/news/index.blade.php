@@ -1,16 +1,8 @@
 @extends('layouts.app')
 
-@php
-use Illuminate\Support\Facades\Log;
-@endphp
-
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-4xl mx-auto">
-        @php
-            $translations = trans('content');
-            Log::info('Available translations', ['translations' => $translations]);
-        @endphp
         <h1 class="text-gray-200 text-4xl font-bold mb-8">{{ __('content.news') }}</h1>
 
         <div class="space-y-6">

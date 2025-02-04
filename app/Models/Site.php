@@ -40,10 +40,7 @@ class Site extends Model
     {
         $locale = session('locale', 'es');
         $name = is_string($this->name) ? json_decode($this->name, true) : $this->name;
-        Log::info('Getting site name', [
-            'locale' => $locale,
-            'name' => $this->name
-        ]);
+
         return is_array($name) ? ($name[$locale] ?? $name['es'] ?? '') : $name;
     }
 

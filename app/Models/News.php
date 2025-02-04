@@ -39,12 +39,6 @@ class News extends Model
         $locale = session('locale', 'es');
         $title = is_string($this->title) ? json_decode($this->title, true) : $this->title;
         
-        Log::info('Getting news title', [
-            'locale' => $locale,
-            'title' => $title,
-            'raw_title' => $this->title
-        ]);
-        
         return is_array($title) ? ($title[$locale] ?? $title['es'] ?? '') : $title;
     }
 
@@ -53,12 +47,6 @@ class News extends Model
         $locale = session('locale', 'es');
         $content = is_string($this->content) ? json_decode($this->content, true) : $this->content;
         
-        Log::info('Getting news content', [
-            'locale' => $locale,
-            'content' => $content,
-            'raw_content' => $this->content
-        ]);
-        
         return is_array($content) ? ($content[$locale] ?? $content['es'] ?? '') : $content;
     }
 
@@ -66,12 +54,6 @@ class News extends Model
     {
         $locale = session('locale', 'es');
         $excerpt = is_string($this->excerpt) ? json_decode($this->excerpt, true) : $this->excerpt;
-        
-        Log::info('Getting news excerpt', [
-            'locale' => $locale,
-            'excerpt' => $excerpt,
-            'raw_excerpt' => $this->excerpt
-        ]);
         
         return is_array($excerpt) ? ($excerpt[$locale] ?? $excerpt['es'] ?? '') : $excerpt;
     }

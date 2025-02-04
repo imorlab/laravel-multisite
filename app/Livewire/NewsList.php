@@ -36,7 +36,6 @@ class NewsList extends Component
     #[On('language-changed')]
     public function loadNews()
     {
-        Log::info('Loading news after language change');
         $this->news = News::where('site_id', $this->site->id)
             ->where('is_published', true)
             ->orderBy('published_at', 'desc')

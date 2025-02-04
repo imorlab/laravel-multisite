@@ -11,20 +11,12 @@ class WelcomeController extends Controller
 {
     public function index(Request $request, $domain = null)
     {
-        Log::info('WelcomeController@index', [
-            'domain' => $domain,
-            'request_path' => $request->path(),
-            'segments' => $request->segments()
-        ]);
-
         try {
             if ($domain) {
                 $site = Site::where('domain', $domain)->firstOrFail();
             } else {
                 $site = Site::where('domain', '')->firstOrFail();
             }
-
-            Log::info('Site encontrado', ['site' => $site]);
 
             $page = Page::where('site_id', $site->id)
                        ->where('slug', 'home')

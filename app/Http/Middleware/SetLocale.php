@@ -20,16 +20,6 @@ class SetLocale
         
         App::setLocale($locale);
         
-        Log::info('Setting locale in middleware', [
-            'locale' => $locale,
-            'session_locale' => session('locale'),
-            'app_locale' => App::getLocale(),
-            'back_translation' => __('content.back'),
-            'news_translation' => __('content.news'),
-            'translator_loaded' => app('translator')->getLoader()->load($locale, 'content'),
-            'path' => app('translator')->getLoader()->path
-        ]);
-        
         return $next($request);
     }
 }

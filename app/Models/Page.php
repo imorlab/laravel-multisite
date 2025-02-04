@@ -34,10 +34,7 @@ class Page extends Model
     {
         $locale = session('locale', 'es');
         $title = is_string($this->title) ? json_decode($this->title, true) : $this->title;
-        Log::info('Getting page title', [
-            'locale' => $locale,
-            'title' => $this->title
-        ]);
+
         return is_array($title) ? ($title[$locale] ?? $title['es'] ?? '') : $title;
     }
 
@@ -45,10 +42,7 @@ class Page extends Model
     {
         $locale = session('locale', 'es');
         $content = is_string($this->content) ? json_decode($this->content, true) : $this->content;
-        Log::info('Getting page content', [
-            'locale' => $locale,
-            'content' => $this->content
-        ]);
+
         return is_array($content) ? ($content[$locale] ?? $content['es'] ?? '') : $content;
     }
 }

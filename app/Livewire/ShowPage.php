@@ -31,7 +31,6 @@ class ShowPage extends Component
     #[On('language-changed')]
     public function onLanguageChanged()
     {
-        Log::info('Language changed event received in ShowPage');
         $this->refreshTranslations();
     }
 
@@ -39,12 +38,6 @@ class ShowPage extends Component
     {
         $title = $this->page->getTitle();
         $content = $this->page->getContent();
-        
-        Log::info('Rendering page content', [
-            'locale' => session('locale'),
-            'title' => $title,
-            'content' => $content
-        ]);
 
         return view('livewire.show-page', [
             'title' => $title,

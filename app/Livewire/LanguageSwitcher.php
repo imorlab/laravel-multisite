@@ -23,12 +23,6 @@ class LanguageSwitcher extends Component
             return;
         }
 
-        Log::info('Switching language in Livewire component', [
-            'from' => session('locale'),
-            'to' => $locale,
-            'current_app_locale' => App::getLocale()
-        ]);
-
         session()->put('locale', $locale);
         App::setLocale($locale);
         $this->currentLocale = $locale;
@@ -37,12 +31,6 @@ class LanguageSwitcher extends Component
         app('translator')->setLoaded([]);
         Cache::forget('translations');
         Artisan::call('cache:clear');
-
-        Log::info('Language switched', [
-            'new_session_locale' => session('locale'),
-            'new_app_locale' => App::getLocale(),
-            'translations' => trans('content')
-        ]);
 
         $this->dispatch('language-changed');
     }

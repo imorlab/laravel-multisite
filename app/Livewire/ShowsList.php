@@ -32,7 +32,6 @@ class ShowsList extends Component
     #[On('language-changed')]
     public function onLanguageChanged()
     {
-        Log::info('Language changed in ShowsList');
         $this->refreshTranslations();
     }
 
