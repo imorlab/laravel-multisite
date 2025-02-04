@@ -91,6 +91,19 @@ npm run dev
 - `SetLocale`: Gestiona el cambio de idioma en la aplicación
 - `DetectSite`: Detecta y configura el sitio actual basado en el dominio
 
+### Estructura de URLs
+
+El sistema utiliza una estructura de URLs semántica para cada tipo de contenido:
+
+- **Elenco**: `/cast` (listado) y `/cast/{slug}` (perfil individual)
+- **Equipo Creativo**: `/creative-team` (listado) y `/creative-team/{slug}` (perfil individual)
+- **Staff**: `/staff` (listado) y `/staff/{slug}` (perfil individual)
+- **Noticias**: `/news` (listado) y `/news/{slug}` (noticia individual)
+- **Páginas**: `/pages/{slug}`
+
+Para sitios con dominio propio, se utiliza el mismo patrón precedido por el dominio:
+`http://{dominio}/{seccion}/{slug}`
+
 ## Contribuir
 
 1. Fork el repositorio
