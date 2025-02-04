@@ -10,6 +10,14 @@
         'cast' => 'cast',
         'creative' => 'creative-team'
     ];
+
+    if ($type === 'cast') {
+        $baseRoute = $site->domain ? 'site.domain.cast.show' : 'site.cast.show';
+    } elseif ($type === 'creative') {
+        $baseRoute = $site->domain ? 'site.domain.creative.show' : 'site.creative.show';
+    } else {
+        $baseRoute = $site->domain ? 'site.domain.staff.show' : 'site.staff.show';
+    }
 @endphp
 
 <div class="py-8">
@@ -30,7 +38,6 @@
                             <p class="text-gray-400 text-sm mb-4">{{ $person['character_name'] }}</p>
                         @endif
                         @php
-                            $baseRoute = $site->domain ? 'site.domain.person.show' : 'site.person.show';
                             $routeParams = ['slug' => $person['slug']];
                             
                             if ($site->domain) {

@@ -49,7 +49,19 @@ Route::middleware('web')->group(function () {
     Route::get('/staff', [PersonController::class, 'index'])
         ->name('site.staff');
     Route::get('/staff/{slug}', [PersonController::class, 'show'])
-        ->name('site.person.show');
+        ->name('site.staff.show');
+
+    // Personas (cast)
+    Route::get('/cast', [PersonController::class, 'index'])
+        ->name('site.cast');
+    Route::get('/cast/{slug}', [PersonController::class, 'show'])
+        ->name('site.cast.show');
+
+    // Personas (creative)
+    Route::get('/creative-team', [PersonController::class, 'index'])
+        ->name('site.creative');
+    Route::get('/creative-team/{slug}', [PersonController::class, 'show'])
+        ->name('site.creative.show');
 
     /*
     |--------------------------------------------------------------------------
@@ -57,28 +69,33 @@ Route::middleware('web')->group(function () {
     |--------------------------------------------------------------------------
     */
     
-   
-        Route::get('/{domain}', [WelcomeController::class, 'index'])->name('site.domain.home');
-        
-        Route::prefix('{domain}')->group(function () {
-            // Noticias
-            Route::get('/news', [NewsController::class, 'index'])->name('site.domain.news');
-            Route::get('/news/{slug}', [NewsController::class, 'show'])->name('site.domain.news.show');
+    Route::get('/{domain}', [WelcomeController::class, 'index'])->name('site.domain.home');
+    
+    Route::prefix('{domain}')->group(function () {
+        // Noticias
+        Route::get('/news', [NewsController::class, 'index'])->name('site.domain.news');
+        Route::get('/news/{slug}', [NewsController::class, 'show'])->name('site.domain.news.show');
 
-            // Páginas
-            Route::get('/pages/{slug}', [PageController::class, 'show'])->name('site.domain.page');
+        // Páginas
+        Route::get('/pages/{slug}', [PageController::class, 'show'])->name('site.domain.page');
 
-            // Personas (cast)
-            Route::get('/cast', [PersonController::class, 'index'])
-                ->name('site.domain.cast');
-            Route::get('/cast/{slug}', [PersonController::class, 'show'])
-                ->name('site.domain.person.show');
+        // Personas (cast)
+        Route::get('/cast', [PersonController::class, 'index'])
+            ->name('site.domain.cast');
+        Route::get('/cast/{slug}', [PersonController::class, 'show'])
+            ->name('site.domain.cast.show');
 
-            // Personas (creative)
-            Route::get('/creative-team', [PersonController::class, 'index'])
-                ->name('site.domain.creative-team');
-            Route::get('/creative-team/{slug}', [PersonController::class, 'show'])
-                ->name('site.domain.person.show');
-        });
+        // Personas (creative)
+        Route::get('/creative-team', [PersonController::class, 'index'])
+            ->name('site.domain.creative');
+        Route::get('/creative-team/{slug}', [PersonController::class, 'show'])
+            ->name('site.domain.creative.show');
+
+        // Personas (staff)
+        Route::get('/staff', [PersonController::class, 'index'])
+            ->name('site.domain.staff');
+        Route::get('/staff/{slug}', [PersonController::class, 'show'])
+            ->name('site.domain.staff.show');
+    });
    
 });

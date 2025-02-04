@@ -9,9 +9,10 @@ Un sistema de gestión de múltiples sitios web para espectáculos teatrales, co
 - **Componentes Dinámicos**: 
   - Páginas personalizables
   - Noticias
-  - Staff
-  - Elenco
-  - Equipo creativo
+  - Staff (/staff)
+  - Elenco (/cast)
+  - Equipo creativo (/creative-team)
+- **URLs Amigables**: Rutas semánticas para cada tipo de contenido
 - **Panel de Administración**: Gestión completa del contenido
 - **Diseño Responsivo**: Interfaz moderna y adaptable
 
@@ -80,6 +81,19 @@ Los sitios serán accesibles de la siguiente manera:
 - `/database/seeders`: Seeders para datos de prueba
 - `/resources/views`: Vistas Blade
 - `/routes`: Definiciones de rutas
+
+## Estructura de URLs
+
+El sistema utiliza una estructura de URLs semántica para cada tipo de contenido:
+
+- **Elenco**: `/cast` (listado) y `/cast/{slug}` (perfil individual)
+- **Equipo Creativo**: `/creative-team` (listado) y `/creative-team/{slug}` (perfil individual)
+- **Staff**: `/staff` (listado) y `/staff/{slug}` (perfil individual)
+- **Noticias**: `/news` (listado) y `/news/{slug}` (noticia individual)
+- **Páginas**: `/pages/{slug}`
+
+Para sitios con dominio propio, se utiliza el mismo patrón precedido por el dominio:
+`http://{dominio}/{seccion}/{slug}`
 
 ## Modelos Principales
 
