@@ -42,8 +42,6 @@ class Site extends Model
         $name = is_string($this->name) ? json_decode($this->name, true) : $this->name;
         Log::info('Getting site name', [
             'locale' => $locale,
-            'session_locale' => session('locale'),
-            'app_locale' => app()->getLocale(),
             'name' => $this->name
         ]);
         return is_array($name) ? ($name[$locale] ?? $name['es'] ?? '') : $name;
@@ -53,12 +51,6 @@ class Site extends Model
     {
         $locale = session('locale', 'es');
         $description = is_string($this->description) ? json_decode($this->description, true) : $this->description;
-        Log::info('Getting site description', [
-            'locale' => $locale,
-            'session_locale' => session('locale'),
-            'app_locale' => app()->getLocale(),
-            'description' => $this->description
-        ]);
         return is_array($description) ? ($description[$locale] ?? $description['es'] ?? '') : $description;
     }
 

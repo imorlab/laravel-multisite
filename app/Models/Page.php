@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Log;
 
 class Page extends Model
 {
@@ -27,5 +28,27 @@ class Page extends Model
     public function site(): BelongsTo
     {
         return $this->belongsTo(Site::class);
+    }
+
+    public function getTitle(): ?string
+    {
+        $locale = session('locale', 'es');
+        $title = is_string($this->title) ? json_decode($this->title, true) : $this->title;
+        Log::info('Getting page title', [
+            'locale' => $locale,
+            'title' => $this->title
+        ]);
+        return is_array($title) ? ($title[$locale] ?? $title['es'] ?? '') : $title;
+    }
+
+    public function getContent(): ?string
+    {
+        $locale = session('locale', 'es');
+        $content = is_string($this->content) ? json_decode($this->content, true) : $this->content;
+        Log::info('Getting page content', [
+            'locale' => $locale,
+            'content' => $this->content
+        ]);
+        return is_array($content) ? ($content[$locale] ?? $content['es'] ?? '') : $content;
     }
 }

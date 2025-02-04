@@ -3,26 +3,29 @@
 namespace App\Livewire;
 
 use App\Models\Site;
+use App\Traits\WithTranslations;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Log;
 
 class ShowsList extends Component
 {
+    use WithTranslations;
+
     public $shows = [];
-    public $translations = [];
 
     public function mount()
     {
         $this->loadShows();
-        $this->loadTranslations();
+        $this->mountWithTranslations();
     }
 
-    public function loadTranslations()
+    public function getTranslationKeys(): array
     {
-        $this->translations = [
-            'our_shows' => __('Nuestros Shows'),
-            'view_more' => __('Ver más'),
+        return [
+            'our_shows' => 'content.our_shows',
+            'view_more' => 'content.view_more',
+            'no_shows' => 'content.no_shows',
         ];
     }
 
@@ -30,8 +33,7 @@ class ShowsList extends Component
     public function onLanguageChanged()
     {
         Log::info('Language changed in ShowsList');
-        $this->loadTranslations();
-        $this->dispatch('$refresh');
+        $this->refreshTranslations();
     }
 
     public function loadShows()

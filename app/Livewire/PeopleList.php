@@ -4,10 +4,14 @@ namespace App\Livewire;
 
 use App\Models\Person;
 use App\Models\Site;
+use App\Traits\WithTranslations;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class PeopleList extends Component
 {
+    use WithTranslations;
+
     public Site $site;
     public string $type;
 
@@ -15,65 +19,45 @@ class PeopleList extends Component
     {
         $this->site = $site;
         $this->type = $type;
+        $this->mountWithTranslations();
     }
 
-    protected function getTranslatedField($value)
+    public function getTranslationKeys(): array
     {
-        if (empty($value)) {
-            return null;
-        }
+        return [
+            'staff' => 'content.staff',
+            'cast' => 'content.cast',
+            'creative_team' => 'content.creative_team',
+            'view_profile' => 'content.view_profile',
+            'no_people' => 'content.no_people',
+        ];
+    }
 
-        $locale = app()->getLocale();
-
-        // Si es un string simple, devolverlo tal cual
-        if (is_string($value) && !str_starts_with($value, '{')) {
-            return $value;
-        }
-
-        // Intentar decodificar JSON
-        try {
-            if (is_string($value)) {
-                $data = json_decode($value, true);
-                if (json_last_error() === JSON_ERROR_NONE && isset($data[$locale])) {
-                    return $data[$locale];
-                }
-            }
-        } catch (\Exception $e) {
-            // Si hay error al decodificar, devolver el valor original
-            return $value;
-        }
-
-        // Si es un array, intentar obtener el valor del idioma actual
-        if (is_array($value) && isset($value[$locale])) {
-            return $value[$locale];
-        }
-
-        // Si todo falla, devolver el valor original
-        return $value;
+    #[On('language-changed')]
+    public function refreshPeople()
+    {
+        $this->refreshTranslations();
     }
 
     public function render()
     {
-        $rawPeople = Person::query()
+        $people = Person::query()
             ->where('site_id', $this->site->id)
             ->where('type', $this->type)
             ->where('is_active', true)
             ->orderBy('order')
-            ->get();
-
-        $people = $rawPeople->map(function ($person) {
-            $translated = [
-                'id' => $person->id,
-                'name' => $this->getTranslatedField($person->name),
-                'role' => $this->getTranslatedField($person->role),
-                'character_name' => $this->getTranslatedField($person->character_name),
-                'bio' => $this->getTranslatedField($person->bio),
-                'photo' => $person->photo,
-                'slug' => $person->slug
-            ];
-            
-            return $translated;
-        });
+            ->get()
+            ->map(function ($person) {
+                return [
+                    'id' => $person->id,
+                    'name' => $person->getName(),
+                    'role' => $person->getRole(),
+                    'character_name' => $person->getCharacterName(),
+                    'bio' => $person->getBio(),
+                    'photo' => $person->photo,
+                    'slug' => $person->slug
+                ];
+            });
 
         return view('livewire.people-list', [
             'people' => $people,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
+use Livewire\Livewire;
 
 class LanguageController extends Controller
 {
@@ -21,6 +22,9 @@ class LanguageController extends Controller
 
         session(['locale' => $locale]);
         App::setLocale($locale);
+
+        // Emitir el evento para todos los componentes Livewire
+        Livewire::dispatch('language-changed');
 
         return back();
     }

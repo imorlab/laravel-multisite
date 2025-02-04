@@ -71,8 +71,6 @@ class Person extends Model
         $name = is_string($this->name) ? json_decode($this->name, true) : $this->name;
         Log::info('Getting person name', [
             'locale' => $locale,
-            'session_locale' => session('locale'),
-            'app_locale' => app()->getLocale(),
             'name' => $this->name
         ]);
         return is_array($name) ? ($name[$locale] ?? $name['es'] ?? '') : $name;
@@ -82,6 +80,10 @@ class Person extends Model
     {
         $locale = session('locale', 'es');
         $role = is_string($this->role) ? json_decode($this->role, true) : $this->role;
+        Log::info('Getting person role', [
+            'locale' => $locale,
+            'role' => $this->role
+        ]);
         return is_array($role) ? ($role[$locale] ?? $role['es'] ?? '') : $role;
     }
 
@@ -89,6 +91,10 @@ class Person extends Model
     {
         $locale = session('locale', 'es');
         $characterName = is_string($this->character_name) ? json_decode($this->character_name, true) : $this->character_name;
+        Log::info('Getting person character name', [
+            'locale' => $locale,
+            'character_name' => $this->character_name
+        ]);
         return is_array($characterName) ? ($characterName[$locale] ?? $characterName['es'] ?? '') : $characterName;
     }
 
@@ -96,6 +102,10 @@ class Person extends Model
     {
         $locale = session('locale', 'es');
         $bio = is_string($this->bio) ? json_decode($this->bio, true) : $this->bio;
+        Log::info('Getting person bio', [
+            'locale' => $locale,
+            'bio' => $this->bio
+        ]);
         return is_array($bio) ? ($bio[$locale] ?? $bio['es'] ?? '') : $bio;
     }
 }

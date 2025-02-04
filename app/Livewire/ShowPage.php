@@ -3,48 +3,52 @@
 namespace App\Livewire;
 
 use App\Models\Page;
+use App\Traits\WithTranslations;
 use Livewire\Component;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
 
 class ShowPage extends Component
 {
+    use WithTranslations;
+
     public Page $page;
-    public $title;
-    public $content;
 
     public function mount(Page $page)
     {
         $this->page = $page;
-        $this->refreshContent();
+        $this->mountWithTranslations();
     }
 
-    public function refreshContent()
+    public function getTranslationKeys(): array
     {
-        $locale = session('locale', 'es');
-        
-        $title = is_string($this->page->title) ? json_decode($this->page->title, true) : $this->page->title;
-        $content = is_string($this->page->content) ? json_decode($this->page->content, true) : $this->page->content;
-
-        Log::info('Refreshing page content', [
-            'locale' => $locale,
-            'title' => $title,
-            'content' => $content
-        ]);
-
-        $this->title = is_array($title) ? ($title[$locale] ?? $title['es'] ?? '') : $title;
-        $this->content = is_array($content) ? ($content[$locale] ?? $content['es'] ?? '') : $content;
+        return [
+            'back' => 'content.back',
+            'loading' => 'content.loading',
+        ];
     }
 
     #[On('language-changed')]
     public function onLanguageChanged()
     {
-        Log::info('Language changed event received');
-        $this->refreshContent();
+        Log::info('Language changed event received in ShowPage');
+        $this->refreshTranslations();
     }
 
     public function render()
     {
-        return view('livewire.show-page');
+        $title = $this->page->getTitle();
+        $content = $this->page->getContent();
+        
+        Log::info('Rendering page content', [
+            'locale' => session('locale'),
+            'title' => $title,
+            'content' => $content
+        ]);
+
+        return view('livewire.show-page', [
+            'title' => $title,
+            'content' => $content
+        ]);
     }
 }
