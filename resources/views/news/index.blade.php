@@ -1,26 +1,38 @@
 @extends('layouts.app')
 
+@php
+use Illuminate\Support\Facades\Log;
+@endphp
+
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-4xl mx-auto">
-        <h1 class="text-4xl font-bold mb-8">{{ __('Noticias') }}</h1>
+        @php
+            $translations = trans('content');
+            Log::info('Available translations', ['translations' => $translations]);
+        @endphp
+        <h1 class="text-gray-200 text-4xl font-bold mb-8">{{ __('content.news') }}</h1>
 
         <div class="space-y-6">
             @foreach($news as $item)
-            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="bg-gray-700 shadow-lg rounded-lg overflow-hidden">
                 <div class="p-6">
-                    <h2 class="text-2xl font-semibold mb-2">{{ $item->getTitle() }}</h2>
-                    <p class="text-gray-600 mb-4">{{ $item->getExcerpt() }}</p>
+                    <h2 class="text-gray-200 text-2xl font-semibold mb-2">{{ $item->getTitle() }}</h2>
+                    <p class="text-gray-400 mb-4">{{ $item->getExcerpt() }}</p>
                     <div class="flex justify-between items-center">
                         <a href="{{ route('site.news.show', $site->getRouteParams(['slug' => $item->slug])) }}" 
-                           class="text-blue-600 hover:text-blue-800">
-                            {{ __('Leer más') }} →
+                           class="text-violet-400 hover:text-violet-200">
+                            {{ __('content.read_more') }} →
                         </a>
-                        <span class="text-gray-500">{{ $item->published_at->format('d/m/Y') }}</span>
+                        <span class="text-gray-400">{{ $item->published_at->format('d/m/Y') }}</span>
                     </div>
                 </div>
             </div>
             @endforeach
+
+            @if($news->isEmpty())
+                <p class="text-gray-500">{{ __('content.no_news') }}</p>
+            @endif
         </div>
 
         <div class="mt-8">

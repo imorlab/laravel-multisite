@@ -6,12 +6,21 @@ use App\Models\News;
 use App\Models\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 
 class NewsController extends Controller
 {
     public function index(Request $request, $domain = null)
     {
         try {
+            $locale = session('locale', config('app.locale', 'es'));
+            App::setLocale($locale);
+            
+            // Forzar la recarga de traducciones
+            app('translator')->setLoaded([]);
+            Cache::forget('translations');
+
             if ($domain) {
                 $site = Site::where('domain', $domain)->firstOrFail();
             } else {
@@ -42,6 +51,13 @@ class NewsController extends Controller
         }
 
         try {
+            $locale = session('locale', config('app.locale', 'es'));
+            App::setLocale($locale);
+            
+            // Forzar la recarga de traducciones
+            app('translator')->setLoaded([]);
+            Cache::forget('translations');
+
             if ($domain) {
                 $site = Site::where('domain', $domain)->firstOrFail();
             } else {
@@ -53,9 +69,7 @@ class NewsController extends Controller
                        ->where('is_published', true)
                        ->firstOrFail();
 
-
             return view('news.show', compact('site', 'news'));
-
         } catch (\Exception $e) {
             Log::error('Error in NewsController@show', [
                 'error' => $e->getMessage(),

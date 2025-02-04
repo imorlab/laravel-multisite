@@ -7,6 +7,7 @@ use App\Models\Site;
 use App\Traits\WithTranslations;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Log;
 
 class NewsList extends Component
 {
@@ -35,11 +36,15 @@ class NewsList extends Component
     #[On('language-changed')]
     public function loadNews()
     {
+        Log::info('Loading news after language change');
         $this->news = News::where('site_id', $this->site->id)
             ->where('is_published', true)
             ->orderBy('published_at', 'desc')
             ->take(3)
             ->get();
+            
+        // Recargar traducciones cuando cambia el idioma
+        $this->refreshTranslations();
     }
 
     public function render()

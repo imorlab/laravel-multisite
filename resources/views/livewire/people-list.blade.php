@@ -50,7 +50,7 @@
                         @endphp
                         <a href="{{ $url }}" 
                            class="inline-block bg-neutral-700 hover:bg-neutral-600 text-white text-sm px-4 py-2 rounded transition">
-                            {{ __('Ver perfil') }}
+                            {{ $translations['view_profile'] }}
                         </a>
                     </div>
                 </div>

@@ -27,4 +27,5 @@ return [
     'loading' => 'Cargando...',
     'more_info' => 'Más información',
     'back' => 'Volver',
+    'all_rights_reserved' => 'Todos los derechos reservados'
 ];

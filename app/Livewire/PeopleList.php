@@ -30,6 +30,7 @@ class PeopleList extends Component
             'creative_team' => 'content.creative_team',
             'view_profile' => 'content.view_profile',
             'no_people' => 'content.no_people',
+            'back' => 'content.back'
         ];
     }
 

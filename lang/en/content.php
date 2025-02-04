@@ -27,4 +27,5 @@ return [
     'loading' => 'Loading...',
     'more_info' => 'More information',
     'back' => 'Back',
+    'all_rights_reserved' => 'All rights reserved'
 ];

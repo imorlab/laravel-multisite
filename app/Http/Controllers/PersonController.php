@@ -7,12 +7,15 @@ use App\Models\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 
 class PersonController extends Controller
 {
     public function index(Request $request, ?string $domain = null)
     {
         try {
+            
             // El tipo viene de la ruta por defecto o de la URL
             $defaults = $request->route()->defaults;
             $type = $defaults['type'] ?? $this->getTypeFromUrl($request->path());
@@ -51,6 +54,12 @@ class PersonController extends Controller
     public function show(Request $request, $domain = null, $slug = null)
     {
         try {
+            $locale = session('locale', config('app.locale', 'es'));
+            App::setLocale($locale);
+            
+            // Forzar la recarga de traducciones
+            app('translator')->setLoaded([]);
+            Cache::forget('translations');
             // Si el slug viene como primer parámetro, ajustamos los valores
             if ($domain && !$slug) {
                 $slug = $domain;

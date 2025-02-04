@@ -28,7 +28,7 @@
                 @endif
                 <div class="mt-8">
                     <a href="{{ url()->previous() }}" class="text-gray-400 hover:text-gray-200">
-                        ← {{ __('Volver') }}
+                        ← {{ trans('content.back') }}
                     </a>
                 </div>
             </div>

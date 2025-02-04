@@ -28,7 +28,7 @@
         </nav>
 
         <!-- Page Content -->
-        <main class="flex-grow" wire:poll.10s>
+        <main class="flex-grow">
             @yield('content')
         </main>
     </div>
@@ -37,7 +37,7 @@
     <footer class="bg-neutral-900 shadow-lg mt-auto">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="text-center text-gray-400">
-                &copy; {{ date('Y') }} {{ $site->getName() }}. {{ __('Todos los derechos reservados') }}.
+                &copy; {{ date('Y') }} {{ $site->getName() }}. {{ __('content.all_rights_reserved') }}.
             </div>
         </div>
     </footer>
@@ -46,8 +46,7 @@
     <script>
         document.addEventListener('livewire:initialized', () => {
             Livewire.on('language-changed', () => {
-                console.log('Language changed event received');
-                Livewire.dispatch('language-changed');
+                window.location.reload();
             });
         });
     </script>
