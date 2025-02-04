@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\WithSiteImages;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,9 +11,11 @@ use Illuminate\Support\Facades\Log;
 class Site extends Model
 {
     use HasFactory;
+    use WithSiteImages;
 
     protected $fillable = [
         'name',
+        'abbreviation',
         'domain',
         'is_main',
         'is_active',
@@ -21,6 +24,8 @@ class Site extends Model
 
     protected $casts = [
         'name' => 'json',
+        'abbreviation' => 'string',
+        'domain' => 'string',
         'is_main' => 'boolean',
         'is_active' => 'boolean',
         'description' => 'json',
@@ -68,5 +73,10 @@ class Site extends Model
             $params['domain'] = $this->domain;
         }
         return $params;
+    }
+
+    public function getAbbreviation(): ?string
+    {
+        return $this->abbreviation;
     }
 }

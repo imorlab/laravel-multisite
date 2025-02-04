@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('sites', function (Blueprint $table) {
             $table->id();
             $table->json('name');
+            $table->string('abbreviation')->nullable()->unique();
             $table->string('domain')->unique();
             $table->json('description')->nullable();
             $table->boolean('is_main')->default(false);

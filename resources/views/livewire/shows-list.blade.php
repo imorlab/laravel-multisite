@@ -7,35 +7,41 @@
             <div class="atropos-scale">
                 <div class="atropos-rotate">
                     <div class="atropos-inner relative h-[400px] rounded-lg shadow-md overflow-hidden transform-gpu">
-                        {{-- Fondo (aquí irá la imagen cuando la tengamos) --}}
-                        <div class="absolute inset-0 bg-gradient-to-br from-neutral-800 to-neutral-900" data-atropos-offset="0">
-                            {{-- Placeholder para la imagen --}}
-                            <div class="w-full h-full flex items-center justify-center text-neutral-700 text-4xl font-bold opacity-20">
-                                {{ $show->getName() }}
-                            </div>
+                        {{-- Fondo --}}
+                        <div class="absolute inset-0" data-atropos-offset="0">
+                            <img src="{{ $show->getSiteImage('background.jpg') }}" 
+                                 alt="Fondo {{ $show->getName() }}"
+                                 class="w-full h-full object-cover">
                         </div>
 
                         {{-- Overlay gradiente --}}
                         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" data-atropos-offset="2"></div>
 
                         {{-- Contenido --}}
-                        <div class="relative h-full p-6 flex flex-col justify-end">
-                            <h3 class="text-2xl font-bold text-white mb-3" data-atropos-offset="5">
-                                {{ $show->getName() }}
-                            </h3>
+                        <div class="relative h-full p-6 flex flex-col justify-between">
+                            {{-- Logo en la parte superior --}}
+                            <div class="flex justify-center mt-8 mb-2" data-atropos-offset="6">
+                                <img src="{{ $show->getSiteImage('logo.png') }}" 
+                                     alt="Logo {{ $show->getName() }}"
+                                     class="h-32 object-contain">
+                            </div>
+
+                            {{-- Vidriera en el medio --}}
+                            <div class="flex justify-center mb-2" data-atropos-offset="4">
+                                <img src="{{ $show->getSiteImage('vidriera.png') }}" 
+                                     alt="Vidriera {{ $show->getName() }}"
+                                     class="h-42 object-fit">
+                            </div>
                             
-                            @if($show->getDescription())
-                                <p class="text-gray-300 mb-6 line-clamp-3" data-atropos-offset="4">
-                                    {{ $show->getDescription() }}
-                                </p>
-                            @endif
-                            
+                            {{-- Botón en la parte inferior --}}
                             <div data-atropos-offset="8" class="transform-gpu text-center">
                                 <a href="{{ $show->domain ? 
                                     route('site.domain.home', ['domain' => $show->domain]) : 
                                     route('site.home') }}" 
-                                   class="inline-block bg-violet-600/90 hover:bg-violet-600 text-white text-sm px-6 py-2 rounded transition-all duration-300 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto">
-                                    {{ $translations['view_more'] }} →
+                                   class="inline-block relative hover-shine opacity-0 translate-y-12 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-4">
+                                    <img src="{{ $show->getSiteImage('boton.png') }}" 
+                                         alt="{{ $translations['view_more'] }}"
+                                         class="h-6 object-contain transition-transform duration-300 hover:scale-120 p-1">
                                 </a>
                             </div>
                         </div>
@@ -119,6 +125,51 @@
 /* Asegurar que el botón esté por encima del enlace principal */
 [data-atropos-offset="8"] {
     z-index: 20;
+}
+
+/* Animaciones para las imágenes */
+.atropos-inner img {
+    transition: transform 0.3s ease;
+}
+
+.group:hover .atropos-inner img {
+    transform: scale(1.05);
+}
+
+/* Efecto de destello */
+.hover-shine {
+    position: relative;
+    overflow: hidden;
+}
+
+.hover-shine::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%
+    );
+    transform: skewX(-25deg);
+    transition: left 0.5s ease;
+}
+
+.hover-shine:hover::before {
+    animation: shine 1s ease-in-out;
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 200%;
+    }
 }
 </style>
 </div>

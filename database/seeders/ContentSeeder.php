@@ -21,21 +21,48 @@ class ContentSeeder extends Seeder
                 'en' => 'Beon Entertainment'
             ]),
             'domain' => '', // Dominio vacío para el sitio principal
+            'abbreviation' => 'BEON',
+            'is_main' => true,
             'is_active' => true
         ]);
 
-        // Sitio secundario (El Fantasma de la Ópera)
-        $phantomSite = Site::create([
+        // Sitio secundario (Los Pilares de la Tierra)
+        $showSite = Site::create([
             'name' => json_encode([
-                'es' => 'El Fantasma de la Ópera',
-                'en' => 'The Phantom of the Opera'
+                'es' => 'Los Pilares de la Tierra',
+                'en' => 'The Pillars of the Earth',
             ]),
-            'domain' => 'phantom',
+            'domain' => 'lospilaresdelatierramusical.com',
+            'abbreviation' => 'LPDLT',
+            'is_active' => true
+        ]);
+
+        // Sitio secundario (El Medico)
+        $showSite2 = Site::create([
+            'name' => json_encode([
+                'es' => 'El Medico',
+                'en' => 'The Doctor',
+            ]),
+            'domain' => 'elmedicomusical.com',
+            'abbreviation' => 'EM',
+            'is_active' => true
+        ]);
+
+        // Sitio secundario (La Historia Interminable)
+        $showSite3 = Site::create([
+            'name' => json_encode([
+                'es' => 'La Historia Interminable',
+                'en' => 'The Interminable History',
+            ]),
+            'domain' => 'lahistoriainterminablemusical.com',
+            'abbreviation' => 'LHI',
             'is_active' => true
         ]);
 
         $this->createMainSiteContent($mainSite);
-        $this->createShowSiteContent($phantomSite);
+        $this->createShowSiteContent($showSite);
+        $this->createShowSiteContent($showSite2);
+        $this->createShowSiteContent($showSite3);
     }
 
     private function createMainSiteContent(Site $site): void
@@ -128,8 +155,8 @@ class ContentSeeder extends Seeder
         $showPage = Page::create([
             'site_id' => $site->id,
             'title' => json_encode([
-                'es' => 'El Fantasma de la Ópera',
-                'en' => 'The Phantom of the Opera'
+                'es' => 'Los Pilares de la Tierra',
+                'en' => 'The Pillars of the Earth'
             ]),
             'slug' => 'home',
             'content' => json_encode([
@@ -137,8 +164,8 @@ class ContentSeeder extends Seeder
                 'en' => 'The most successful musical of all time arrives in Spain...'
             ]),
             'meta_description' => json_encode([
-                'es' => 'El Fantasma de la Ópera - El musical más exitoso de todos los tiempos',
-                'en' => 'The Phantom of the Opera - The most successful musical of all time'
+                'es' => 'Los Pilares de la Tierra - El musical más exitoso de todos los tiempos',
+                'en' => 'The Pillars of the Earth - The most successful musical of all time'
             ]),
             'is_published' => true,
             'order' => 1
@@ -153,8 +180,8 @@ class ContentSeeder extends Seeder
             ]),
             'slug' => 'estreno-en-madrid-2025',
             'content' => json_encode([
-                'es' => 'El Fantasma de la Ópera se estrenará en el Teatro Real de Madrid...',
-                'en' => 'The Phantom of the Opera will premiere at the Royal Theater in Madrid...'
+                'es' => 'Los Pilares de la Tierra se estrenará en el Teatro Real de Madrid...',
+                'en' => 'The Pillars of the Earth will premiere at the Royal Theater in Madrid...'
             ]),
             'excerpt' => json_encode([
                 'es' => 'El musical más exitoso llega a Madrid',
