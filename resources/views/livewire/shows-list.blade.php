@@ -1,7 +1,7 @@
 <div>
-<div class="py-8">
+<div class="p-8">
     <h2 class="text-2xl font-bold mb-6 text-white">{{ $translations['our_shows'] }}</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
         @foreach($shows as $show)
         <div data-atropos data-atropos-offset="6" class="atropos-wrap group">
             <div class="atropos-scale">
@@ -34,7 +34,7 @@
                             </div>
                             
                             {{-- Botón en la parte inferior --}}
-                            <div data-atropos-offset="8" class="transform-gpu text-center">
+                            <div data-atropos-offset="6" class="transform-gpu text-center">
                                 <a href="{{ $show->domain ? 
                                     route('site.domain.home', ['domain' => $show->domain]) : 
                                     route('site.home') }}" 

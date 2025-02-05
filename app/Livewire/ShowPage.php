@@ -34,14 +34,34 @@ class ShowPage extends Component
         $this->refreshTranslations();
     }
 
+    public function getGalleryImages()
+    {
+        $site = $this->page->site;
+        
+        $availableImages = collect(range(1, 9))
+            ->filter(function($num) use ($site) {
+                return file_exists(public_path("sites/BEN/gallery/ben-{$num}.jpg"));
+            })
+            ->values();
+        
+        // Si no hay suficientes imágenes, repetimos las disponibles
+        while ($availableImages->count() < 9) {
+            $availableImages = $availableImages->merge($availableImages)->take(9);
+        }
+        
+        return $availableImages->shuffle()->chunk(3);
+    }
+
     public function render()
     {
         $title = $this->page->getTitle();
         $content = $this->page->getContent();
+        $site = $this->page->site;
 
         return view('livewire.show-page', [
             'title' => $title,
-            'content' => $content
+            'content' => $content,
+            'site' => $site
         ]);
     }
 }

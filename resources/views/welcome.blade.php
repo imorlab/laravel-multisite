@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <div class="max-w-4xl mx-auto">
-        <livewire:show-page :page="$page" />
+<livewire:show-page :page="$page" />
+<div class="container mx-auto py-4">
+    <div class="w-full mx-auto">
         <livewire:shows-list />
         <livewire:news-list :site="$site" />
         <livewire:people-list :site="$site" :type="'staff'" />
