@@ -10,7 +10,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             SuperAdminSeeder::class,
-            ContentSeeder::class,
+            SiteSeeder::class,      // Primero creamos los sitios
+            PageSeeder::class,      // Luego las páginas principales de cada sitio
+            NewsSeeder::class,      // Después las noticias para cada sitio
+            PersonSeeder::class,    // Finalmente las personas (staff, cast, creative) según el tipo de sitio
         ]);
     }
 }

@@ -9,33 +9,48 @@ class SiteSeeder extends Seeder
 {
     public function run(): void
     {
-        // Sitio principal
-        Site::create([
+        // Sitio principal (Beon Entertainment)
+        $mainSite = Site::create([
             'name' => json_encode([
-                'es' => 'Sitio Principal',
-                'en' => 'Main Site'
+                'es' => 'Beon Entertainment',
+                'en' => 'Beon Entertainment'
             ]),
-            'domain' => '',
-            'description' => json_encode([
-                'es' => 'Sitio principal de la plataforma',
-                'en' => 'Main platform site'
-            ]),
+            'domain' => '', // Dominio vacío para el sitio principal
+            'abbreviation' => 'BEON',
             'is_main' => true,
             'is_active' => true
         ]);
 
-        // Sitio de prueba
-        Site::create([
+        // Sitio secundario (Los Pilares de la Tierra)
+        $showSite = Site::create([
             'name' => json_encode([
-                'es' => 'Show de Prueba',
-                'en' => 'Test Show'
+                'es' => 'Los Pilares de la Tierra',
+                'en' => 'The Pillars of the Earth',
             ]),
-            'domain' => 'show',
-            'description' => json_encode([
-                'es' => 'Show de prueba para desarrollo',
-                'en' => 'Test show for development'
+            'domain' => 'lospilaresdelatierramusical.com',
+            'abbreviation' => 'LPDLT',
+            'is_active' => true
+        ]);
+
+        // Sitio secundario (El Medico)
+        $showSite2 = Site::create([
+            'name' => json_encode([
+                'es' => 'El Medico',
+                'en' => 'The Doctor',
             ]),
-            'is_main' => false,
+            'domain' => 'elmedicomusical.com',
+            'abbreviation' => 'EM',
+            'is_active' => true
+        ]);
+
+        // Sitio secundario (La Historia Interminable)
+        $showSite3 = Site::create([
+            'name' => json_encode([
+                'es' => 'La Historia Interminable',
+                'en' => 'The Interminable History',
+            ]),
+            'domain' => 'lahistoriainterminablemusical.com',
+            'abbreviation' => 'LHI',
             'is_active' => true
         ]);
     }

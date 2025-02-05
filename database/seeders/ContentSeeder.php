@@ -171,6 +171,44 @@ class ContentSeeder extends Seeder
             'order' => 1
         ]);
 
+        $showPage2 = Page::create([
+            'site_id' => $site->id,
+            'title' => json_encode([
+                'es' => 'El Medico',
+                'en' => 'The Doctor'
+            ]),
+            'slug' => 'home',
+            'content' => json_encode([
+                'es' => 'El musical más exitoso de todos los tiempos llega a España...',
+                'en' => 'The most successful musical of all time arrives in Spain...'
+            ]),
+            'meta_description' => json_encode([
+                'es' => 'El Medico - El musical más exitoso de todos los tiempos',
+                'en' => 'The Doctor - The most successful musical of all time'
+            ]),
+            'is_published' => true,
+            'order' => 2
+        ]);
+
+        $showPage3 = Page::create([
+            'site_id' => $site->id,
+            'title' => json_encode([
+                'es' => 'La Historia Interminable',
+                'en' => 'The History of Time'
+            ]),
+            'slug' => 'home',
+            'content' => json_encode([
+                'es' => 'El musical más exitoso de todos los tiempos llega a España...',
+                'en' => 'The most successful musical of all time arrives in Spain...'
+            ]),
+            'meta_description' => json_encode([
+                'es' => 'La Historia Interminable - El musical más exitoso de todos los tiempos',
+                'en' => 'The History of Time - The most successful musical of all time'
+            ]),
+            'is_published' => true,
+            'order' => 3
+        ]);
+
         // Noticias del show
         News::create([
             'site_id' => $site->id,

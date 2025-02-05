@@ -1,7 +1,7 @@
 <div>
 <div class="py-8">
     <h2 class="text-2xl font-bold mb-6 text-white">{{ $translations['our_shows'] }}</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
         @foreach($shows as $show)
         <div data-atropos data-atropos-offset="6" class="atropos-wrap group">
             <div class="atropos-scale">
@@ -15,19 +15,19 @@
                         </div>
 
                         {{-- Overlay gradiente --}}
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" data-atropos-offset="2"></div>
+                        <!-- <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" data-atropos-offset="2"></div> -->
 
                         {{-- Contenido --}}
-                        <div class="relative h-full p-6 flex flex-col justify-between">
+                        <div class="relative h-full p-0 flex flex-col justify-between">
                             {{-- Logo en la parte superior --}}
-                            <div class="flex justify-center mt-8 mb-2" data-atropos-offset="6">
+                            <div class="flex justify-center mt-16 mb-0" data-atropos-offset="6">
                                 <img src="{{ $show->getSiteImage('logo.png') }}" 
                                      alt="Logo {{ $show->getName() }}"
-                                     class="h-32 object-contain">
+                                     class="h-32 object-fit">
                             </div>
 
                             {{-- Vidriera en el medio --}}
-                            <div class="flex justify-center mb-2" data-atropos-offset="4">
+                            <div class="flex justify-center m-0" data-atropos-offset="4">
                                 <img src="{{ $show->getSiteImage('vidriera.png') }}" 
                                      alt="Vidriera {{ $show->getName() }}"
                                      class="h-42 object-fit">
@@ -38,10 +38,10 @@
                                 <a href="{{ $show->domain ? 
                                     route('site.domain.home', ['domain' => $show->domain]) : 
                                     route('site.home') }}" 
-                                   class="inline-block relative hover-shine opacity-0 translate-y-12 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-4">
+                                   class="inline-block relative hover-shine opacity-0 translate-y-12 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
                                     <img src="{{ $show->getSiteImage('boton.png') }}" 
                                          alt="{{ $translations['view_more'] }}"
-                                         class="h-6 object-contain transition-transform duration-300 hover:scale-120 p-1">
+                                         class="w-56 object-fit transition-transform duration-300 hover:scale-120 p-1">
                                 </a>
                             </div>
                         </div>
