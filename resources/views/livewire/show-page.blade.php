@@ -2,7 +2,7 @@
     @if($site->is_main)
         <!-- Hero Section -->
         <section class="h-screen sticky top-0 overflow-hidden">
-            <h1 class="absolute inset-0 grid place-items-center text-white text-[clamp(3vw,2rem,4rem)] font-extrabold mix-blend-difference pointer-events-none z-50">
+            <h1 class="title absolute inset-0 grid place-items-center text-white text-[clamp(3vw,2rem,4rem)] font-extrabold mix-blend-difference pointer-events-none z-50">
                 {!! __($title) !!}
             </h1>
 
@@ -26,8 +26,8 @@
         </section>
 
         <!-- Content Section -->
-        <section class="relative bg-gray-900 py-24">
-            <div class="container mx-auto px-4">
+        <section class="relative bg-neutral-900 py-24">
+            <div class="container mx-auto px-0">
                 <div class="prose prose-lg prose-invert max-w-none">
                     {!! $content !!}
                 </div>
@@ -41,6 +41,19 @@
             document.addEventListener('livewire:navigated', () => {
                 console.clear();
                 gsap.registerPlugin(ScrollTrigger);
+
+                // Animación del título
+                gsap.to(".title", {
+                    scrollTrigger: {
+                        trigger: "section",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: 1
+                    },
+                    y: "-50vh",
+                    scale: 0.8,
+                    opacity: 0
+                });
 
                 const additionalY = { val: 0 };
                 let additionalYAnim;

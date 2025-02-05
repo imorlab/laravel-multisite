@@ -23,8 +23,20 @@ class PageSeeder extends Seeder
                     ]),
                     'slug' => 'home',
                     'content' => json_encode([
-                        'es' => 'Beon Entertainment es una productora líder en el sector del entretenimiento, especializada en la creación y producción de espectáculos teatrales de primer nivel. Nuestra pasión es crear experiencias únicas que cautiven al público y dejen una huella duradera en el mundo del teatro musical.',
-                        'en' => 'Beon Entertainment is a leading entertainment production company, specialized in creating and producing top-tier theatrical shows. Our passion is to create unique experiences that captivate audiences and leave a lasting mark in the world of musical theater.'
+                        'es' => '<h2 class="text-4xl font-bold mb-8">beon. Entertainment<br><span class="text-2xl font-light">la productora de las grandes estrellas</span></h2>
+
+                                <p class="text-xl mb-12">Una vez nos preguntamos que si el cielo era el límite, ¿cómo podían existir las estrellas?</p>
+
+                                <p class="text-lg mb-8">Desde ese momento nuestra misión en el mundo del espectáculo es clara: elegir las mejores historias y hacerlas brillar.</p>
+
+                                <p class="text-lg italic">Y es que cuando algo se produce con pasión y ambición, el resultado son obras que perduran en la memoria.</p>',
+                        'en' => '<h2 class="text-4xl font-bold mb-8">beon. Entertainment<br><span class="text-2xl font-light">the producer of great stars</span></h2>
+
+                                <p class="text-xl mb-12">Once we asked ourselves if the sky was the limit, how could stars exist?</p>
+
+                                <p class="text-lg mb-8">From that moment on, our mission in the world of entertainment became clear: to choose the best stories and make them shine.</p>
+
+                                <p class="text-lg italic">Because when something is produced with passion and ambition, the result is works that endure in memory.</p>'
                     ]),
                     'meta_description' => json_encode([
                         'es' => 'Beon Entertainment - Productora líder de espectáculos teatrales en España',
