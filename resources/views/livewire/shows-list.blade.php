@@ -6,7 +6,7 @@
         <div data-atropos data-atropos-offset="6" class="atropos-wrap group">
             <div class="atropos-scale">
                 <div class="atropos-rotate">
-                    <div class="atropos-inner relative h-[400px] rounded-lg shadow-md overflow-hidden transform-gpu">
+                    <div class="atropos-inner relative h-[400px] rounded-lg shadow-lg shadow-gray-200 overflow-hidden transform-gpu">
                         {{-- Fondo --}}
                         <div class="absolute inset-0" data-atropos-offset="0">
                             <img src="{{ $show->getSiteImage('background.jpg') }}"
@@ -92,7 +92,7 @@
 .atropos-active .atropos-inner {
     box-shadow:
         0 25px 50px -12px rgba(0, 0, 0, 0.5),
-        0 0 30px -10px rgba(124, 58, 237, 0.5);
+        0 0 30px 0px rgba(255, 255, 255, 0.743);
 }
 
 /* Animaciones */
