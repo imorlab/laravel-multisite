@@ -26,132 +26,101 @@
         </section>
 
         <!-- Content Section -->
-        <section class="relative min-h-screen"
+        <section class="relative min-h-screen overflow-hidden"
                 x-data="{
-                    isFullscreen: false,
+                    videoEnded: false,
                     isMuted: true,
                     videoStarted: false,
                     async startVideo() {
-                        if (!this.videoStarted) {
-                            const preview = this.$refs.previewVideo;
-                            const fullscreen = this.$refs.fullscreenVideo;
-                            
+                        const video = this.$refs.video;
+                        if (!this.videoStarted && video) {
                             try {
-                                this.isFullscreen = true;
-                                // Sincronizar el tiempo de reproducción
-                                fullscreen.currentTime = preview.currentTime;
-                                await fullscreen.play();
+                                await video.play();
                                 this.videoStarted = true;
                             } catch (error) {
                                 console.error('Error reproduciendo video:', error);
-                                this.isFullscreen = false;
                             }
                         }
                     },
-                    stopVideo() {
-                        const fullscreen = this.$refs.fullscreenVideo;
-                        fullscreen.pause();
-                        this.isFullscreen = false;
-                        this.videoStarted = false;
-                    },
                     toggleMute() {
                         this.isMuted = !this.isMuted;
-                        this.$refs.previewVideo.muted = this.isMuted;
-                        this.$refs.fullscreenVideo.muted = this.isMuted;
+                        this.$refs.video.muted = this.isMuted;
                     }
                 }"
                 x-init="$nextTick(() => {
-                    const preview = $refs.previewVideo;
-                    const fullscreen = $refs.fullscreenVideo;
+                    const video = $refs.video;
 
-                    // Sincronizar el estado inicial
-                    preview.muted = true;
-                    fullscreen.muted = true;
+                    video.addEventListener('ended', () => {
+                        videoEnded = true;
+                    });
+
+                    // Observar cuando la sección es visible
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting && !videoStarted) {
+                                startVideo();
+                            }
+                        });
+                    }, { threshold: 0.1 });
+
+                    observer.observe($el);
                 })">
-            
-            <!-- Contenedor principal con grid -->
-            <div class="min-h-screen w-full flex items-center justify-center p-8 transition-all duration-500 ease-in-out transform"
-                 :class="{ 'opacity-0 scale-95 pointer-events-none': isFullscreen, 'opacity-100 scale-100': !isFullscreen }">
-                <div class="w-full max-w-7xl bg-neutral-900/60 backdrop-blur-sm rounded-2xl p-8">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <!-- Columna izquierda: Texto -->
-                        <div class="flex flex-col justify-center space-y-6 transition-all duration-500 ease-in-out">
-                            @if(is_array($content) && isset($content[$locale]))
-                                <h2 class="text-4xl text-orange-600 font-bold transform transition-all duration-500 ease-in-out">{{ $content[$locale]['title'] }}</h2>
-                                <h3 class="text-3xl text-orange-200 transform transition-all duration-500 ease-in-out">{{ $content[$locale]['subtitle'] }}</h3>
-                                <div class="prose prose-invert max-w-none text-gray-200 transform transition-all duration-500 ease-in-out">
-                                    {!! $content[$locale]['intro'] !!}
-                                    {!! $content[$locale]['mission'] !!}
-                                    {!! $content[$locale]['closing'] !!}
-                                </div>
-                            @endif
-                        </div>
-
-                        <!-- Columna derecha: Video preview -->
-                        <div class="relative rounded-xl overflow-hidden group transform transition-all duration-500 ease-in-out hover:shadow-2xl">
-                            <!-- Video thumbnail -->
-                            <div class="relative aspect-video w-full">
-                                <video x-ref="previewVideo"
-                                       class="w-full h-full object-cover transform transition-all duration-500 ease-in-out"
-                                       playsinline
-                                       loop
-                                       muted
-                                       :muted="isMuted">
-                                    <source src="{{ asset('video/BEON-ENT-compress.mp4') }}" type="video/mp4">
-                                </video>
-                                <!-- Overlay oscuro -->
-                                <div class="absolute inset-0 bg-black/50 transition-all duration-500 ease-in-out group-hover:bg-black/40"></div>
-                                <!-- Botón de play grande -->
-                                <button @click="startVideo"
-                                        class="absolute inset-0 flex items-center justify-center transition-all duration-500 ease-in-out transform group-hover:scale-105">
-                                    <div class="p-2 rounded-full bg-orange-600/80 group-hover:bg-orange-500/90 transition-all duration-500 ease-in-out transform hover:scale-110">
-                                        <svg class="w-12 h-12 text-white transition-all duration-500 ease-in-out" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video en pantalla completa -->
-            <div class="fixed inset-0 bg-black transition-all duration-700 ease-in-out z-50"
-                 :class="{ 'opacity-100 visible': isFullscreen, 'opacity-0 invisible': !isFullscreen }">
-                <!-- Video a pantalla completa -->
-                <video x-ref="fullscreenVideo"
-                       class="w-full h-full object-cover transform transition-all duration-700 ease-in-out"
-                       :class="{ 'scale-100 opacity-100': isFullscreen, 'scale-95 opacity-0': !isFullscreen }"
+            <!-- Video de fondo -->
+            <div class="absolute inset-0">
+                <video x-ref="video"
+                       class="w-full h-full object-cover transition-opacity duration-1000"
+                       :class="{ 'opacity-0': videoEnded }"
                        playsinline
                        preload="auto"
+                       muted
                        :muted="isMuted">
                     <source src="{{ asset('video/BEON-ENT-compress.mp4') }}" type="video/mp4">
                 </video>
 
-                <!-- Controles -->
-                <div class="absolute bottom-8 right-8 flex items-center space-x-4 transition-all duration-500 ease-in-out transform"
-                     :class="{ 'translate-y-0 opacity-100': isFullscreen, 'translate-y-4 opacity-0': !isFullscreen }">
-                    <!-- Botón de cerrar -->
-                    <button @click="stopVideo"
-                            class="p-3 rounded-full bg-neutral-900/60 backdrop-blur-sm hover:bg-neutral-800/80 transition-all duration-300 ease-in-out transform hover:scale-110">
-                        <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
+                <!-- Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-b from-neutral-900/70 via-neutral-900/50 to-neutral-900/90"></div>
+            </div>
 
-                    <!-- Botón de audio -->
-                    <button @click="toggleMute"
-                            class="p-3 rounded-full bg-neutral-900/60 backdrop-blur-sm hover:bg-neutral-800/80 transition-all duration-300 ease-in-out transform hover:scale-110">
-                        <svg x-show="isMuted" class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>
-                        </svg>
-                        <svg x-show="!isMuted" class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
-                        </svg>
-                    </button>
+            <!-- Botón de audio (fuera del contenedor de video) -->
+            <div class="absolute bottom-8 right-8" style="z-index: 9999;">
+                <button @click="toggleMute"
+                        class="p-3 rounded-full bg-neutral-900/60 backdrop-blur-sm hover:bg-neutral-800/80 transition-all duration-300 group">
+                    <svg x-show="isMuted" class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>
+                    </svg>
+                    <svg x-show="!isMuted" class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                    </svg>
+
+                    <!-- Tooltip -->
+                    <span class="absolute right-full mr-2 top-1/2 -translate-y-1/2 px-2 py-1 bg-neutral-900/90 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                        <span x-text="isMuted ? 'Activar audio' : 'Silenciar'"></span>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Contenido -->
+            <div class="relative z-10 min-h-screen flex items-center opacity-0 transition-opacity duration-1000"
+                 :class="{ 'opacity-100': videoEnded }">
+                <div class="container mx-auto px-8">
+                    <div class="max-w-none text-gray-300 p-2 rounded-2xl transform transition-all duration-1000 ease-out"
+                         :class="{ 'translate-y-0': videoEnded, 'translate-y-12': !videoEnded }">
+                        @if(is_array($content) && isset($content[$locale]))
+                            <h2 class="text-4xl text-orange-600 font-bold mb-2">{{ $content[$locale]['title'] }}</h2>
+                            <p class="text-2xl text-orange-400 font-light mb-6">{{ $content[$locale]['subtitle'] }}</p>
+
+                            <div class="space-y-6">
+                                <p class="text-xl">{{ $content[$locale]['intro'] }}</p>
+                                <p class="text-lg">{{ $content[$locale]['mission'] }}</p>
+                                <p class="text-lg italic">{{ $content[$locale]['closing'] }}</p>
+                            </div>
+                        @else
+                            <div class="prose prose-lg prose-invert">
+                                {!! $content !!}
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </section>
@@ -264,6 +233,8 @@
                 display: grid;
                 place-items: center;
             }
+
+
 
             @media (max-width: 768px) {
                 .gallery {
