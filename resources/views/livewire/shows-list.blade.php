@@ -6,7 +6,7 @@
         <div data-atropos data-atropos-offset="6" class="atropos-wrap group">
             <div class="atropos-scale">
                 <div class="atropos-rotate">
-                    <div class="atropos-inner relative h-[400px] rounded-lg shadow-lg shadow-gray-200 overflow-hidden transform-gpu">
+                    <div class="atropos-inner relative h-[400px] rounded-lg shadow-lg shadow-gray-600 overflow-hidden transform-gpu">
                         {{-- Fondo --}}
                         <div class="absolute inset-0" data-atropos-offset="0">
                             <img src="{{ $show->getSiteImage('background.jpg') }}"
@@ -67,6 +67,13 @@
 
 <style>
 /* Estilos para el efecto Atropos */
+.atrosha {
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    filter: blur(40px) saturate(400%);
+    z-index: -1;
+}
 .atropos-wrap {
     transform-style: preserve-3d;
     perspective: 1200px;
@@ -91,8 +98,8 @@
 
 .atropos-active .atropos-inner {
     box-shadow:
-        0 25px 50px -12px rgba(0, 0, 0, 0.5),
-        0 0 30px 0px rgba(255, 255, 255, 0.743);
+        0 25px 20px -12px rgba(0, 0, 0, 0.5),
+        0 10px 20px -6px rgba(255, 255, 255);
 }
 
 /* Animaciones */
