@@ -23,9 +23,12 @@ class ShowsList extends Component
     public function getTranslationKeys(): array
     {
         return [
-            'our_shows' => 'content.our_shows',
+            'show_producer' => 'content.show_producer',
+            'description' => 'content.description',
             'view_more' => 'content.view_more',
             'no_shows' => 'content.no_shows',
+            'current_shows' => 'content.current_shows',
+            'past_shows' => 'content.past_shows',
         ];
     }
 

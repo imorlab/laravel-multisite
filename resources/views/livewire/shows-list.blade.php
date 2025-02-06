@@ -1,7 +1,8 @@
 <div>
 <div class="p-8">
-    <h2 class="text-2xl font-bold mb-6 text-white">{{ $translations['our_shows'] }}</h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
+    <h2 class="text-4xl font-bold mt-24 text-orange-600">{{ $translations['show_producer'] }}</h2>
+    <p class="text-xl text-gray-300 mt-3 ">{{ $translations['description'] }}</p>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 my-24">
         @foreach($shows as $show)
         <div data-atropos data-atropos-offset="6" class="atropos-wrap group">
             <div class="atropos-scale">
