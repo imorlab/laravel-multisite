@@ -78,7 +78,7 @@
                 </video>
 
                 <!-- Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-b from-neutral-900/70 via-neutral-900/50 to-neutral-900/90"></div>
+                {{-- <div class="absolute inset-0 bg-gradient-to-b from-neutral-900/70 via-neutral-900/50 to-neutral-900/90"></div> --}}
             </div>
 
             <!-- Botón de audio (fuera del contenedor de video) -->
@@ -101,10 +101,11 @@
             </div>
 
             <!-- Contenido -->
-            <div class="relative z-10 min-h-screen flex items-center opacity-0 transition-opacity duration-1000"
-                 :class="{ 'opacity-100': videoEnded }">
+            <div class="relative z-10 min-h-screen flex items-center"
+                 :class="{ 'opacity-100': videoEnded, 'opacity-0': !videoEnded }"
+                 style="transition: opacity 1000ms ease-out;">
                 <div class="container mx-auto px-8">
-                    <div class="max-w-none text-gray-300 p-2 rounded-2xl transform transition-all duration-1000 ease-out"
+                    <div class="max-w-3xl mx-auto bg-neutral-900/80 backdrop-blur-sm text-gray-300 p-8 md:p-12 rounded-2xl transform transition-all duration-1000 ease-out shadow-2xl"
                          :class="{ 'translate-y-0': videoEnded, 'translate-y-12': !videoEnded }">
                         @if(is_array($content) && isset($content[$locale]))
                             <h2 class="text-4xl text-orange-600 font-bold mb-2">{{ $content[$locale]['title'] }}</h2>
