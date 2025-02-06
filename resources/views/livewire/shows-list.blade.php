@@ -9,7 +9,7 @@
                     <div class="atropos-inner relative h-[400px] rounded-lg shadow-md overflow-hidden transform-gpu">
                         {{-- Fondo --}}
                         <div class="absolute inset-0" data-atropos-offset="0">
-                            <img src="{{ $show->getSiteImage('background.jpg') }}" 
+                            <img src="{{ $show->getSiteImage('background.jpg') }}"
                                  alt="Fondo {{ $show->getName() }}"
                                  class="w-full h-full object-cover">
                         </div>
@@ -21,25 +21,25 @@
                         <div class="relative h-full p-0 flex flex-col justify-between">
                             {{-- Logo en la parte superior --}}
                             <div class="flex justify-center mt-16 mb-0" data-atropos-offset="6">
-                                <img src="{{ $show->getSiteImage('logo.png') }}" 
+                                <img src="{{ $show->getSiteImage('logo.png') }}"
                                      alt="Logo {{ $show->getName() }}"
                                      class="h-32 object-fit">
                             </div>
 
                             {{-- Vidriera en el medio --}}
                             <div class="flex justify-center m-0" data-atropos-offset="4">
-                                <img src="{{ $show->getSiteImage('vidriera.png') }}" 
+                                <img src="{{ $show->getSiteImage('vidriera.png') }}"
                                      alt="Vidriera {{ $show->getName() }}"
                                      class="h-42 object-fit">
                             </div>
-                            
+
                             {{-- Botón en la parte inferior --}}
                             <div data-atropos-offset="6" class="transform-gpu text-center">
-                                <a href="{{ $show->domain ? 
-                                    route('site.domain.home', ['domain' => $show->domain]) : 
-                                    route('site.home') }}" 
+                                <a href="{{ $show->domain ?
+                                    route('site.domain.home', ['domain' => $show->domain]) :
+                                    route('site.home') }}"
                                    class="inline-block relative hover-shine opacity-0 translate-y-12 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-                                    <img src="{{ $show->getSiteImage('boton.png') }}" 
+                                    <img src="{{ $show->getSiteImage('boton.png') }}"
                                          alt="{{ $translations['view_more'] }}"
                                          class="w-56 object-fit transition-transform duration-300 hover:scale-120 p-1">
                                 </a>
@@ -47,9 +47,9 @@
                         </div>
 
                         {{-- Enlace que cubre toda la tarjeta --}}
-                        <a href="{{ $show->domain ? 
-                            route('site.domain.home', ['domain' => $show->domain]) : 
-                            route('site.home') }}" 
+                        <a href="{{ $show->domain ?
+                            route('site.domain.home', ['domain' => $show->domain]) :
+                            route('site.home') }}"
                            class="absolute inset-0 z-10">
                             <span class="sr-only">{{ $show->getName() }}</span>
                         </a>
@@ -90,7 +90,7 @@
 }
 
 .atropos-active .atropos-inner {
-    box-shadow: 
+    box-shadow:
         0 25px 50px -12px rgba(0, 0, 0, 0.5),
         0 0 30px -10px rgba(124, 58, 237, 0.5);
 }
@@ -104,7 +104,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, 
+    background: linear-gradient(to top,
         rgba(124, 58, 237, 0.1),
         transparent 30%
     );
@@ -172,4 +172,6 @@
     }
 }
 </style>
+</div>
+
 </div>

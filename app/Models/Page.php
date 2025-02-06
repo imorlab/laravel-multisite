@@ -38,11 +38,11 @@ class Page extends Model
         return is_array($title) ? ($title[$locale] ?? $title['es'] ?? '') : $title;
     }
 
-    public function getContent(): ?string
+    public function getContent()
     {
         $locale = session('locale', 'es');
         $content = is_string($this->content) ? json_decode($this->content, true) : $this->content;
 
-        return is_array($content) ? ($content[$locale] ?? $content['es'] ?? '') : $content;
+        return $content;
     }
 }

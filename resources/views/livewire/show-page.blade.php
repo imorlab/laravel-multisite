@@ -70,16 +70,16 @@
                 })">
             
             <!-- Contenedor principal con grid -->
-            <div class="min-h-screen w-full flex items-center justify-center p-8"
-                 :class="{ 'hidden': isFullscreen }">
+            <div class="min-h-screen w-full flex items-center justify-center p-8 transition-all duration-500 ease-in-out transform"
+                 :class="{ 'opacity-0 scale-95 pointer-events-none': isFullscreen, 'opacity-100 scale-100': !isFullscreen }">
                 <div class="w-full max-w-7xl bg-neutral-900/60 backdrop-blur-sm rounded-2xl p-8">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <!-- Columna izquierda: Texto -->
-                        <div class="flex flex-col justify-center space-y-6">
+                        <div class="flex flex-col justify-center space-y-6 transition-all duration-500 ease-in-out">
                             @if(is_array($content) && isset($content[$locale]))
-                                <h2 class="text-4xl text-orange-600 font-bold">{{ $content[$locale]['title'] }}</h2>
-                                <h3 class="text-3xl text-orange-200">{{ $content[$locale]['subtitle'] }}</h3>
-                                <div class="prose prose-invert max-w-none text-gray-200">
+                                <h2 class="text-4xl text-orange-600 font-bold transform transition-all duration-500 ease-in-out">{{ $content[$locale]['title'] }}</h2>
+                                <h3 class="text-3xl text-orange-200 transform transition-all duration-500 ease-in-out">{{ $content[$locale]['subtitle'] }}</h3>
+                                <div class="prose prose-invert max-w-none text-gray-200 transform transition-all duration-500 ease-in-out">
                                     {!! $content[$locale]['intro'] !!}
                                     {!! $content[$locale]['mission'] !!}
                                     {!! $content[$locale]['closing'] !!}
@@ -88,11 +88,11 @@
                         </div>
 
                         <!-- Columna derecha: Video preview -->
-                        <div class="relative rounded-xl overflow-hidden group">
+                        <div class="relative rounded-xl overflow-hidden group transform transition-all duration-500 ease-in-out hover:shadow-2xl">
                             <!-- Video thumbnail -->
                             <div class="relative aspect-video w-full">
                                 <video x-ref="previewVideo"
-                                       class="w-full h-full object-cover"
+                                       class="w-full h-full object-cover transform transition-all duration-500 ease-in-out"
                                        playsinline
                                        loop
                                        muted
@@ -100,12 +100,12 @@
                                     <source src="{{ asset('video/BEON-ENT-compress.mp4') }}" type="video/mp4">
                                 </video>
                                 <!-- Overlay oscuro -->
-                                <div class="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors duration-300"></div>
+                                <div class="absolute inset-0 bg-black/50 transition-all duration-500 ease-in-out group-hover:bg-black/40"></div>
                                 <!-- Botón de play grande -->
                                 <button @click="startVideo"
-                                        class="absolute inset-0 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                    <div class="p-2 rounded-full bg-orange-600/80 group-hover:bg-orange-500/90 transition-colors duration-300">
-                                        <svg class="w-12 h-12 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        class="absolute inset-0 flex items-center justify-center transition-all duration-500 ease-in-out transform group-hover:scale-105">
+                                    <div class="p-2 rounded-full bg-orange-600/80 group-hover:bg-orange-500/90 transition-all duration-500 ease-in-out transform hover:scale-110">
+                                        <svg class="w-12 h-12 text-white transition-all duration-500 ease-in-out" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
@@ -118,11 +118,12 @@
             </div>
 
             <!-- Video en pantalla completa -->
-            <div class="fixed inset-0 bg-black transition-all duration-500 z-50"
+            <div class="fixed inset-0 bg-black transition-all duration-700 ease-in-out z-50"
                  :class="{ 'opacity-100 visible': isFullscreen, 'opacity-0 invisible': !isFullscreen }">
                 <!-- Video a pantalla completa -->
                 <video x-ref="fullscreenVideo"
-                       class="w-full h-full object-cover"
+                       class="w-full h-full object-cover transform transition-all duration-700 ease-in-out"
+                       :class="{ 'scale-100 opacity-100': isFullscreen, 'scale-95 opacity-0': !isFullscreen }"
                        playsinline
                        preload="auto"
                        :muted="isMuted">
@@ -130,10 +131,11 @@
                 </video>
 
                 <!-- Controles -->
-                <div class="absolute bottom-8 right-8 flex items-center space-x-4">
+                <div class="absolute bottom-8 right-8 flex items-center space-x-4 transition-all duration-500 ease-in-out transform"
+                     :class="{ 'translate-y-0 opacity-100': isFullscreen, 'translate-y-4 opacity-0': !isFullscreen }">
                     <!-- Botón de cerrar -->
                     <button @click="stopVideo"
-                            class="p-3 rounded-full bg-neutral-900/60 backdrop-blur-sm hover:bg-neutral-800/80 transition-all duration-300">
+                            class="p-3 rounded-full bg-neutral-900/60 backdrop-blur-sm hover:bg-neutral-800/80 transition-all duration-300 ease-in-out transform hover:scale-110">
                         <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -141,7 +143,7 @@
 
                     <!-- Botón de audio -->
                     <button @click="toggleMute"
-                            class="p-3 rounded-full bg-neutral-900/60 backdrop-blur-sm hover:bg-neutral-800/80 transition-all duration-300 group">
+                            class="p-3 rounded-full bg-neutral-900/60 backdrop-blur-sm hover:bg-neutral-800/80 transition-all duration-300 ease-in-out transform hover:scale-110">
                         <svg x-show="isMuted" class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>

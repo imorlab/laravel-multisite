@@ -57,11 +57,13 @@ class ShowPage extends Component
         $title = $this->page->getTitle();
         $content = $this->page->getContent();
         $site = $this->page->site;
+        $locale = session('locale', 'es');
 
         return view('livewire.show-page', [
             'title' => $title,
             'content' => $content,
-            'site' => $site
+            'site' => $site,
+            'locale' => $locale
         ]);
     }
 }
