@@ -10,10 +10,20 @@
                 @foreach($this->getGalleryImages() as $chunk)
                 <div class="col flex-1 flex flex-col w-full">
                     @foreach($chunk as $num)
-                    <div class="image w-full filter saturate-0 hover:saturate-100 p-4 transition-all duration-300">
-                        <img src="{{ asset("sites/BEN/gallery/ben-{$num}.jpg") }}"
-                             alt=""
-                             class="w-full shadow-2xl transition-transform duration-300">
+                    <div class="image-wrapper w-full p-4">
+                        <div class="group relative">
+                            <div class="absolute -inset-2 opacity-0 group-hover:opacity-100 transition-all duration-500"
+                                 style="background-image: url('{{ asset("sites/BEN/gallery/ben-{$num}.jpg") }}');
+                                        background-position: center;
+                                        background-size: cover;
+                                        filter: blur(30px) brightness(1.5) saturate(2);
+                                        transform: scale(1.03);
+                                        z-index: -1;">
+                            </div>
+                            <img src="{{ asset("sites/BEN/gallery/ben-{$num}.jpg") }}"
+                                 alt=""
+                                 class="relative z-10 w-full h-full object-cover shadow-lg group-hover:shadow-2xl group-hover:brightness-110 group-hover:saturate-150 transition-all duration-500">
+                        </div>
                     </div>
                     @endforeach
                 </div>
@@ -215,7 +225,6 @@
 
         @push('styles')
         <style>
-
             h1 {
                 font-weight: 800;
                 margin: 2rem auto;
@@ -235,8 +244,6 @@
                 place-items: center;
             }
 
-
-
             @media (max-width: 768px) {
                 .gallery {
                     width: 160%;
@@ -255,6 +262,26 @@
             .col:nth-child(2) {
                 align-self: flex-end;
                 justify-self: flex-end;
+            }
+
+            .image-container {
+                position: relative;
+                z-index: 1;
+            }
+
+            .image-container::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                z-index: -1;
+                background-image: inherit;
+                opacity: 0;
+                filter: blur(40px) saturate(200%);
+                transition: opacity 0.5s ease;
+            }
+
+            .image-container:hover::after {
+                opacity: 1;
             }
         </style>
         @endpush
