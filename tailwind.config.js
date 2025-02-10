@@ -14,6 +14,14 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            keyframes: {
+                shine: {
+                    '100%': { transform: 'translateX(150%) skew-x-[-20deg]' }
+                }
+            },
+            animation: {
+                shine: 'shine 1s ease-in-out infinite'
+            }
         },
     },
 
