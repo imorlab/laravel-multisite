@@ -1,5 +1,5 @@
 <div>
-    <div class="p-8">
+    <div class="">
         <h2 class="text-4xl font-bold mt-24 text-orange-600">{{ $translations['latest_news'] }}</h2>
         {{-- <p class="text-xl text-gray-300 mt-3">{{ $translations['description'] }}</p> --}}
 

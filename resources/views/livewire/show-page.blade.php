@@ -1,7 +1,7 @@
 <div>
     @if($site->is_main)
         <!-- Hero Section -->
-        <section class="h-screen sticky top-0 overflow-hidden">
+        <section class="h-screen sticky top-0 overflow-hidden bg-neutral-900 mx-4 rounded-2xl my-12">
             <h1 class="title absolute inset-0 grid place-items-center text-white text-[clamp(3vw,2rem,4rem)] font-extrabold mix-blend-difference pointer-events-none z-50 pb-12">
                 {!! __($title) !!}
             </h1>
@@ -30,9 +30,9 @@
                 @endforeach
             </div>
 
-            <h2 class="credit absolute bottom-4 right-4 text-sm writing-vertical-rl">
+            <!-- <h2 class="credit absolute bottom-4 right-4 text-sm writing-vertical-rl">
                 <a href="#" class="text-white">{{ $site->name }}</a>
-            </h2>
+            </h2> -->
         </section>
 
         <!-- Content Section -->
