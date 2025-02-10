@@ -5,29 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Laravel') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     @livewireStyles
     @stack('styles')
 </head>
 <body class="min-h-screen bg-neutral-900 flex flex-col">
     
-    <div>
+    <div class="my-0 md:my-6">
         <!-- Navigation -->
-        <nav class="bg-neutral-900 shadow-lg w-full">
-            <div class="px-4 sm:px-6 lg:px-12">
-                <div class="flex justify-between h-16">
-                    <div class="flex">
-                        <div class="flex-shrink-0 flex items-center">
-                            <a href="{{ $site->is_main ? url('/') : url('/' . $site->domain) }}" class="text-2xl font-bold text-gray-100">
-                                <img class="h-12 w-auto filter brightness-0 invert" src="{{ asset('resources/logo-entertainment.svg') }}" alt="{{ $site->getName() }}">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="flex items-center">
-                        <livewire:language-switcher />
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <x-navigation :site="$site" />
     </div>
     
     <!-- Page Content -->
@@ -39,6 +25,7 @@
     <x-footer :site="$site" />
 
     @livewireScripts
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     @stack('scripts')
     <script>
         document.addEventListener('livewire:initialized', () => {
