@@ -2,12 +2,12 @@
 <div class="p-8">
     <h2 class="text-4xl font-bold mt-24 text-orange-600">{{ $translations['show_producer'] }}</h2>
     <p class="text-xl text-gray-300 mt-3 ">{{ $translations['description'] }}</p>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 my-24">
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12 py-24">
         @foreach($shows as $show)
         <div data-atropos data-atropos-offset="6" class="atropos-wrap group">
             <div class="atropos-scale">
                 <div class="atropos-rotate">
-                    <div class="atropos-inner relative h-[400px] rounded-lg shadow-lg shadow-gray-600 overflow-hidden transform-gpu">
+                    <div class="atropos-inner relative h-[400px] rounded-lg shadow-sm shadow-gray-600 overflow-hidden transform-gpu">
                         {{-- Fondo --}}
                         <div class="absolute inset-0" data-atropos-offset="0">
                             <img src="{{ $show->getSiteImage('background.jpg') }}"
@@ -98,9 +98,15 @@
 }
 
 .atropos-active .atropos-inner {
-    box-shadow:
-        0 25px 20px -12px rgba(0, 0, 0, 0.5),
-        0 10px 20px -6px rgba(255, 255, 255);
+    /* box-shadow:
+        0 25px 20px -12px rgba(231 231 231 / 0.5),
+        0 10px 20px -6px rgb(121 121 121); */
+}
+
+/* Personalización de la sombra de Atropos */
+.atropos-shadow {
+    background: rgba(255 124 37 / 0.58) !important;
+    /* filter: blur(55px) !important; */
 }
 
 /* Animaciones */
@@ -113,7 +119,7 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(to top,
-        rgba(124, 58, 237, 0.1),
+        rgba(255 255 255 / 0.1),
         transparent 30%
     );
     opacity: 0;

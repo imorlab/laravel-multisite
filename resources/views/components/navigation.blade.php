@@ -14,14 +14,14 @@ class="relative"
                 'max-w-4xl': isMenuOpen
             }">
             <!-- Contenedor principal con bordes redondeados -->
-            <div class="rounded-2xl transition-all duration-300 bg-neutral-900/80 backdrop-blur"
+            <div class="rounded-2xl transition-all duration-300 bg-neutral-900/90 backdrop-blur mb-3"
                 :class="{
                     'bg-opacity-0 backdrop-blur-none': !isScrolled && !isMenuOpen,
                     'bg-opacity-90': isScrolled || isMenuOpen,
-                    'md:rounded-b-none rounded-t-none': isMenuOpen
+                    'md:rounded-b-none md:rounded-t-2xl rounded-b-2xl rounded-t-none': isMenuOpen
                 }">
                 <div class="flex justify-between items-center px-4 py-3">
-                    <!-- Search Button -->
+                    <!-- Button -->
                     <a href="#" class="group relative px-4 py-1 text-orange-500 font-medium overflow-hidden rounded-lg hover:text-orange-300 transition-colors duration-300">
                         <div class="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-orange-500/0 via-orange-500/30 to-orange-500/0 skew-x-[-20deg] group-hover:animate-shine"></div>
                         <div class="absolute inset-0 border border-orange-500 rounded-lg group-hover:border-orange-300 transition-colors duration-300"></div>
