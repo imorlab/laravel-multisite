@@ -1,8 +1,8 @@
 <div>
     @if($site->is_main)
         <!-- Hero Section -->
-        <section class="h-screen sticky top-0 overflow-hidden bg-neutral-900 mx-4 rounded-2xl my-12">
-            <h1 class="title absolute inset-0 grid place-items-center text-white text-[clamp(3vw,2rem,4rem)] font-extrabold mix-blend-difference pointer-events-none z-50 pb-12">
+        <section class="h-screen sticky top-0 overflow-hidden bg-neutral-900 mx-4 rounded-2xl mt-0 md:mt-12">
+            <h1 class="title absolute inset-0 grid place-items-center text-white text-[clamp(3vw,2rem,4rem)] font-extrabold mix-blend-difference pointer-events-none z-50">
                 {!! __($title) !!}
             </h1>
 
@@ -36,7 +36,7 @@
         </section>
 
         <!-- Content Section -->
-        <section class="relative min-h-screen overflow-hidden"
+        <!-- <section class="relative min-h-screen overflow-hidden"
                 x-data="{
                     videoEnded: false,
                     isMuted: true,
@@ -74,9 +74,9 @@
                     }, { threshold: 0.1 });
 
                     observer.observe($el);
-                })">
+                })"> -->
             <!-- Video de fondo -->
-            <div class="absolute inset-0">
+             <!-- <div class="absolute inset-0">
                 <video x-ref="video"
                        class="w-full h-full object-cover transition-opacity duration-1000"
                        :class="{ 'opacity-0': videoEnded }"
@@ -85,14 +85,14 @@
                        muted
                        :muted="isMuted">
                     <source src="{{ asset('video/BEON-ENT-compress.mp4') }}" type="video/mp4">
-                </video>
+                </video> -->
 
                 <!-- Overlay -->
-                {{-- <div class="absolute inset-0 bg-gradient-to-b from-neutral-900/70 via-neutral-900/50 to-neutral-900/90"></div> --}}
-            </div>
+                <!-- <div class="absolute inset-0 bg-gradient-to-b from-neutral-900/70 via-neutral-900/50 to-neutral-900/90"></div>
+            </div> -->
 
             <!-- Botón de audio (fuera del contenedor de video) -->
-            <div class="absolute bottom-8 right-8" style="z-index: 9999;">
+            <!-- <div class="absolute bottom-8 right-8" style="z-index: 9999;">
                 <button @click="toggleMute"
                         class="p-3 rounded-full bg-neutral-900/60 backdrop-blur-sm hover:bg-neutral-800/80 transition-all duration-300 group">
                     <svg x-show="isMuted" class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -101,22 +101,40 @@
                     </svg>
                     <svg x-show="!isMuted" class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
-                    </svg>
+                    </svg> -->
 
                     <!-- Tooltip -->
-                    <span class="absolute right-full mr-2 top-1/2 -translate-y-1/2 px-2 py-1 bg-neutral-900/90 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                    <!-- <span class="absolute right-full mr-2 top-1/2 -translate-y-1/2 px-2 py-1 bg-neutral-900/90 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                         <span x-text="isMuted ? 'Activar audio' : 'Silenciar'"></span>
                     </span>
                 </button>
-            </div>
+            </div> -->
 
             <!-- Contenido -->
-            <div class="relative z-10 min-h-screen flex items-center"
-                 :class="{ 'opacity-100': videoEnded, 'opacity-0': !videoEnded }"
-                 style="transition: opacity 1000ms ease-out;">
+            <div class="relative z-10 min-h-screen flex items-center content-section"
+                 x-data="{ show: false }"
+                 x-init="
+                    setTimeout(() => show = true, 150);
+                    gsap.from('.content-section .content-box', {
+                        scrollTrigger: {
+                            trigger: '.content-section',
+                            start: 'top center',
+                            end: 'top top',
+                            scrub: 1
+                        },
+                        y: '25vh',
+                        opacity: 0
+                    });
+                 ">
                 <div class="container mx-auto px-8">
-                    <div class="max-w-3xl mx-auto bg-neutral-900/80 backdrop-blur-sm text-gray-300 p-8 md:p-12 rounded-2xl transform transition-all duration-1000 ease-out shadow-2xl"
-                         :class="{ 'translate-y-0': videoEnded, 'translate-y-12': !videoEnded }">
+                    <div class="content-box max-w-3xl mx-auto bg-neutral-900/80 backdrop-blur-sm text-gray-300 p-8 md:p-12 rounded-2xl shadow-2xl"
+                         x-show="show"
+                         x-transition:enter="transition ease-out duration-1000"
+                         x-transition:enter-start="opacity-0 translate-y-12"
+                         x-transition:enter-end="opacity-100 translate-y-0"
+                         x-transition:leave="transition ease-in duration-300"
+                         x-transition:leave-start="opacity-100 translate-y-0"
+                         x-transition:leave-end="opacity-0 translate-y-12">
                         @if(is_array($content) && isset($content[$locale]))
                             <h2 class="text-4xl text-orange-600 font-bold mb-2">{{ $content[$locale]['title'] }}</h2>
                             <p class="text-2xl text-orange-400 font-light mb-6">{{ $content[$locale]['subtitle'] }}</p>
@@ -134,7 +152,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        <!-- </section> -->
 
         @push('scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>

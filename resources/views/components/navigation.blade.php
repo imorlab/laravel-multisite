@@ -72,68 +72,70 @@ class="relative"
                                     </div>
                                     <div class="space-y-6">
                                         <h3 class="text-sm font-small text-gray-400 tracking-wider">{{ __('Recommended') }}</h3>
-                                        <div class="swiper showsSwiper w-[225px] h-[300px] relative">
-                                            <!-- Botones de navegación -->
-                                            <div class="absolute left-2 top-1/2 -translate-y-1/2 z-10">
-                                                <button id="prevButton" class="flex items-center justify-center w-8 h-8 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-all duration-300">
-                                                    <svg class="w-6 h-6 text-black" viewBox="0 0 24 24">
-                                                        <path fill="currentColor" d="M14.71 6.71a.996.996 0 0 0-1.41 0L8.71 11.3a.996.996 0 0 0 0 1.41l4.59 4.59a.996.996 0 1 0 1.41-1.41L10.83 12l3.88-3.88c.39-.39.38-1.03 0-1.41z"/>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div class="absolute right-2 top-1/2 -translate-y-1/2 z-10">
-                                                <button id="nextButton" class="flex items-center justify-center w-8 h-8 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-all duration-300">
-                                                    <svg class="w-6 h-6 text-black" viewBox="0 0 24 24">
-                                                        <path fill="currentColor" d="M9.29 6.71a.996.996 0 0 0 0 1.41L13.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z"/>
-                                                    </svg>
-                                                </button>
-                                            </div>
+                                        <div class="overflow-hidden">
+                                            <div class="swiper showsSwiper w-[225px] h-[300px] relative">
+                                                <!-- Botones de navegación -->
+                                                <div class="absolute left-0 top-1/2 -translate-y-1/2 z-10">
+                                                    <button id="prevButton" class="flex items-center justify-center w-8 h-8 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-all duration-300">
+                                                        <svg class="w-6 h-6 text-black" viewBox="0 0 24 24">
+                                                            <path fill="currentColor" d="M14.71 6.71a.996.996 0 0 0-1.41 0L8.71 11.3a.996.996 0 0 0 0 1.41l4.59 4.59a.996.996 0 1 0 1.41-1.41L10.83 12l3.88-3.88c.39-.39.38-1.03 0-1.41z"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <div class="absolute right-0 top-1/2 -translate-y-1/2 z-10">
+                                                    <button id="nextButton" class="flex items-center justify-center w-8 h-8 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-all duration-300">
+                                                        <svg class="w-6 h-6 text-black" viewBox="0 0 24 24">
+                                                            <path fill="currentColor" d="M9.29 6.71a.996.996 0 0 0 0 1.41L13.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
 
-                                            <div class="swiper-wrapper">
-                                                <div class="swiper-slide aspect-[3/4]">
-                                                    <div class="relative w-full h-full rounded-lg overflow-hidden group">
-                                                        <img src="{{ asset('sites/thumb/EM-CARTEL-450x600.jpg') }}" 
-                                                             alt="El Médico" 
-                                                             class="w-full h-full object-cover">
-                                                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                            <div class="absolute bottom-0 left-0 right-0 p-4 text-center">
-                                                                <h4 class="text-white text-xl font-semibold">El Médico</h4>
-                                                                <p class="text-gray-300 mt-2 text-sm">El Musical</p>
-                                                                <a href="#" class="inline-block px-6 py-2 mt-4 text-sm text-white border border-white/50 rounded-full hover:bg-white/10 transition-colors duration-300">
-                                                                    {{ __('Ver más') }}
-                                                                </a>
+                                                <div class="swiper-wrapper">
+                                                    <div class="swiper-slide aspect-[3/4]">
+                                                        <div class="relative w-full h-full rounded-lg overflow-hidden group">
+                                                            <img src="{{ asset('sites/thumb/EM-CARTEL-450x600.jpg') }}" 
+                                                                 alt="El Médico" 
+                                                                 class="w-full h-full object-cover">
+                                                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                                <div class="absolute bottom-0 left-0 right-0 p-4 text-center">
+                                                                    <h4 class="text-white text-xl font-semibold">El Médico</h4>
+                                                                    <p class="text-gray-300 mt-2 text-sm">El Musical</p>
+                                                                    <a href="#" class="inline-block px-6 py-2 mt-4 text-sm text-white border border-white/50 rounded-full hover:bg-white/10 transition-colors duration-300">
+                                                                        {{ __('Ver más') }}
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="swiper-slide aspect-[3/4]">
-                                                    <div class="relative w-full h-full rounded-lg overflow-hidden group">
-                                                        <img src="{{ asset('sites/thumb/LHI-CARTEL-450x600.jpg') }}" 
-                                                             alt="La Historia Interminable" 
-                                                             class="w-full h-full object-cover">
-                                                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                            <div class="absolute bottom-0 left-0 right-0 p-4 text-center">
-                                                                <h4 class="text-white text-xl font-semibold">La Historia Interminable</h4>
-                                                                <p class="text-gray-300 mt-2 text-sm">El Musical</p>
-                                                                <a href="#" class="inline-block px-6 py-2 mt-4 text-sm text-white border border-white/50 rounded-full hover:bg-white/10 transition-colors duration-300">
-                                                                    {{ __('Ver más') }}
-                                                                </a>
+                                                    <div class="swiper-slide aspect-[3/4]">
+                                                        <div class="relative w-full h-full rounded-lg overflow-hidden group">
+                                                            <img src="{{ asset('sites/thumb/LHI-CARTEL-450x600.jpg') }}" 
+                                                                 alt="La Historia Interminable" 
+                                                                 class="w-full h-full object-cover">
+                                                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                                <div class="absolute bottom-0 left-0 right-0 p-4 text-center">
+                                                                    <h4 class="text-white text-xl font-semibold">La Historia Interminable</h4>
+                                                                    <p class="text-gray-300 mt-2 text-sm">El Musical</p>
+                                                                    <a href="#" class="inline-block px-6 py-2 mt-4 text-sm text-white border border-white/50 rounded-full hover:bg-white/10 transition-colors duration-300">
+                                                                        {{ __('Ver más') }}
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="swiper-slide aspect-[3/4]">
-                                                    <div class="relative w-full h-full rounded-lg overflow-hidden group">
-                                                        <img src="{{ asset('sites/thumb/LPDLT-CARTEL-450x600.jpg') }}" 
-                                                             alt="Los Pilares de la Tierra" 
-                                                             class="w-full h-full object-cover">
-                                                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                            <div class="absolute bottom-0 left-0 right-0 p-4 text-center">
-                                                                <h4 class="text-white text-xl font-semibold">Los Pilares de la Tierra</h4>
-                                                                <p class="text-gray-300 mt-2 text-sm">El Musical</p>
-                                                                <a href="#" class="inline-block px-6 py-2 mt-4 text-sm text-white border border-white/50 rounded-full hover:bg-white/10 transition-colors duration-300">
-                                                                    {{ __('Ver más') }}
-                                                                </a>
+                                                    <div class="swiper-slide aspect-[3/4]">
+                                                        <div class="relative w-full h-full rounded-lg overflow-hidden group">
+                                                            <img src="{{ asset('sites/thumb/LPDLT-CARTEL-450x600.jpg') }}" 
+                                                                 alt="Los Pilares de la Tierra" 
+                                                                 class="w-full h-full object-cover">
+                                                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                                <div class="absolute bottom-0 left-0 right-0 p-4 text-center">
+                                                                    <h4 class="text-white text-xl font-semibold">Los Pilares de la Tierra</h4>
+                                                                    <p class="text-gray-300 mt-2 text-sm">El Musical</p>
+                                                                    <a href="#" class="inline-block px-6 py-2 mt-4 text-sm text-white border border-white/50 rounded-full hover:bg-white/10 transition-colors duration-300">
+                                                                        {{ __('Ver más') }}
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -200,8 +202,8 @@ class="relative"
                     allowTouchMove: true,
                     cardsEffect: {
                         slideShadows: true,
-                        perSlideOffset: 12,
-                        perSlideRotate: 4,
+                        perSlideOffset: 8,
+                        perSlideRotate: 2,
                         rotate: true,
                     },
                     navigation: {

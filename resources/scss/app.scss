@@ -1,0 +1,35 @@
+// Variables
+$primary: #FF7733; // Naranja corporativo
+$secondary: rgb(124 58 237); // violet-600
+$background: #171717; // neutral-900
+
+// Estilos globales
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Scrollbar
+body {
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: $background;
+    }
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        background-color: $background;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $primary;
+        background-image: -webkit-linear-gradient(90deg, 
+            rgba(255, 255, 255, 0.15) 25%, 
+            transparent 25%, 
+            transparent 50%, 
+            rgba(255, 255, 255, 0.15) 50%, 
+            rgba(255, 255, 255, 0.15) 75%, 
+            transparent 75%
+        );
+        border-radius: 3px;
+    }
+}

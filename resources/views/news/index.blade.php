@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto py-16">
     <div class="max-w-4xl mx-auto">
         <h1 class="text-gray-200 text-4xl font-bold mb-8">{{ __('content.news') }}</h1>
 
