@@ -1,7 +1,7 @@
 @props(['site'])
 
 <!-- Footer -->
-<footer class="bg-neutral-900 text-gray-300">
+<footer class="bg-secondary-500 text-gray-300">
     <!-- Newsletter Section -->
     <div class="border-b border-gray-800">
         <div class="container mx-auto px-4 py-12">

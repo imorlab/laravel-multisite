@@ -9,19 +9,16 @@
     @livewireStyles
     @stack('styles')
 </head>
-<body class="min-h-screen bg-neutral-900 flex flex-col">
+<body class="min-h-screen bg-tertiary-500 flex flex-col">
     
     <div class="my-0 md:my-6">
-        <!-- Navigation -->
         <x-navigation :site="$site" />
     </div>
     
-    <!-- Page Content -->
     <main class="flex-grow w-full">
         @yield('content')
     </main>
 
-    <!-- Footer -->
     <x-footer :site="$site" />
 
     @livewireScripts

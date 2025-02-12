@@ -14,7 +14,7 @@ class="relative"
                 'max-w-4xl': isMenuOpen
             }">
             <!-- Contenedor principal con bordes redondeados -->
-            <div class="rounded-2xl transition-all duration-300 bg-neutral-900/90 backdrop-blur mb-3"
+            <div class="rounded-2xl transition-all duration-300 bg-secondary-500/90 backdrop-blur mb-3"
                 :class="{
                     'bg-opacity-0 backdrop-blur-none': !isScrolled && !isMenuOpen,
                     'bg-opacity-90': isScrolled || isMenuOpen,
@@ -53,7 +53,7 @@ class="relative"
                     x-transition:leave="transition ease-in duration-200"
                     x-transition:leave-start="opacity-100 transform translate-y-0"
                     x-transition:leave-end="opacity-0 transform md:translate-y-[-1rem] translate-y-[1rem]">
-                    <div class="bg-neutral-900/90 backdrop-blur rounded-t-2xl md:rounded-t-none md:rounded-b-2xl transform transition-all duration-300">
+                    <div class="bg-secondary-500/90 backdrop-blur rounded-t-2xl md:rounded-t-none md:rounded-b-2xl transform transition-all duration-300">
                         <!-- Contenedor con scroll -->
                         <div class="max-h-[calc(100vh-10rem)] md:max-h-[32rem] overflow-y-auto overscroll-contain px-4 py-8">
                             <nav>
