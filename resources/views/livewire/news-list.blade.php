@@ -11,7 +11,7 @@
                     <img src="https://picsum.photos/seed/{{ $loop->index }}/800/600"
                          alt="{{ $item->getTitle() }}"
                          class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110">
-                    {{-- <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/50 to-transparent"></div> --}}
+                    <!-- {{-- <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/50 to-transparent"></div> --}} -->
                 </div>
 
                 <!-- Contenido -->
