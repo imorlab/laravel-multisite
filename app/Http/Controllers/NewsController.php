@@ -69,7 +69,29 @@ class NewsController extends Controller
                        ->where('is_published', true)
                        ->firstOrFail();
 
-            return view('news.show', compact('site', 'news'));
+            // Obtener noticias relacionadas (excluyendo la actual)
+            $relatedNews = News::where('site_id', $site->id)
+                             ->where('is_published', true)
+                             ->where('id', '!=', $news->id)
+                             ->latest('published_at')
+                             ->take(3)
+                             ->get();
+
+            // Obtener noticia anterior
+            $previousNews = News::where('site_id', $site->id)
+                              ->where('is_published', true)
+                              ->where('published_at', '<', $news->published_at)
+                              ->orderBy('published_at', 'desc')
+                              ->first();
+
+            // Obtener noticia siguiente
+            $nextNews = News::where('site_id', $site->id)
+                          ->where('is_published', true)
+                          ->where('published_at', '>', $news->published_at)
+                          ->orderBy('published_at', 'asc')
+                          ->first();
+
+            return view('news.show', compact('site', 'news', 'relatedNews', 'previousNews', 'nextNews'));
         } catch (\Exception $e) {
             Log::error('Error in NewsController@show', [
                 'error' => $e->getMessage(),
