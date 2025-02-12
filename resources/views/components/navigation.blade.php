@@ -96,30 +96,9 @@ class="relative"
                                                             <img src="{{ asset('sites/thumb/EM-CARTEL-450x600.jpg') }}" 
                                                                  alt="El Médico" 
                                                                  class="w-full h-full object-cover">
-                                                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                                <div class="absolute bottom-0 left-0 right-0 p-4 text-center">
-                                                                    <h4 class="text-white text-xl font-semibold">El Médico</h4>
-                                                                    <p class="text-gray-300 mt-2 text-sm">El Musical</p>
-                                                                    <a href="#" class="inline-block px-6 py-2 mt-4 text-sm text-white border border-white/50 rounded-full hover:bg-white/10 transition-colors duration-300">
-                                                                        {{ __('Ver más') }}
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="swiper-slide aspect-[3/4]">
-                                                        <div class="relative w-full h-full rounded-lg overflow-hidden group">
-                                                            <img src="{{ asset('sites/thumb/LHI-CARTEL-450x600.jpg') }}" 
-                                                                 alt="La Historia Interminable" 
-                                                                 class="w-full h-full object-cover">
-                                                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                                <div class="absolute bottom-0 left-0 right-0 p-4 text-center">
-                                                                    <h4 class="text-white text-xl font-semibold">La Historia Interminable</h4>
-                                                                    <p class="text-gray-300 mt-2 text-sm">El Musical</p>
-                                                                    <a href="#" class="inline-block px-6 py-2 mt-4 text-sm text-white border border-white/50 rounded-full hover:bg-white/10 transition-colors duration-300">
-                                                                        {{ __('Ver más') }}
-                                                                    </a>
-                                                                </div>
+                                                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                                            <div class="absolute bottom-0 left-0 right-0 p-4">
+                                                                <h4 class="text-white text-lg font-semibold">El Médico</h4>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -128,14 +107,42 @@ class="relative"
                                                             <img src="{{ asset('sites/thumb/LPDLT-CARTEL-450x600.jpg') }}" 
                                                                  alt="Los Pilares de la Tierra" 
                                                                  class="w-full h-full object-cover">
-                                                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                                <div class="absolute bottom-0 left-0 right-0 p-4 text-center">
-                                                                    <h4 class="text-white text-xl font-semibold">Los Pilares de la Tierra</h4>
-                                                                    <p class="text-gray-300 mt-2 text-sm">El Musical</p>
-                                                                    <a href="#" class="inline-block px-6 py-2 mt-4 text-sm text-white border border-white/50 rounded-full hover:bg-white/10 transition-colors duration-300">
-                                                                        {{ __('Ver más') }}
-                                                                    </a>
-                                                                </div>
+                                                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                                            <div class="absolute bottom-0 left-0 right-0 p-4">
+                                                                <h4 class="text-white text-lg font-semibold">Los Pilares de la Tierra</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="swiper-slide aspect-[3/4]">
+                                                        <div class="relative w-full h-full rounded-lg overflow-hidden group">
+                                                            <img src="{{ asset('sites/thumb/ANT-CARTEL-450x600.jpg') }}" 
+                                                                 alt="Antidisturbios" 
+                                                                 class="w-full h-full object-cover">
+                                                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                                            <div class="absolute bottom-0 left-0 right-0 p-4">
+                                                                <h4 class="text-white text-lg font-semibold">Antidisturbios</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="swiper-slide aspect-[3/4]">
+                                                        <div class="relative w-full h-full rounded-lg overflow-hidden group">
+                                                            <img src="{{ asset('sites/thumb/MOZ-CARTEL-450x600.jpg') }}" 
+                                                                 alt="Mozart" 
+                                                                 class="w-full h-full object-cover">
+                                                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                                            <div class="absolute bottom-0 left-0 right-0 p-4">
+                                                                <h4 class="text-white text-lg font-semibold">Mozart</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="swiper-slide aspect-[3/4]">
+                                                        <div class="relative w-full h-full rounded-lg overflow-hidden group">
+                                                            <img src="{{ asset('sites/thumb/SH-CARTEL-450x600.jpg') }}" 
+                                                                 alt="Sherlock Holmes" 
+                                                                 class="w-full h-full object-cover">
+                                                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                                            <div class="absolute bottom-0 left-0 right-0 p-4">
+                                                                <h4 class="text-white text-lg font-semibold">Sherlock Holmes</h4>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -194,10 +201,11 @@ class="relative"
                     effect: 'cards',
                     grabCursor: true,
                     loop: true,
-                    loopedSlides: 3,
-                    slidesPerView: 'auto',
+                    slidesPerView: 1,
+                    slidesPerGroup: 1,
+                    loopedSlides: 5,
                     speed: 400,
-                    initialSlide: 1,
+                    initialSlide: 0,
                     centeredSlides: true,
                     allowTouchMove: true,
                     cardsEffect: {

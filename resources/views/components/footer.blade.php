@@ -12,7 +12,7 @@
                     <div class="flex flex-col sm:flex-row gap-4 w-full justify-center items-center">
                         <input type="text" placeholder="Nombre" required class="w-full sm:w-auto px-4 py-2 bg-neutral-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                         <input type="email" placeholder="Correo electrónico" required class="w-full sm:w-auto px-4 py-2 bg-neutral-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                        <select required class="w-full sm:w-auto px-12 py-2 bg-neutral-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                        <select required class="w-full sm:w-auto pe-12 py-2 bg-neutral-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                             <option value="">Selecciona tu provincia</option>
                             <option value="alava">Álava</option>
                             <option value="albacete">Albacete</option>
