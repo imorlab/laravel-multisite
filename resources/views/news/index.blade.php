@@ -1,13 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-[#24272D] min-h-screen">
+<div class="bg-tertiary-500 min-h-screen mt-12">
     <!-- Hero Section -->
-    <div class="relative bg-[#222222] py-16">
+    <div class="relative bg-secondary-500 py-16">
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#24272D]"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-tertiary-500"></div>
             <img src="https://picsum.photos/seed/news/1920/400" alt="News Background" class="w-full h-full object-cover">
         </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-tertiary-500"></div>
+        
         <div class="relative container mx-auto px-4">
             <div class="max-w-7xl mx-auto text-center">
                 <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Noticias en beon. Entertainment</h1>
@@ -17,7 +19,7 @@
     </div>
 
     <!-- Breadcrumb -->
-    <div class="bg-[#222222] border-t border-gray-700">
+    <div class="bg-secondary-500 border-t border-gray-700">
         <div class="container mx-auto px-4 py-3">
             <div class="max-w-7xl mx-auto">
                 <nav class="flex text-gray-400 text-sm">
@@ -34,7 +36,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($news as $item)
-                <article class="bg-[#222222] rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-1">
+                <article class="bg-secondary-500 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-1">
                     <a href="{{ route('site.news.show', $site->getRouteParams(['slug' => $item->slug])) }}" class="block">
                         <div class="relative h-48 overflow-hidden">
                             <img src="https://picsum.photos/seed/{{ $item->id }}/800/600" 
@@ -59,7 +61,7 @@
                             </div>
                         </div>
                         <div class="p-6">
-                            <h2 class="text-xl font-semibold text-white mb-3 line-clamp-2 hover:text-[#FF7733] transition-colors">
+                            <h2 class="text-xl font-semibold text-white mb-3 line-clamp-2 hover:text-primary-500 transition-colors">
                                 {{ $item->getTitle() }}
                             </h2>
                             <p class="text-gray-400 line-clamp-3">
