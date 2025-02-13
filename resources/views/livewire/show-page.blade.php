@@ -29,92 +29,13 @@
                 </div>
                 @endforeach
             </div>
-
-            <!-- <h2 class="credit absolute bottom-4 right-4 text-sm writing-vertical-rl">
-                <a href="#" class="text-white">{{ $site->name }}</a>
-            </h2> -->
         </section>
 
-        <!-- Content Section -->
-        <!-- <section class="relative min-h-screen overflow-hidden"
-                x-data="{
-                    videoEnded: false,
-                    isMuted: true,
-                    videoStarted: false,
-                    async startVideo() {
-                        const video = this.$refs.video;
-                        if (!this.videoStarted && video) {
-                            try {
-                                await video.play();
-                                this.videoStarted = true;
-                            } catch (error) {
-                                console.error('Error reproduciendo video:', error);
-                            }
-                        }
-                    },
-                    toggleMute() {
-                        this.isMuted = !this.isMuted;
-                        this.$refs.video.muted = this.isMuted;
-                    }
-                }"
-                x-init="$nextTick(() => {
-                    const video = $refs.video;
-
-                    video.addEventListener('ended', () => {
-                        videoEnded = true;
-                    });
-
-                    // Observar cuando la sección es visible
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting && !videoStarted) {
-                                startVideo();
-                            }
-                        });
-                    }, { threshold: 0.1 });
-
-                    observer.observe($el);
-                })"> -->
-            <!-- Video de fondo -->
-             <!-- <div class="absolute inset-0">
-                <video x-ref="video"
-                       class="w-full h-full object-cover transition-opacity duration-1000"
-                       :class="{ 'opacity-0': videoEnded }"
-                       playsinline
-                       preload="auto"
-                       muted
-                       :muted="isMuted">
-                    <source src="{{ asset('video/BEON-ENT-compress.mp4') }}" type="video/mp4">
-                </video> -->
-
-                <!-- Overlay -->
-                <!-- <div class="absolute inset-0 bg-gradient-to-b from-neutral-900/70 via-neutral-900/50 to-neutral-900/90"></div>
-            </div> -->
-
-            <!-- Botón de audio (fuera del contenedor de video) -->
-            <!-- <div class="absolute bottom-8 right-8" style="z-index: 9999;">
-                <button @click="toggleMute"
-                        class="p-3 rounded-full bg-neutral-900/60 backdrop-blur-sm hover:bg-neutral-800/80 transition-all duration-300 group">
-                    <svg x-show="isMuted" class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>
-                    </svg>
-                    <svg x-show="!isMuted" class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
-                    </svg> -->
-
-                    <!-- Tooltip -->
-                    <!-- <span class="absolute right-full mr-2 top-1/2 -translate-y-1/2 px-2 py-1 bg-neutral-900/90 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                        <span x-text="isMuted ? 'Activar audio' : 'Silenciar'"></span>
-                    </span>
-                </button>
-            </div> -->
-
-            <!-- Contenido -->
-            <div class="relative z-10 min-h-screen flex items-center content-section"
-                 x-data="{ show: false }"
-                 x-init="
-                    setTimeout(() => show = true, 150);
+        <!-- Contenido -->
+        <div class="relative z-10 min-h-screen flex items-center content-section"
+             x-data="{ show: false }"
+             x-init="
+                setTimeout(() => show = true, 150);
                     gsap.from('.content-section .content-box', {
                         scrollTrigger: {
                             trigger: '.content-section',

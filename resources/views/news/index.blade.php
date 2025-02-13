@@ -1,32 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-tertiary-500 min-h-screen mt-12">
+<div class="relative mt-12">
     <!-- Hero Section -->
-    <div class="relative bg-secondary-500 py-16">
-        <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-tertiary-500"></div>
-            <img src="https://picsum.photos/seed/news/1920/400" alt="News Background" class="w-full h-full object-cover">
+    <div class="relative h-[30vh] min-h-[300px] overflow-hidden bg-tertiary-500">
+        <div class="absolute inset-0">
+            <img src="https://picsum.photos/seed/news/1920/1080" alt="News Background" class="w-full h-full object-cover">
         </div>
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-tertiary-500"></div>
-        
-        <div class="relative container mx-auto px-4">
-            <div class="max-w-7xl mx-auto text-center">
-                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Noticias en beon. Entertainment</h1>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">Descubre todas las novedades y noticias del espectáculo relacionadas con beon. Entertainment y sus producciones. También puedes suscribirte a nuestra newsletter para estar al día de nuestras publicaciones y novedades.</p>
-            </div>
-        </div>
-    </div>
 
-    <!-- Breadcrumb -->
-    <div class="bg-secondary-500 border-t border-gray-700">
-        <div class="container mx-auto px-4 py-3">
-            <div class="max-w-7xl mx-auto">
-                <nav class="flex text-gray-400 text-sm">
-                    <a href="{{ route('site.home', $site->getRouteParams()) }}" class="hover:text-[#FF7733]">Inicio</a>
-                    <span class="mx-2">/</span>
-                    <span class="text-white">Noticias</span>
+        <div class="absolute bottom-0 left-0 right-0">
+            <div class="container max-w-7xl mx-auto px-4 py-8">
+                <nav class="flex items-center space-x-2 text-sm mb-4" aria-label="Breadcrumb">
+                    <a href="{{ route('site.home', $site->getRouteParams()) }}" class="text-gray-300 hover:text-primary-500 transition-colors">
+                        {{ __('Inicio') }}
+                    </a>
+                    <span class="text-gray-500">/</span>
+                    <span class="text-gray-300">{{ __('content.news') }}</span>
                 </nav>
+
+                <h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+                    Noticias en beon. Entertainment
+                </h1>
+                <p class="text-white text-xl md:text-lg lg:text-lg font-bold leading-tight mb-4">Descubre todas las novedades y noticias del espectáculo relacionadas con beon. Entertainment y sus producciones. También puedes suscribirte a nuestra newsletter para estar al día de nuestras publicaciones y novedades.</p>
+
             </div>
         </div>
     </div>
@@ -39,8 +36,8 @@
                 <article class="bg-secondary-500 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-1">
                     <a href="{{ route('site.news.show', $site->getRouteParams(['slug' => $item->slug])) }}" class="block">
                         <div class="relative h-48 overflow-hidden">
-                            <img src="https://picsum.photos/seed/{{ $item->id }}/800/600" 
-                                 alt="{{ $item->getTitle() }}" 
+                            <img src="https://picsum.photos/seed/{{ $item->id }}/800/600"
+                                 alt="{{ $item->getTitle() }}"
                                  class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                             <div class="absolute bottom-0 left-0 right-0 p-4">

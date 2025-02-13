@@ -22,6 +22,11 @@ class WelcomeController extends Controller
                        ->where('slug', 'home')
                        ->firstOrFail();
 
+            // Procesar el contenido de la página
+            if (is_string($page->content)) {
+                $page->content = json_decode($page->content, true);
+            }
+
             return view('welcome', [
                 'site' => $site,
                 'page' => $page,
@@ -29,9 +34,9 @@ class WelcomeController extends Controller
         } catch (\Exception $e) {
             Log::error('Error en WelcomeController@index', [
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'domain' => $domain
             ]);
-            throw $e;
+            abort(404);
         }
     }
 }

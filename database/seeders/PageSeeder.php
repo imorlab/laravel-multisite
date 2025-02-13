@@ -28,19 +28,55 @@ class PageSeeder extends Seeder
                             'subtitle' => 'la productora de las grandes estrellas',
                             'intro' => 'Una vez nos preguntamos que si el cielo era el límite, ¿cómo podían existir las estrellas?',
                             'mission' => 'Desde ese momento nuestra misión en el mundo del espectáculo es clara: elegir las mejores historias y hacerlas brillar.',
-                            'closing' => 'Y es que cuando algo se produce con pasión y ambición, el resultado son obras que perduran en la memoria.'
+                            'closing' => 'Y es que cuando algo se produce con pasión y ambición, el resultado son obras que perduran en la memoria.',
+                            'sections' => [
+                                [
+                                    'title' => 'Producción teatral',
+                                    'description' => 'Producción, promoción y distribución de espectáculos teatrales originales, musicales y eventos culturales.'
+                                ],
+                                [
+                                    'title' => 'Servicios integrales',
+                                    'description' => 'Espectáculos a medida para eventos: dirección artística, casting, contratación de artistas, coreografía, diseño de vestuario, etc.'
+                                ],
+                                [
+                                    'title' => 'Gestión de espacios culturales',
+                                    'description' => 'Transformación, gestión y dirección de espacios para la industria cultural.'
+                                ],
+                                [
+                                    'title' => 'Promoción de las artes escénicas',
+                                    'description' => 'Ofrecemos una plataforma promocional para obras de teatro, musicales y festivales, implementando estrategias de marketing y comunicación para aumentar su visibilidad.'
+                                ]
+                            ]
                         ],
                         'en' => [
                             'title' => 'beon. Entertainment',
                             'subtitle' => 'the producer of great stars',
                             'intro' => 'Once we asked ourselves if the sky was the limit, how could stars exist?',
                             'mission' => 'From that moment on, our mission in the world of entertainment became clear: to choose the best stories and make them shine.',
-                            'closing' => 'Because when something is produced with passion and ambition, the result is works that endure in memory.'
+                            'closing' => 'Because when something is produced with passion and ambition, the result is works that endure in memory.',
+                            'sections' => [
+                                [
+                                    'title' => 'Theatrical Production',
+                                    'description' => 'Production, promotion and distribution of original theatrical shows, musicals and cultural events.'
+                                ],
+                                [
+                                    'title' => 'Comprehensive Services',
+                                    'description' => 'Custom shows for events: artistic direction, casting, artist hiring, choreography, costume design, etc.'
+                                ],
+                                [
+                                    'title' => 'Cultural Spaces Management',
+                                    'description' => 'Transformation, management and direction of spaces for the cultural industry.'
+                                ],
+                                [
+                                    'title' => 'Performing Arts Promotion',
+                                    'description' => 'We offer a promotional platform for theater plays, musicals and festivals, implementing marketing and communication strategies to increase their visibility.'
+                                ]
+                            ]
                         ]
                     ]),
                     'meta_description' => json_encode([
-                        'es' => 'Beon Entertainment - Productora líder de espectáculos teatrales en España',
-                        'en' => 'Beon Entertainment - Leading theatrical show production company in Spain'
+                        'es' => 'Beon Entertainment - Productora líder de espectáculos teatrales y gestión cultural en España',
+                        'en' => 'Beon Entertainment - Leading theatrical production and cultural management company in Spain'
                     ]),
                     'is_published' => true,
                     'order' => 1
