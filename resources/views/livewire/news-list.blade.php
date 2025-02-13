@@ -1,9 +1,9 @@
 <div>
-    <div class="">
-        <h2 class="text-4xl font-bold mt-24 text-orange-600">{{ $translations['latest_news'] }}</h2>
+    <div class="mx-4 my-36">
+        <h2 class="text-4xl font-bold mb-12 text-gray-100">{{ $translations['latest_news'] }}</h2>
         {{-- <p class="text-xl text-gray-300 mt-3">{{ $translations['description'] }}</p> --}}
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($news as $item)
             <article class="group relative bg-neutral-900 rounded-2xl overflow-hidden transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
                 <!-- Imagen con overlay gradiente -->

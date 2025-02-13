@@ -3,11 +3,11 @@
 <!-- Footer -->
 <footer class="bg-secondary-500 text-gray-300">
     <!-- Newsletter Section -->
-    <div class="border-b border-gray-800">
-        <div class="container mx-auto px-4 py-12">
+    <div class="border-b border-gray-800 relative">
+        <div class="mx-auto px-4 py-12" style="background-image: url('{{ asset('img/fondo-news.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
             <div class="max-w-3xl mx-auto text-center">
                 <h3 class="text-2xl font-semibold mb-0">Conoce todas las novedades de los espectáculos de</h3>
-                <h3 class="text-3xl font-semibold mb-6">beon. Entertainment</h3>
+                <h3 class="text-3xl text-primary-500 font-semibold mb-6">beon. Entertainment</h3>
                 <form class="flex flex-col gap-4 justify-center items-center">
                     <div class="flex flex-col sm:flex-row gap-4 w-full justify-center items-center">
                         <input type="text" placeholder="Nombre" required class="w-full sm:w-auto px-4 py-2 bg-neutral-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">

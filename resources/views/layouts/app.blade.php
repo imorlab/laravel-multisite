@@ -11,16 +11,17 @@
     @stack('styles')
 </head>
 <body class="min-h-screen bg-tertiary-500 flex flex-col">
-    
+
     <div class="my-0 md:my-6">
         <x-navigation :site="$site" />
     </div>
-    
+
     <main class="flex-grow w-full">
         @yield('content')
     </main>
 
     <x-footer :site="$site" />
+    <x-scroll-to-top />
 
     @livewireScripts
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

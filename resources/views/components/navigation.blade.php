@@ -8,7 +8,7 @@
 class="relative"
 @scroll.window="isScrolled = (window.pageYOffset > 20)">
     <!-- Main Navigation Bar -->
-    <div class="fixed md:top-0 bottom-0 md:bottom-auto left-0 right-0 mx-4 md:mx-0 z-50 md:mt-4">
+    <div class="fixed md:top-0 bottom-0 md:bottom-auto left-0 right-0 mx-2 md:mx-0 z-50 my-2 md:my-4">
         <div class="mx-auto max-w-3xl relative transition-all duration-300"
             :class="{
                 'max-w-4xl': isMenuOpen
@@ -23,7 +23,7 @@ class="relative"
                 <div class="flex justify-between items-center px-4 py-3">
                     <!-- Button -->
                     <div class="w-36">
-                        <a href="#" class="group relative px-4 py-2 text-orange-500 font-medium overflow-hidden rounded-lg hover:text-orange-300 transition-colors duration-300">
+                        <a href="#" class="group relative px-2 md:px-4 py-2 text-orange-500 font-medium overflow-hidden rounded-lg hover:text-orange-300 transition-colors duration-300">
                             <div class="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-orange-500/0 via-orange-500/30 to-orange-500/0 skew-x-[-20deg] group-hover:animate-shine"></div>
                             <div class="absolute inset-0 border border-orange-500 rounded-lg group-hover:border-orange-300 transition-colors duration-300"></div>
                             <span class="relative">{{ __('Entradas') }}</span>
