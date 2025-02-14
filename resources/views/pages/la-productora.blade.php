@@ -192,9 +192,11 @@
             </div>
 
             <!-- Staff Section -->
-            <div class="max-w-7xl mx-auto px-4 mb-16">
-                <livewire:people-list :site="$site" :people="$staff" type="staff" />
-            </div>
+            <section class="bg-tertiary-500 py-16">
+                <div class="container mx-auto px-4">
+                    <livewire:people-list :site="$site" type="staff" :staff-list="$staff" />
+                </div>
+            </section>
         </div>
     </div>
 </article>
