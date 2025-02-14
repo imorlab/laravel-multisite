@@ -6,10 +6,12 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProducerController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\WelcomeController;
+use App\Models\Site;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +46,9 @@ Route::middleware('web')->group(function () {
 
     // Páginas
     Route::get('/pages/{slug}', [PageController::class, 'show'])->name('site.page');
+
+    // La Productora
+    Route::get('/la-productora', [ProducerController::class, 'index'])->name('site.la-productora');
 
     // Personas (staff)
     Route::get('/staff', [PersonController::class, 'index'])

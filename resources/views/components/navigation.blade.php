@@ -67,7 +67,7 @@ class="relative"
                                     <div class="space-y-6 space-x-4">
                                         <h3 class="text-sm font-small text-gray-400 tracking-wider">{{ __('Explore by') }}</h3>
                                         <div class="space-y-4">
-                                            <a href="#" class="block text-xl hover:text-gray-300">La Productora</a>
+                                            <a href="{{ route('site.la-productora') }}" class="block text-xl hover:text-gray-300">La Productora</a>
                                             <a href="#" class="block text-xl hover:text-gray-300">Producciones</a>
                                             <a href="#" class="block text-xl hover:text-gray-300">Grupos</a>
                                             <a href="#" class="block text-xl hover:text-gray-300">Cuentanos tu proyecto</a>
