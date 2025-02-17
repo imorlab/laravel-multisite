@@ -4,7 +4,7 @@
 <footer class="bg-secondary-500 text-gray-300">
     <!-- Newsletter Section -->
     <div class="border-b border-gray-800 relative">
-        <div class="mx-auto px-4 py-12" style="background-image: url('{{ asset('img/fondo-news.jpg') }}'); background-position: center; background-repeat: no-repeat;">
+        <div class="mx-auto px-4 py-12" style="background-image: url('{{ asset('img/spotlights.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
             <div class="max-w-3xl mx-auto text-center">
                 <h3 class="text-2xl font-semibold mb-0">{{ __('footer.newsletter.title') }}</h3>
                 <h3 class="text-3xl text-primary-500 font-semibold mb-6">{{ __('footer.newsletter.brand') }}</h3>
