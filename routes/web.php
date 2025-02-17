@@ -30,6 +30,20 @@ Route::middleware(['web'])->group(function () {
     // Rutas de autenticación
     require __DIR__.'/auth.php';
 
+    // Panel de SuperAdmin
+    Route::middleware(['auth', 'superadmin'])->prefix('superadmin')->group(function () {
+        Route::get('/', [SuperAdminController::class, 'index'])->name('superadmin.dashboard');
+        Route::resource('sites', SiteController::class);
+        Route::resource('users', UserController::class);
+        
+        // Gestión de contenido global
+        Route::prefix('content')->group(function () {
+            Route::resource('pages', PageController::class)->except('show');
+            Route::resource('news', NewsController::class)->except('show');
+            Route::resource('people', PersonController::class)->except('show');
+        });
+    });
+
     // Panel de administración
     Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -103,5 +117,4 @@ Route::middleware(['web'])->group(function () {
         Route::get('/staff/{slug}', [PersonController::class, 'show'])
             ->name('site.domain.staff.show');
     });
-   
 });
