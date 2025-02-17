@@ -1,7 +1,6 @@
 <div>
-    <div class="mx-4 my-36">
+    <div class="mx-4 my-36 reveal-scroll">
         <h2 class="text-4xl font-bold mb-12 text-gray-100">{{ $translations['latest_news'] }}</h2>
-        {{-- <p class="text-xl text-gray-300 mt-3">{{ $translations['description'] }}</p> --}}
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($news as $item)

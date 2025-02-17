@@ -1,5 +1,5 @@
 <div>
-    <section class="relative py-24 md:py-8 overflow-hidden">
+    <section class="relative py-24 md:py-8 overflow-hidden reveal-scroll">
         <h2 class="text-4xl font-bold text-gray-100 mb-12">{{ __('¿Que es beon. Entertainment?') }}</h2>
         <div class="relative container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">

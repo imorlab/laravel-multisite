@@ -1,7 +1,7 @@
 <div>
     @if($site->is_main)
         <!-- Hero Section -->
-        <section class="h-screen sticky top-0 overflow-hidden bg-neutral-900 mx-2 md:mx-4 rounded-2xl mt-0 md:mt-12">
+        <section class="h-screen sticky top-0 overflow-hidden bg-neutral-900 mx-4 md:mx-0 mt-0 md:mt-12">
             <h1 class="title absolute inset-0 grid place-items-center text-white text-[clamp(3vw,2rem,4rem)] font-extrabold mix-blend-difference pointer-events-none z-50">
                 {!! __($title) !!}
             </h1>

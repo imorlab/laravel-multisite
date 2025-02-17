@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'our_staff' => 'Nuestro equipo',
     'mercedes_rus' => [
         'name' => 'Mercedes Rus',
         'role' => 'CFO',
