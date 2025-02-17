@@ -25,7 +25,7 @@ class PageSeeder extends Seeder
                     'content' => json_encode([
                         'es' => [
                             'title' => 'beon. Entertainment',
-                            'subtitle' => 'la productora de las grandes estrellas',
+                            'subtitle' => 'La productora de las grandes estrellas',
                             'intro' => 'Una vez nos preguntamos que si el cielo era el límite, ¿cómo podían existir las estrellas?',
                             'mission' => 'Desde ese momento nuestra misión en el mundo del espectáculo es clara: elegir las mejores historias y hacerlas brillar.',
                             'closing' => 'Y es que cuando algo se produce con pasión y ambición, el resultado son obras que perduran en la memoria.',

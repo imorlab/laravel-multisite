@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducerController;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('web')->group(function () {
+Route::middleware(['web'])->group(function () {
     // Cambio de idioma
     Route::get('/language/{locale}', [LanguageController::class, 'switch'])
         ->name('language.switch')
@@ -41,20 +42,32 @@ Route::middleware('web')->group(function () {
     Route::get('/', [WelcomeController::class, 'index'])->name('site.home');
 
     // Noticias
-    Route::get('/news', [NewsController::class, 'index'])->name('site.news');
+    Route::get('/actualidad', [NewsController::class, 'index'])
+        ->name('site.actualidad');
+        
+    Route::get('/news', [NewsController::class, 'index'])
+        ->name('site.news');
     Route::get('/news/{slug}', [NewsController::class, 'show'])->name('site.news.show');
 
     // Páginas
     Route::get('/pages/{slug}', [PageController::class, 'show'])->name('site.page');
 
     // La Productora
-    Route::get('/la-productora', [ProducerController::class, 'index'])->name('site.la-productora');
+    Route::get('/la-productora', [ProducerController::class, 'index'])
+        ->name('site.la-productora');
+        
+    Route::get('/the-producer', [ProducerController::class, 'index'])
+        ->name('site.the-producer');
 
     // Personas (staff)
     Route::get('/staff', [PersonController::class, 'index'])
         ->name('site.staff');
     Route::get('/staff/{slug}', [PersonController::class, 'show'])
         ->name('site.staff.show');
+
+    // Personas (people)
+    Route::get('/people', [PeopleController::class, 'index'])
+        ->name('site.people');
 
     /*
     |--------------------------------------------------------------------------
