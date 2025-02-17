@@ -82,18 +82,21 @@ class LanguageSwitcher extends Component
             'mappings' => $this->routeMappings
         ]);
         
-        // Emitir el evento de cambio de idioma antes de redirigir
+        // Emitir el evento de cambio de idioma
         $this->dispatch('language-changed');
         
         // Si tenemos un mapeo para la ruta actual
         if (isset($this->routeMappings[$this->currentRouteName])) {
             $newPath = $this->routeMappings[$this->currentRouteName][$locale];
             Log::info('Redirecting to new path', ['newPath' => $newPath]);
-            return $this->redirect($newPath, navigate: true);
+            
+            // Redirigir usando JavaScript para evitar problemas con Livewire
+            $this->dispatch('redirect-to', ['path' => $newPath]);
+            return;
         }
         
-        // Si no tenemos un mapeo, solo recargamos la página
-        return $this->redirect(Request::path(), navigate: true);
+        // Si no tenemos un mapeo, recargar la página
+        $this->dispatch('redirect-to', ['path' => Request::path()]);
     }
 
     public function render()
