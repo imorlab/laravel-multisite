@@ -5,21 +5,47 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use App\Models\Site;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class NewsController extends Controller
 {
-    public function index(Request $request, $domain = null)
+    protected $routeLocales = [
+        'actualidad' => 'es',
+        'news' => 'en'
+    ];
+
+    protected function setLocaleFromPath(Request $request)
     {
-        try {
-            $locale = session('locale', config('app.locale', 'es'));
+        $path = $request->path();
+        $firstSegment = explode('/', $path)[0];
+
+        if (isset($this->routeLocales[$firstSegment])) {
+            $locale = $this->routeLocales[$firstSegment];
+            session()->put('locale', $locale);
             App::setLocale($locale);
             
+            Log::debug('NewsController: Setting locale', [
+                'path' => $path,
+                'firstSegment' => $firstSegment,
+                'locale' => $locale,
+                'translations' => __('news')
+            ]);
+
             // Forzar la recarga de traducciones
             app('translator')->setLoaded([]);
             Cache::forget('translations');
+        }
+    }
+
+    public function index(Request $request, $domain = null)
+    {
+        $this->setLocaleFromPath($request);
+
+        try {
+            $locale = session('locale', config('app.locale', 'es'));
+            App::setLocale($locale);
 
             if ($domain) {
                 $site = Site::where('domain', $domain)->firstOrFail();
@@ -50,13 +76,11 @@ class NewsController extends Controller
             $domain = null;
         }
 
+        $this->setLocaleFromPath($request);
+
         try {
             $locale = session('locale', config('app.locale', 'es'));
             App::setLocale($locale);
-            
-            // Forzar la recarga de traducciones
-            app('translator')->setLoaded([]);
-            Cache::forget('translations');
 
             if ($domain) {
                 $site = Site::where('domain', $domain)->firstOrFail();

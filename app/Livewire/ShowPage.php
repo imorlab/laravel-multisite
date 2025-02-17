@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Page;
+use App\Models\Site;
 use App\Traits\WithTranslations;
 use Livewire\Component;
 use Illuminate\Support\Facades\Log;
@@ -13,10 +14,18 @@ class ShowPage extends Component
     use WithTranslations;
 
     public Page $page;
+    public $title;
+    public $content;
+    public $site;
+    public $locale;
 
     public function mount(Page $page)
     {
         $this->page = $page;
+        $this->site = $page->site;
+        $this->locale = session('locale', 'es');
+        $this->title = $page->getTitle();
+        $this->content = $page->getContent();
         $this->mountWithTranslations();
     }
 
@@ -31,15 +40,20 @@ class ShowPage extends Component
     #[On('language-changed')]
     public function onLanguageChanged()
     {
+        $this->locale = session('locale', 'es');
+        $this->title = $this->page->getTitle();
+        $this->content = $this->page->getContent();
         $this->refreshTranslations();
     }
 
     public function getGalleryImages()
     {
-        $site = $this->page->site;
+        if (!$this->site) {
+            return collect()->chunk(3);
+        }
         
         $availableImages = collect(range(1, 9))
-            ->filter(function($num) use ($site) {
+            ->filter(function($num) {
                 return file_exists(public_path("sites/BEN/gallery/ben-{$num}.jpg"));
             })
             ->values();
@@ -54,16 +68,11 @@ class ShowPage extends Component
 
     public function render()
     {
-        $title = $this->page->getTitle();
-        $content = $this->page->getContent();
-        $site = $this->page->site;
-        $locale = session('locale', 'es');
-
         return view('livewire.show-page', [
-            'title' => $title,
-            'content' => $content,
-            'site' => $site,
-            'locale' => $locale
+            'title' => $this->title,
+            'content' => $this->content,
+            'site' => $this->site,
+            'locale' => $this->locale
         ]);
     }
 }

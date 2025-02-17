@@ -3,24 +3,45 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Traits\WithTranslations;
+use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\On;
 
 class ServicesSections extends Component
 {
+    use WithTranslations;
+
     public $sections = [];
 
-    public function mount($content)
+    public function mount()
     {
-        if (empty($content)) {
-            return;
-        }
+        $this->mountWithTranslations();
+        $this->loadSections();
+    }
 
-        $locale = app()->getLocale();
+    public function getTranslationKeys(): array
+    {
+        return [
+            'title' => 'welcome.title',
+            'sections' => 'welcome.sections'
+        ];
+    }
+
+    #[On('language-changed')]
+    public function onLanguageChanged()
+    {
+        $this->refreshTranslations();
+        $this->loadSections();
+    }
+
+    protected function loadSections()
+    {
+        $this->sections = __('welcome.sections');
         
-        if (!isset($content[$locale]['sections'])) {
-            return;
-        }
-
-        $this->sections = $content[$locale]['sections'];
+        Log::debug('ServicesSections: Sections loaded', [
+            'sections' => $this->sections,
+            'locale' => app()->getLocale()
+        ]);
     }
 
     public function render()
