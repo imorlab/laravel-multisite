@@ -30,9 +30,9 @@
 
     <!-- Main Content -->
     <div class="bg-tertiary-500 py-16">
-        <div class="max-w-7xl mx-auto px-4">
+        <div class="container mx-auto px-4">
             <!-- About Section -->
-            <div class="max-w-5xl mx-auto mb-16">
+            <div class="container mx-auto mb-16">
                 <p class="text-4xl md:text-5xl text-primary-500 font-semibold mb-6">
                     {{ __('producer.tagline') }}
                 </p>    
@@ -42,7 +42,7 @@
             </div>
 
             <!-- Productions Timeline -->
-            <div class="max-w-5xl mx-auto mb-16">
+            <div class="container mx-auto mb-16">
                 <div class="space-y-16">
                     <!-- El Médico -->
                     <div class="bg-tertiary-100/10 rounded-lg overflow-hidden">
@@ -67,9 +67,6 @@
                     <!-- El Tiempo entre Costuras -->
                     <div class="bg-tertiary-100/10 rounded-lg overflow-hidden">
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            <div class="aspect-w-16 aspect-h-9 lg:aspect-none lg:h-full">
-                                <img src="{{ asset('img/pages/el-tiempo-entre-costuras.jpg') }}" alt="{{ __('producer.el_tiempo_entre_costuras.title') }}" class="w-full h-full object-cover">
-                            </div>
                             <div class="p-8">
                                 <h3 class="text-3xl font-bold text-white mb-4">{{ __('producer.el_tiempo_entre_costuras.title') }}</h3>
                                 <div class="prose prose-lg prose-invert">
@@ -80,6 +77,9 @@
                                         @endforeach
                                     </ul>
                                 </div>
+                            </div>
+                            <div class="aspect-w-16 aspect-h-9 lg:aspect-none lg:h-full">
+                                <img src="{{ asset('img/pages/el-tiempo-entre-costuras.jpg') }}" alt="{{ __('producer.el_tiempo_entre_costuras.title') }}" class="w-full h-full object-cover">
                             </div>
                         </div>
                     </div>
@@ -107,9 +107,6 @@
                     <!-- Forever Van Gogh -->
                     <div class="bg-tertiary-100/10 rounded-lg overflow-hidden">
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            <div class="aspect-w-16 aspect-h-9 lg:aspect-none lg:h-full">
-                                <img src="{{ asset('img/pages/van-gogh.jpg') }}" alt="{{ __('producer.forever_van_gogh.title') }}" class="w-full h-full object-cover">
-                            </div>
                             <div class="p-8">
                                 <h3 class="text-3xl font-bold text-white mb-4">{{ __('producer.forever_van_gogh.title') }}</h3>
                                 <div class="prose prose-lg prose-invert">
@@ -120,6 +117,9 @@
                                         @endforeach
                                     </ul>
                                 </div>
+                            </div>
+                            <div class="aspect-w-16 aspect-h-9 lg:aspect-none lg:h-full">
+                                <img src="{{ asset('img/pages/van-gogh.jpg') }}" alt="{{ __('producer.forever_van_gogh.title') }}" class="w-full h-full object-cover">
                             </div>
                         </div>
                     </div>
