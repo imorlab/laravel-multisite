@@ -4,7 +4,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($news as $item)
-            <article class="group relative bg-neutral-900 rounded-2xl overflow-hidden transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
+            <article class="group relative bg-tertiary-100/10 rounded-2xl overflow-hidden transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
                 <!-- Imagen con overlay gradiente -->
                 <div class="relative h-64 overflow-hidden">
                     <img src="https://picsum.photos/seed/{{ $loop->index }}/800/600"

@@ -1,21 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<article class="relative mt-12">
+<article class="relative md:mt-12">
     <!-- Hero Section con Parallax -->
-    <div class="relative h-[40vh] min-h-[400px] overflow-hidden bg-tertiary-500">
-        <div class="relative h-[40vh] min-h-[400px] overflow-hidden bg-tertiary-500">
+    <div class="relative h-[35vh] min-h-[350px] overflow-hidden bg-tertiary-500">
+        <!-- <div class="relative h-[40vh] min-h-[400px] overflow-hidden bg-tertiary-500"> -->
             <img src="https://picsum.photos/seed/{{ $news->id }}/1920/1080"
                  alt="{{ $news->getTitle() }}"
                  class="w-full h-full object-cover">
-        </div>
+        <!-- </div> -->
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-tertiary-500"></div>
 
         <!-- Contenedor del título -->
-        <div class="absolute bottom-0 left-0 right-0">
+        <!-- <div class="absolute bottom-10 left-0 right-0">
             <div class="container mx-auto px-4 py-8">
                 <div class="max-w-4xl mx-auto">
-                    <!-- Breadcrumb -->
+                    
                     <nav class="flex items-center space-x-2 text-sm mb-4" aria-label="Breadcrumb">
                         <a href="{{ $site->domain ? route('site.domain.news', ['domain' => $site->domain]) : route('site.news') }}"
                            class="text-gray-300 hover:text-primary-500 transition-colors">
@@ -25,7 +25,39 @@
                         <span class="text-gray-300 truncate max-w-[200px]">{{ $news->getTitle() }}</span>
                     </nav>
 
-                    <h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+                    <h1 class="text-white text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+                        {{ $news->getTitle() }}
+                    </h1>
+
+                    
+                    <div class="flex items-center space-x-6 text-primary-500">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            {{ $news->published_at->format('d/m/Y') }}
+                        </div>
+                        <div class="flex items-center" x-data="{ readingTime: Math.ceil(document.querySelector('.article-content')?.textContent.split(' ').length / 200) || 5 }">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span x-text="readingTime + ' min lectura'"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="bg-tertiary-500">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
+                <!-- Columna Principal -->
+                <div class="lg:col-span-2">
+
+                    <!-- Título -->
+                    <h1 class="text-white text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
                         {{ $news->getTitle() }}
                     </h1>
 
@@ -44,18 +76,9 @@
                             <span x-text="readingTime + ' min lectura'"></span>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Contenido Principal -->
-    <div class="bg-tertiary-500">
-        <div class="container mx-auto px-4 py-12">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
-                <!-- Columna Principal -->
-                <div class="lg:col-span-2">
-                    <div class="prose prose-lg prose-invert max-w-none article-content text-gray-300">
+                    <!-- Contenido principal -->
+                    <div class="prose prose-lg prose-invert max-w-none article-content text-gray-300 mt-12">
                         {!! $news->getContent() !!}
                     </div>
 
@@ -97,7 +120,7 @@
 
                 <!-- Sidebar con noticias relacionadas -->
                 <aside class="lg:col-span-1">
-                    <div class="sticky top-24">
+                    <div class="sticky top-24 bg-tertiary-100/10 p-6 rounded-2xl">
                         <h3 class="text-white text-xl font-semibold mb-6">Más Noticias</h3>
                         <div class="space-y-6">
                             @foreach($relatedNews as $related)

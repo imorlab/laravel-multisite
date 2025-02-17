@@ -16,7 +16,7 @@ class="relative"
             <!-- Contenedor principal con bordes redondeados -->
             <div class="rounded-2xl transition-all duration-300"
                 :class="{
-                    'bg-tertiary-500 backdrop-blur': !isScrolled && !isMenuOpen,
+                    'bg-secondary-600 md:bg-tertiary-500 backdrop-blur': !isScrolled && !isMenuOpen,
                     'bg-secondary-600/90 backdrop-blur': isScrolled || isMenuOpen,
                     'md:rounded-b-none md:rounded-t-2xl rounded-b-2xl rounded-t-none': isMenuOpen
                 }">
@@ -67,11 +67,10 @@ class="relative"
                                     <div class="space-y-6 space-x-4">
                                         <h3 class="text-sm font-small text-gray-400 tracking-wider">{{ __('Explore by') }}</h3>
                                         <div class="space-y-4">
-                                            <a href="{{ route('site.la-productora') }}" class="block text-xl hover:text-gray-300">La Productora</a>
-                                            <a href="#" class="block text-xl hover:text-gray-300">Producciones</a>
-                                            <a href="#" class="block text-xl hover:text-gray-300">Grupos</a>
-                                            <a href="#" class="block text-xl hover:text-gray-300">Cuentanos tu proyecto</a>
-                                            <a href="{{ route('site.news') }}" class="block text-xl hover:text-gray-300">Actualidad</a>
+                                            <a href="{{ app()->getLocale() === 'es' ? '/la-productora' : '/the-producer' }}" class="block text-xl hover:text-primary-500">{{ __('navigation.producer') }}</a>
+                                            <a href="#" class="block text-xl hover:text-primary-500">Grupos</a>
+                                            <a href="#" class="block text-xl hover:text-primary-500">Cuentanos tu proyecto</a>
+                                            <a href="{{ app()->getLocale() === 'es' ? '/actualidad' : '/news' }}" class="block text-xl hover:text-primary-500">{{ __('navigation.news') }}</a>
                                         </div>
                                     </div>
                                     <div class="space-y-6">
@@ -161,7 +160,7 @@ class="relative"
                                     <div class="space-y-6">
                                         <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider">{{ __('Explore by') }}</h3>
                                         <div class="space-y-4">
-                                            <a href="{{ route('site.la-productora') }}" class="block text-xl hover:text-gray-300">LA PRODUCTORA</a>
+                                            <a href="{{ \App\Helpers\RouteHelper::localizedRoute('site.la-productora') }}" class="block text-xl hover:text-gray-300">LA PRODUCTORA</a>
                                             <a href="#" class="block text-xl hover:text-gray-300">PRODUCCIONES</a>
                                         </div>
                                     </div>
@@ -175,7 +174,7 @@ class="relative"
                                     <div class="space-y-6">
                                         <!-- Pendiente de definir el título -->
                                         <div class="space-y-4">
-                                            <a href="{{ route('site.news') }}" class="block text-xl hover:text-gray-300">ACTUALIDAD</a>
+                                            <a href="{{ app()->getLocale() === 'es' ? '/actualidad' : '/news' }}" class="block text-xl hover:text-gray-300">{{ __('navigation.news') }}</a>
                                         </div>
                                     </div>
                                 </div>

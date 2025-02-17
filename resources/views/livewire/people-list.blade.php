@@ -43,7 +43,7 @@
 
             <!-- Resto del equipo -->
             @if($people->count() > 3)
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
                     @foreach($people->skip(3) as $person)
                         <div class="group relative h-52 rounded-2xl overflow-hidden cursor-pointer transform-gpu transition-all duration-500 hover:scale-105">
                             <!-- Imagen de fondo -->

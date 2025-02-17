@@ -1,12 +1,15 @@
-<div class="relative inline-block text-left mr-4">
-    <div class="flex space-x-4">
+<div>
+    <div class="flex items-center justify-center space-x-2">
         @foreach($locales as $code => $name)
-            <button type="button"
-                    wire:click="switchLanguage('{{ $code }}')"
-                    wire:loading.attr="disabled"
-                    class="text-gray-200 hover:text-violet-400 {{ $currentLocale === $code ? 'font-bold text-violet-400' : '' }}">
+            <button 
+                wire:click="switchLanguage('{{ $code }}')"
+                class="px-2 py-1 text-sm {{ $currentLocale === $code ? 'text-primary-500 font-bold' : 'text-gray-500 hover:text-primary-500' }}"
+            >
                 {{ strtoupper($code) }}
             </button>
+            @if(!$loop->last)
+                <span class="text-gray-300">|</span>
+            @endif
         @endforeach
     </div>
 </div>

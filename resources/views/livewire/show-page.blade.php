@@ -48,7 +48,7 @@
                     });
                  ">
                 <div class="container mx-auto px-8">
-                    <div class="content-box max-w-3xl mx-auto bg-neutral-900/80 backdrop-blur-sm text-gray-300 p-8 md:p-12 rounded-2xl shadow-2xl"
+                    <div class="content-box max-w-6xl mx-auto bg-neutral-900/80 backdrop-blur-sm text-gray-300 p-8 md:p-12 rounded-2xl shadow-2xl"
                          x-show="show"
                          x-transition:enter="transition ease-out duration-1000"
                          x-transition:enter-start="opacity-0 translate-y-12"
@@ -57,13 +57,13 @@
                          x-transition:leave-start="opacity-100 translate-y-0"
                          x-transition:leave-end="opacity-0 translate-y-12">
                         @if(is_array($content) && isset($content[$locale]))
-                            <h2 class="text-4xl text-orange-600 font-bold mb-2">{{ $content[$locale]['title'] }}</h2>
-                            <p class="text-2xl text-orange-400 font-light mb-6">{{ $content[$locale]['subtitle'] }}</p>
+                            <h2 class="text-2xl md:text-6xl text-gray-300 font-bold mb-2">{{ $content[$locale]['title'] }}</h2>
+                            <p class="text-2xl md:text-4xl text-primary-500 font-bold mb-6">{{ $content[$locale]['subtitle'] }}</p>
 
                             <div class="space-y-6">
-                                <p class="text-xl">{{ $content[$locale]['intro'] }}</p>
-                                <p class="text-lg">{{ $content[$locale]['mission'] }}</p>
-                                <p class="text-lg italic">{{ $content[$locale]['closing'] }}</p>
+                                <p class="text-xl md:text-2xl">{{ $content[$locale]['intro'] }}</p>
+                                <p class="text-xl md:text-2xl">{{ $content[$locale]['mission'] }}</p>
+                                <p class="text-xl md:text-2xl italic">{{ $content[$locale]['closing'] }}</p>
                             </div>
                         @else
                             <div class="prose prose-lg prose-invert">
@@ -120,7 +120,7 @@
 
                             gsap.to(item, {
                                 y: direction + Number(columnHeight / 2),
-                                duration: 20,
+                                duration: 200, // Aumentado de 20 a 200 para hacerlo más lento
                                 repeat: -1,
                                 ease: "none",
                                 modifiers: {
@@ -148,12 +148,12 @@
                         const velocity = self.getVelocity();
                         if (velocity > 0) {
                             if (additionalYAnim) additionalYAnim.kill();
-                            additionalY.val = -velocity / 2000;
+                            additionalY.val = -velocity / 5000; // Reducido de 2000 a 5000 para hacerlo más suave
                             additionalYAnim = gsap.to(additionalY, { val: 0 });
                         }
                         if (velocity < 0) {
                             if (additionalYAnim) additionalYAnim.kill();
-                            additionalY.val = -velocity / 3000;
+                            additionalY.val = -velocity / 5000; // Reducido de 3000 a 5000 para hacerlo más suave
                             additionalYAnim = gsap.to(additionalY, { val: 0 });
                         }
                     }
