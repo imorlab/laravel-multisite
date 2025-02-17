@@ -6,76 +6,27 @@
     <div class="border-b border-gray-800 relative">
         <div class="mx-auto px-4 py-12" style="background-image: url('{{ asset('img/fondo-news.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
             <div class="max-w-3xl mx-auto text-center">
-                <h3 class="text-2xl font-semibold mb-0">Conoce todas las novedades de los espectáculos de</h3>
-                <h3 class="text-3xl text-primary-500 font-semibold mb-6">beon. Entertainment</h3>
+                <h3 class="text-2xl font-semibold mb-0">{{ __('footer.newsletter.title') }}</h3>
+                <h3 class="text-3xl text-primary-500 font-semibold mb-6">{{ __('footer.newsletter.brand') }}</h3>
                 <form class="flex flex-col gap-4 justify-center items-center">
                     <div class="flex flex-col sm:flex-row gap-4 w-full justify-center items-center">
-                        <input type="text" placeholder="Nombre" required class="w-full sm:w-auto px-4 py-2 bg-neutral-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                        <input type="email" placeholder="Correo electrónico" required class="w-full sm:w-auto px-4 py-2 bg-neutral-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                        <input type="text" placeholder="{{ __('footer.newsletter.name') }}" required class="w-full sm:w-auto px-4 py-2 bg-neutral-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                        <input type="email" placeholder="{{ __('footer.newsletter.email') }}" required class="w-full sm:w-auto px-4 py-2 bg-neutral-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                         <select required class="w-full sm:w-auto pe-12 py-2 bg-neutral-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                            <option value="">Selecciona tu provincia</option>
-                            <option value="alava">Álava</option>
-                            <option value="albacete">Albacete</option>
-                            <option value="alicante">Alicante</option>
-                            <option value="almeria">Almería</option>
-                            <option value="asturias">Asturias</option>
-                            <option value="avila">Ávila</option>
-                            <option value="badajoz">Badajoz</option>
-                            <option value="barcelona">Barcelona</option>
-                            <option value="burgos">Burgos</option>
-                            <option value="caceres">Cáceres</option>
-                            <option value="cadiz">Cádiz</option>
-                            <option value="cantabria">Cantabria</option>
-                            <option value="castellon">Castellón</option>
-                            <option value="ceuta">Ceuta</option>
-                            <option value="ciudad_real">Ciudad Real</option>
-                            <option value="cordoba">Córdoba</option>
-                            <option value="cuenca">Cuenca</option>
-                            <option value="gerona">Gerona</option>
-                            <option value="granada">Granada</option>
-                            <option value="guadalajara">Guadalajara</option>
-                            <option value="guipuzcoa">Guipúzcoa</option>
-                            <option value="huelva">Huelva</option>
-                            <option value="huesca">Huesca</option>
-                            <option value="islas_baleares">Islas Baleares</option>
-                            <option value="jaen">Jaén</option>
-                            <option value="la_coruna">La Coruña</option>
-                            <option value="la_rioja">La Rioja</option>
-                            <option value="las_palmas">Las Palmas</option>
-                            <option value="leon">León</option>
-                            <option value="lerida">Lérida</option>
-                            <option value="lugo">Lugo</option>
-                            <option value="madrid">Madrid</option>
-                            <option value="malaga">Málaga</option>
-                            <option value="melilla">Melilla</option>
-                            <option value="murcia">Murcia</option>
-                            <option value="navarra">Navarra</option>
-                            <option value="orense">Orense</option>
-                            <option value="palencia">Palencia</option>
-                            <option value="pontevedra">Pontevedra</option>
-                            <option value="salamanca">Salamanca</option>
-                            <option value="santa_cruz_tenerife">Santa Cruz de Tenerife</option>
-                            <option value="segovia">Segovia</option>
-                            <option value="sevilla">Sevilla</option>
-                            <option value="soria">Soria</option>
-                            <option value="tarragona">Tarragona</option>
-                            <option value="teruel">Teruel</option>
-                            <option value="toledo">Toledo</option>
-                            <option value="valencia">Valencia</option>
-                            <option value="valladolid">Valladolid</option>
-                            <option value="vizcaya">Vizcaya</option>
-                            <option value="zamora">Zamora</option>
-                            <option value="zaragoza">Zaragoza</option>
+                            <option value="">{{ __('footer.newsletter.province') }}</option>
+                            @foreach(__('footer.provinces') as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="flex items-start gap-2 text-sm text-gray-400 max-w-2xl">
                         <input type="checkbox" required id="privacy-accept" class="mt-1 rounded border-gray-700 bg-neutral-800 text-orange-500 focus:ring-orange-500">
                         <label for="privacy-accept" class="cursor-pointer">
-                            Responsable: BEON ENTERTAINMENT S.L.U. Fines del tratamiento: Informar sobre las novedades del espectáculo.
-                            <a href="#" class="text-orange-500 hover:underline">Más información del tratamiento</a>
+                            {{ __('footer.newsletter.privacy.text') }}
+                            <a href="#" class="text-orange-500 hover:underline">{{ __('footer.newsletter.privacy.more_info') }}</a>
                         </label>
                     </div>
-                    <button type="submit" class="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors duration-300">Enviar</button>
+                    <button type="submit" class="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors duration-300">{{ __('footer.newsletter.submit') }}</button>
                 </form>
             </div>
         </div>
@@ -86,48 +37,48 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <!-- Company Info -->
             <div>
-                <img src="{{ asset('resources/logo-entertainment.svg') }}" alt="beon. Entertainment" class="h-8 mb-6 filter brightness-0 invert">
+                <img src="{{ asset('resources/logo-entertainment.svg') }}" alt="beon. Entertainment" class="h-10 mb-4 filter brightness-0 invert">
                 <div class="space-y-4">
                     <p class="flex items-center gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                         </svg>
-                        919 193 122
+                        {{ __('footer.company.phone') }}
                     </p>
                     <div class="text-sm">
-                        <p>Lunes a jueves:</p>
-                        <p class="text-orange-500">09:00 - 18:00</p>
-                        <p>Viernes:</p>
-                        <p class="text-orange-500">08:00 - 15:00</p>
+                        <p>{{ __('footer.company.schedule.weekdays') }}</p>
+                        <p class="text-orange-500">{{ __('footer.company.schedule.weekdays_hours') }}</p>
+                        <p>{{ __('footer.company.schedule.friday') }}</p>
+                        <p class="text-orange-500">{{ __('footer.company.schedule.friday_hours') }}</p>
                     </div>
                 </div>
             </div>
 
             <!-- Quick Links 1 -->
             <div>
-                <h4 class="text-lg font-semibold mb-4">Compañía</h4>
+                <h4 class="text-lg font-semibold mb-4">{{ __('footer.links.company.title') }}</h4>
                 <ul class="space-y-2">
-                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">La productora</a></li>
-                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">Trabaja en el teatro</a></li>
-                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">Preguntas frecuentes</a></li>
-                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">Código ético</a></li>
+                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">{{ __('footer.links.company.producer') }}</a></li>
+                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">{{ __('footer.links.company.work') }}</a></li>
+                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">{{ __('footer.links.company.faq') }}</a></li>
+                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">{{ __('footer.links.company.ethics') }}</a></li>
                 </ul>
             </div>
 
             <!-- Quick Links 2 -->
             <div>
-                <h4 class="text-lg font-semibold mb-4">Legal</h4>
+                <h4 class="text-lg font-semibold mb-4">{{ __('footer.links.legal.title') }}</h4>
                 <ul class="space-y-2">
-                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">Contacta con beon. Entertainment</a></li>
-                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">Aviso Legal</a></li>
-                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">Política de cookies</a></li>
-                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">Política de privacidad</a></li>
+                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">{{ __('footer.links.legal.contact') }}</a></li>
+                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">{{ __('footer.links.legal.notice') }}</a></li>
+                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">{{ __('footer.links.legal.cookies') }}</a></li>
+                    <li><a href="#" class="hover:text-orange-500 transition-colors duration-300">{{ __('footer.links.legal.privacy') }}</a></li>
                 </ul>
             </div>
 
             <!-- Social Links -->
             <div>
-                <h4 class="text-lg font-semibold mb-4">Síguenos en redes sociales</h4>
+                <h4 class="text-lg font-semibold mb-4">{{ __('footer.links.social.title') }}</h4>
                 <div class="flex space-x-4">
                     <a href="https://www.instagram.com/beon.entertainment/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-orange-500 transition-colors duration-300">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
