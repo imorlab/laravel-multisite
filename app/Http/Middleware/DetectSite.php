@@ -11,6 +11,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DetectSite
 {
+    protected $ignoredSlugs = [
+        'la-productora',
+        'the-producer',
+        'actualidad',
+        'news'
+    ];
+
     public function handle(Request $request, Closure $next)
     {
         try {
@@ -22,8 +29,12 @@ class DetectSite
                 'segments' => $request->segments()
             ]);
 
+            // Si el segmento es uno de nuestros slugs localizados, lo ignoramos
+            if (in_array($domain, $this->ignoredSlugs)) {
+                $site = Site::where('domain', '')->firstOrFail();
+            }
             // Si no hay dominio o es una ruta de administración, asumimos el sitio principal
-            if (!$domain || $domain === 'admin') {
+            else if (!$domain || $domain === 'admin') {
                 $site = Site::where('domain', '')->firstOrFail();
             } else {
                 $site = Site::where('domain', $domain)->firstOrFail();
