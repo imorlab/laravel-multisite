@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57804785e39a4ad2f7a8356440bc2737",
+    "content-hash": "9f0fee604ddf84e94ee4309e40d870a7",
     "packages": [
         {
             "name": "brick/math",
@@ -3501,16 +3501,16 @@
         },
         {
             "name": "spatie/laravel-translatable",
-            "version": "6.10.2",
+            "version": "6.11.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-translatable.git",
-                "reference": "6150f6d55f4712279883d56490406f8a92a9c72a"
+                "reference": "2053c0c281b5f2845e704b6278d61f5e6c95d6d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/6150f6d55f4712279883d56490406f8a92a9c72a",
-                "reference": "6150f6d55f4712279883d56490406f8a92a9c72a",
+                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/2053c0c281b5f2845e704b6278d61f5e6c95d6d2",
+                "reference": "2053c0c281b5f2845e704b6278d61f5e6c95d6d2",
                 "shasum": ""
             },
             "require": {
@@ -3572,7 +3572,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-translatable/issues",
-                "source": "https://github.com/spatie/laravel-translatable/tree/6.10.2"
+                "source": "https://github.com/spatie/laravel-translatable/tree/6.11.3"
             },
             "funding": [
                 {
@@ -3580,7 +3580,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-02-03T08:49:09+00:00"
+            "time": "2025-02-14T14:46:34+00:00"
         },
         {
             "name": "symfony/clock",
