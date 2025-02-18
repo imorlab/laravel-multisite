@@ -11,13 +11,6 @@
 
         <div class="absolute bottom-0 md:bottom-10 left-0 right-0">
             <div class="container max-w-7xl mx-auto px-4 py-8">
-                <!-- <nav class="flex items-center space-x-2 text-sm mb-4" aria-label="Breadcrumb">
-                    <a href="{{ route('site.home', $site->getRouteParams()) }}" class="text-gray-300 hover:text-primary-500 transition-colors">
-                        {{ __('Inicio') }}
-                    </a>
-                    <span class="text-gray-500">/</span>
-                    <span class="text-gray-300">{{ __('content.news') }}</span>
-                </nav> -->
 
                 <h1 class="text-white text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
                     {{ __('news.index.title') }}
@@ -34,7 +27,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($news as $item)
                 <article class="bg-secondary-500 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-1">
-                    <a href="{{ route('site.news.show', $site->getRouteParams(['slug' => $item->slug])) }}" class="block">
+                    <a href="{{ route(app()->getLocale() === 'es' ? 'site.actualidad.show' : 'site.news.show', ['slug' => $item->getSlug()]) }}" class="block">
                         <div class="relative h-48 overflow-hidden">
                             <img src="https://picsum.photos/seed/{{ $item->id }}/800/600"
                                  alt="{{ $item->getTitle() }}"
@@ -62,7 +55,7 @@
                                 {{ $item->getTitle() }}
                             </h2>
                             <p class="text-gray-400 line-clamp-3">
-                                {{ \Illuminate\Support\Str::limit(strip_tags($item->getContent()), 150) }}
+                                {{ $item->getExcerpt() }}
                             </p>
                         </div>
                     </a>

@@ -7,19 +7,19 @@ use App\Models\Site;
 use App\Traits\WithTranslations;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\Log;
 
 class NewsList extends Component
 {
     use WithTranslations;
+    use WithPagination;
 
-    public $news;
     public Site $site;
 
     public function mount(Site $site)
     {
         $this->site = $site;
-        $this->loadNews();
         $this->mountWithTranslations();
     }
 
@@ -36,18 +36,18 @@ class NewsList extends Component
     #[On('language-changed')]
     public function loadNews()
     {
-        $this->news = News::where('site_id', $this->site->id)
-            ->where('is_published', true)
-            ->orderBy('published_at', 'desc')
-            ->take(3)
-            ->get();
-            
-        // Recargar traducciones cuando cambia el idioma
         $this->refreshTranslations();
     }
 
     public function render()
     {
-        return view('livewire.news-list');
+        $news = News::where('site_id', $this->site->id)
+            ->where('is_published', true)
+            ->orderBy('published_at', 'desc')
+            ->paginate(6);
+
+        return view('livewire.news-list', [
+            'news' => $news
+        ]);
     }
 }

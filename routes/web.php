@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\NewsController;
+use App\Http\Controllers\NewsController as NewsControllerOriginal;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\PersonController;
@@ -39,16 +40,17 @@ Route::middleware(['web'])->group(function () {
         // Gestión de contenido global
         Route::prefix('content')->group(function () {
             Route::resource('pages', PageController::class)->except('show');
-            Route::resource('news', NewsController::class)->except('show');
+            Route::resource('news', NewsControllerOriginal::class)->except('show');
             Route::resource('people', PersonController::class)->except('show');
         });
     });
 
     // Panel de administración
-    Route::middleware(['auth'])->prefix('admin')->group(function () {
-        Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::resource('pages', PageController::class)->except('show');
         Route::resource('news', NewsController::class)->except('show');
+        Route::post('news/translate', [NewsController::class, 'translate'])->name('news.translate');
         Route::resource('people', PersonController::class)->except('show');
     });
 
@@ -56,15 +58,23 @@ Route::middleware(['web'])->group(function () {
     Route::get('/', [WelcomeController::class, 'index'])->name('site.home');
 
     // Noticias
-    Route::get('/actualidad', [NewsController::class, 'index'])
+    Route::get('/actualidad', [NewsControllerOriginal::class, 'index'])
         ->name('site.actualidad');
+
+    Route::get('/actualidad/{slug}', [NewsControllerOriginal::class, 'show'])
+        ->name('site.actualidad.show')
+        ->where('slug', '[a-z0-9-]+');
         
-    Route::get('/news', [NewsController::class, 'index'])
+    Route::get('/news', [NewsControllerOriginal::class, 'index'])
         ->name('site.news');
-    Route::get('/news/{slug}', [NewsController::class, 'show'])->name('site.news.show');
+
+    Route::get('/news/{slug}', [NewsControllerOriginal::class, 'show'])
+        ->name('site.news.show')
+        ->where('slug', '[a-z0-9-]+');
 
     // Páginas
-    Route::get('/pages/{slug}', [PageController::class, 'show'])->name('site.page');
+    Route::get('/pages/{slug}', [PageController::class, 'show'])
+        ->name('site.page');
 
     // La Productora
     Route::get('/la-productora', [ProducerController::class, 'index'])
@@ -93,8 +103,8 @@ Route::middleware(['web'])->group(function () {
     
     Route::prefix('{domain}')->group(function () {
         // Noticias
-        Route::get('/news', [NewsController::class, 'index'])->name('site.domain.news');
-        Route::get('/news/{slug}', [NewsController::class, 'show'])->name('site.domain.news.show');
+        Route::get('/news', [NewsControllerOriginal::class, 'index'])->name('site.domain.news');
+        Route::get('/news/{slug}', [NewsControllerOriginal::class, 'show'])->name('site.domain.news.show');
 
         // Páginas
         Route::get('/pages/{slug}', [PageController::class, 'show'])->name('site.domain.page');

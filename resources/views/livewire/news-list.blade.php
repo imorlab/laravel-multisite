@@ -3,55 +3,59 @@
         <h2 class="text-4xl font-bold mb-12 text-gray-100">{{ $translations['latest_news'] }}</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @foreach($news as $item)
-            <article class="group relative bg-tertiary-100/10 rounded-2xl overflow-hidden transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
-                <!-- Imagen con overlay gradiente -->
-                <div class="relative h-64 overflow-hidden">
-                    <img src="https://picsum.photos/seed/{{ $loop->index }}/800/600"
-                         alt="{{ $item->getTitle() }}"
-                         class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110">
-                    <!-- {{-- <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/50 to-transparent"></div> --}} -->
-                </div>
-
-                <!-- Contenido -->
-                <div class="relative p-6">
-                    <!-- Fecha -->
-                    <div class="flex items-center gap-2 text-orange-500 mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <span class="text-sm">{{ $item->created_at->format('d M, Y') }}</span>
+            @foreach ($news as $item)
+            <article class="bg-secondary-500 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-1">
+                @php
+                    $route = app()->getLocale() === 'es' ? 'site.actualidad.show' : 'site.news.show';
+                    $slug = $item->getSlug();
+                    if (empty($slug)) continue;
+                @endphp
+                <a href="{{ route($route, ['slug' => $slug]) }}" class="block">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://picsum.photos/seed/{{ $item->id }}/800/600"
+                             alt="{{ $item->getTitle() }}"
+                             class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4">
+                            <div class="flex items-center text-sm text-gray-300 space-x-4">
+                                <span class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    {{ $item->published_at->format('d/m/Y') }}
+                                </span>
+                                <span class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    {{ ceil(str_word_count(strip_tags($item->getContent())) / 200) }} min
+                                </span>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- Título -->
-                    <h3 class="text-xl font-bold text-white mb-3 line-clamp-2">{{ $item->getTitle() }}</h3>
-
-                    <!-- Extracto -->
-                    <p class="text-gray-400 mb-4 line-clamp-3">{{ $item->getExcerpt() }}</p>
-
-                    <!-- Botón Leer más -->
-                    <a href="{{ $site->domain ?
-                        route('site.domain.news.show', ['domain' => $site->domain, 'slug' => $item->slug]) :
-                        route('site.news.show', ['slug' => $item->slug]) }}"
-                       class="inline-flex items-center gap-2 text-orange-500 hover:text-orange-400 transition-colors">
-                        {{ $translations['read_more'] }}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                    </a>
-                </div>
-
-                <!-- Decoración -->
-                <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-orange-500/20 to-transparent transform rotate-45 translate-x-10 -translate-y-10"></div>
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold text-white mb-3 line-clamp-2 hover:text-primary-500 transition-colors">
+                            {{ $item->getTitle() }}
+                        </h2>
+                        <p class="text-gray-400 line-clamp-3">
+                            {{ $item->getExcerpt() }}
+                        </p>
+                    </div>
+                </a>
             </article>
             @endforeach
         </div>
 
         @if($news->isEmpty())
-            <p class="text-center text-gray-500">{{ $translations['no_news'] }}</p>
+            <p class="text-center text-gray-500 mt-8">{{ $translations['no_news'] }}</p>
+        @endif
+
+        @if($news->hasPages())
+            <div class="mt-8">
+                {{ $news->links() }}
+            </div>
         @endif
     </div>
-
 
 <style>
 /* Animación suave para las imágenes */

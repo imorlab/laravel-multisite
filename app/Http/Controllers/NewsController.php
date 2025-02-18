@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -76,52 +77,70 @@ class NewsController extends Controller
             $domain = null;
         }
 
-        $this->setLocaleFromPath($request);
+        // Determinar el idioma basado en la ruta completa
+        $path = $request->path();
+        $locale = str_contains($path, 'actualidad') ? 'es' : 'en';
+        app()->setLocale($locale);
 
         try {
-            $locale = session('locale', config('app.locale', 'es'));
-            App::setLocale($locale);
-
             if ($domain) {
                 $site = Site::where('domain', $domain)->firstOrFail();
             } else {
                 $site = Site::where('domain', '')->firstOrFail();
             }
 
+            // Buscar la noticia usando el slug traducido
             $news = News::where('site_id', $site->id)
-                       ->where('slug', $slug)
-                       ->where('is_published', true)
-                       ->firstOrFail();
+                ->where('is_published', true)
+                ->get()
+                ->filter(function($news) use ($slug, $locale) {
+                    $slugs = json_decode($news->slug, true);
+                    return isset($slugs[$locale]) && $slugs[$locale] === $slug;
+                })
+                ->first();
 
-            // Obtener noticias relacionadas (excluyendo la actual)
+            if (!$news) {
+                Log::error('News not found', [
+                    'slug' => $slug,
+                    'locale' => $locale,
+                    'domain' => $domain
+                ]);
+                abort(404);
+            }
+
+            // Obtener noticias relacionadas
             $relatedNews = News::where('site_id', $site->id)
-                             ->where('is_published', true)
-                             ->where('id', '!=', $news->id)
-                             ->latest('published_at')
-                             ->take(3)
-                             ->get();
+                ->where('is_published', true)
+                ->where('id', '!=', $news->id)
+                ->latest('published_at')
+                ->take(3)
+                ->get();
 
             // Obtener noticia anterior
             $previousNews = News::where('site_id', $site->id)
-                              ->where('is_published', true)
-                              ->where('published_at', '<', $news->published_at)
-                              ->orderBy('published_at', 'desc')
-                              ->first();
+                ->where('is_published', true)
+                ->where('published_at', '<', $news->published_at)
+                ->orderBy('published_at', 'desc')
+                ->first();
 
             // Obtener noticia siguiente
             $nextNews = News::where('site_id', $site->id)
-                          ->where('is_published', true)
-                          ->where('published_at', '>', $news->published_at)
-                          ->orderBy('published_at', 'asc')
-                          ->first();
+                ->where('is_published', true)
+                ->where('published_at', '>', $news->published_at)
+                ->orderBy('published_at', 'asc')
+                ->first();
 
             return view('news.show', compact('site', 'news', 'relatedNews', 'previousNews', 'nextNews'));
+
         } catch (\Exception $e) {
             Log::error('Error in NewsController@show', [
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
+                'slug' => $slug,
+                'locale' => $locale,
+                'domain' => $domain
             ]);
-            throw $e;
+            abort(404);
         }
     }
 }
