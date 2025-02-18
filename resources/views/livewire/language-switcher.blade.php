@@ -12,11 +12,4 @@
             @endif
         @endforeach
     </div>
-    <script>
-        document.addEventListener('livewire:initialized', () => {
-            @this.on('redirect-to', (event) => {
-                window.location.href = event.path;
-            });
-        });
-    </script>
 </div>

@@ -7,8 +7,9 @@ Un sistema de gestión de múltiples sitios web para espectáculos teatrales, co
 - **Gestión Multi-sitio**: Administra múltiples sitios web desde una única instalación
 - **Contenido Multilingüe**: 
   - Soporte completo para español e inglés
-  - Cambio de idioma dinámico sin recargar la página
+  - Sistema de cambio de idioma basado en Livewire
   - Traducciones para títulos, contenido, descripciones y más
+  - URLs específicas por idioma (ejemplo: /la-productora → /the-producer)
 - **Componentes Dinámicos**: 
   - Páginas personalizables
   - Noticias con imágenes y contenido rico
@@ -22,6 +23,82 @@ Un sistema de gestión de múltiples sitios web para espectáculos teatrales, co
   - Componentes Livewire para UI dinámica
   - Traits reutilizables para funcionalidad común
   - Modelos con soporte multilingüe integrado
+
+## Sistema de Cambio de Idioma
+
+El sistema de cambio de idioma está implementado usando Livewire y proporciona una experiencia fluida al usuario:
+
+### Componente LanguageSwitcher
+
+```php
+// Ubicación: app/Livewire/LanguageSwitcher.php
+
+class LanguageSwitcher extends Component
+{
+    // Mapeo de rutas para cada idioma
+    protected $routeMappings = [
+        'site.home' => [
+            'es' => '/',
+            'en' => '/'
+        ],
+        'site.la-productora' => [
+            'es' => '/la-productora',
+            'en' => '/the-producer'
+        ]
+        // ... más mapeos
+    ];
+}
+```
+
+### Características principales:
+
+1. **Mapeo de URLs por idioma**:
+   - Cada ruta tiene su equivalente en español e inglés
+   - Las URLs son amigables y SEO-friendly
+   - Mantiene la consistencia en la navegación
+
+2. **Persistencia del idioma**:
+   - El idioma seleccionado se guarda en sesión
+   - Se mantiene durante toda la navegación
+   - Valor por defecto: 'es' (español)
+
+3. **Redirección inteligente**:
+   - Redirección automática a la URL equivalente en el nuevo idioma
+   - Manejo especial para la página principal
+   - Mantiene el estado de la sesión durante las redirecciones
+
+### Uso en las vistas:
+
+```blade
+<livewire:language-switcher />
+```
+
+### Añadir nuevas rutas traducidas:
+
+1. Agregar el mapeo en `$routeMappings`:
+```php
+'site.nueva-ruta' => [
+    'es' => '/ruta-en-espanol',
+    'en' => '/english-route'
+]
+```
+
+2. Definir las rutas en `routes/web.php`:
+```php
+Route::get('/ruta-en-espanol', [Controller::class, 'method'])->name('site.nueva-ruta');
+Route::get('/english-route', [Controller::class, 'method'])->name('site.nueva-ruta');
+```
+
+3. Crear los archivos de traducción correspondientes en:
+   - `lang/es/nueva-ruta.php`
+   - `lang/en/nueva-ruta.php`
+
+### Consideraciones:
+
+- Las URLs deben ser únicas para cada idioma
+- Usar nombres de ruta consistentes (prefijo 'site.')
+- Mantener la estructura de traducciones organizada
+- Documentar nuevos mapeos de rutas
 
 ## Requisitos
 

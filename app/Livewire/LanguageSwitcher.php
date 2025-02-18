@@ -21,6 +21,10 @@ class LanguageSwitcher extends Component
     ];
 
     protected $routeMappings = [
+        'site.home' => [
+            'es' => '/',
+            'en' => '/'
+        ],
         'site.la-productora' => [
             'es' => '/la-productora',
             'en' => '/the-producer'
@@ -41,22 +45,8 @@ class LanguageSwitcher extends Component
 
     public function mount()
     {
-        $path = Request::path();
-        $firstSegment = explode('/', $path)[0];
-        
-        $this->currentLocale = isset($this->routeLocales[$firstSegment]) 
-            ? $this->routeLocales[$firstSegment] 
-            : config('app.locale', 'es');
-            
-        // Guardamos el nombre de la ruta actual
-        $this->currentRouteName = Route::current()->getName();
-            
-        Log::info('LanguageSwitcher mounted', [
-            'path' => $path,
-            'firstSegment' => $firstSegment,
-            'currentLocale' => $this->currentLocale,
-            'currentRouteName' => $this->currentRouteName
-        ]);
+        $this->currentLocale = session('locale', config('app.locale', 'es'));
+        $this->currentRouteName = Route::current()?->getName() ?? 'site.home';
     }
 
     public function switchLanguage($locale)
@@ -82,21 +72,20 @@ class LanguageSwitcher extends Component
             'mappings' => $this->routeMappings
         ]);
         
-        // Emitir el evento de cambio de idioma
-        $this->dispatch('language-changed');
-        
-        // Si tenemos un mapeo para la ruta actual
-        if (isset($this->routeMappings[$this->currentRouteName])) {
-            $newPath = $this->routeMappings[$this->currentRouteName][$locale];
-            Log::info('Redirecting to new path', ['newPath' => $newPath]);
-            
-            // Redirigir usando JavaScript para evitar problemas con Livewire
-            $this->dispatch('redirect-to', ['path' => $newPath]);
-            return;
+        if ($this->currentRouteName === 'site.home') {
+            session()->reflash();
+            return redirect('/');
         }
         
-        // Si no tenemos un mapeo, recargar la página
-        $this->dispatch('redirect-to', ['path' => Request::path()]);
+        if (isset($this->routeMappings[$this->currentRouteName][$locale])) {
+            $newPath = $this->routeMappings[$this->currentRouteName][$locale];
+            Log::info('Redirecting to new path', ['newPath' => $newPath]);
+            session()->reflash();
+            return redirect()->to($newPath);
+        }
+        
+        session()->reflash();
+        return redirect()->to(Request::path());
     }
 
     public function render()
