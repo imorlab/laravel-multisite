@@ -26,13 +26,6 @@ class NewsController extends Controller
             $locale = $this->routeLocales[$firstSegment];
             session()->put('locale', $locale);
             App::setLocale($locale);
-            
-            Log::debug('NewsController: Setting locale', [
-                'path' => $path,
-                'firstSegment' => $firstSegment,
-                'locale' => $locale,
-                'translations' => __('news')
-            ]);
 
             // Forzar la recarga de traducciones
             app('translator')->setLoaded([]);
@@ -98,15 +91,6 @@ class NewsController extends Controller
                     return isset($slugs[$locale]) && $slugs[$locale] === $slug;
                 })
                 ->first();
-
-            if (!$news) {
-                Log::error('News not found', [
-                    'slug' => $slug,
-                    'locale' => $locale,
-                    'domain' => $domain
-                ]);
-                abort(404);
-            }
 
             // Obtener noticias relacionadas
             $relatedNews = News::where('site_id', $site->id)

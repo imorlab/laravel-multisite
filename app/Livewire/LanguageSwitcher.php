@@ -3,15 +3,17 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\App;
+use App\Models\News;
+use App\Models\Site;
 
 class LanguageSwitcher extends Component
 {
     public $currentLocale;
     public $currentRouteName;
+    public $currentSlug;
     public $locales = [
         'es' => 'Español',
         'en' => 'English'
@@ -57,8 +59,9 @@ class LanguageSwitcher extends Component
 
     public function mount()
     {
-        $this->currentLocale = session('locale', config('app.locale', 'es'));
-        $this->currentRouteName = Route::current()?->getName() ?? 'site.home';
+        $this->currentLocale = app()->getLocale();
+        $this->currentRouteName = Route::current()?->getName();
+        $this->currentSlug = Route::current()?->parameter('slug');
     }
 
     public function switchLanguage($locale)
@@ -67,31 +70,54 @@ class LanguageSwitcher extends Component
             return;
         }
 
+        // Manejar específicamente las rutas de noticias
+        if (in_array($this->currentRouteName, ['site.actualidad.show', 'site.news.show']) && $this->currentSlug) {
+            // Encontrar la noticia actual usando el idioma actual
+            $news = News::where('site_id', Site::where('domain', request('domain', ''))->first()?->id ?? 1)
+                ->where('is_published', true)
+                ->get()
+                ->filter(function($news) {
+                    $slugs = json_decode($news->slug, true);
+                    // Buscar el slug en el idioma actual
+                    return in_array($this->currentSlug, $slugs);
+                })
+                ->first();
+
+            if ($news) {
+                // Obtener el slug en el nuevo idioma
+                $slugs = json_decode($news->slug, true);
+                $newSlug = $slugs[$locale] ?? $slugs['es'] ?? null;
+
+                if ($newSlug) {
+                    // Determinar la nueva ruta basada en el idioma
+                    $newRouteName = $locale === 'es' ? 'site.actualidad.show' : 'site.news.show';
+
+                    $this->currentLocale = $locale;
+                    session(['locale' => $locale]);
+                    App::setLocale($locale);
+                    
+                    $this->dispatch('language-changed');
+                    return redirect()->route($newRouteName, ['slug' => $newSlug]);
+                }
+            }
+        }
+
+        // Si llegamos aquí, manejamos el cambio de idioma normal
         $this->currentLocale = $locale;
         session(['locale' => $locale]);
         App::setLocale($locale);
-
-        // Obtener los parámetros de la ruta actual
-        $currentRoute = Route::current();
-        $parameters = $currentRoute?->parameters() ?? [];
         
         // Si tenemos un mapeo para la ruta actual
         if (isset($this->routeMappings[$this->currentRouteName][$locale])) {
             $newPath = $this->routeMappings[$this->currentRouteName][$locale];
-            
-            // Reemplazar los parámetros en la URL
-            foreach ($parameters as $key => $value) {
-                $newPath = str_replace("{{$key}}", $value, $newPath);
+
+            if ($this->currentSlug) {
+                $newPath = str_replace('{slug}', $this->currentSlug, $newPath);
             }
 
             // Asegurarnos de que la URL comienza con /
             $newPath = '/' . ltrim($newPath, '/');
 
-            // Si es una ruta con dominio, mantener el dominio
-            if (isset($parameters['domain'])) {
-                $newPath = '/' . $parameters['domain'] . $newPath;
-            }
-            
             $this->dispatch('language-changed');
             return redirect($newPath);
         }
