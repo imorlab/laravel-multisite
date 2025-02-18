@@ -12,12 +12,14 @@ class WelcomeController extends Controller
     public function index(Request $request, $domain = null)
     {
         try {
+            // Encontrar el sitio
             if ($domain) {
                 $site = Site::where('domain', $domain)->firstOrFail();
             } else {
                 $site = Site::where('domain', '')->firstOrFail();
             }
 
+            // Encontrar la página principal
             $page = Page::where('site_id', $site->id)
                        ->where('slug', 'home')
                        ->firstOrFail();

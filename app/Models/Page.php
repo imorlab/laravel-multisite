@@ -17,6 +17,7 @@ class Page extends Model
         'content',
         'slug',
         'is_homepage',
+        'meta_description',
     ];
 
     protected $casts = [

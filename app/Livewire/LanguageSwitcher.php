@@ -12,6 +12,10 @@ class LanguageSwitcher extends Component
 {
     public $currentLocale;
     public $currentRouteName;
+    public $locales = [
+        'es' => 'Español',
+        'en' => 'English'
+    ];
     
     protected $routeLocales = [
         'la-productora' => 'es',
@@ -40,6 +44,14 @@ class LanguageSwitcher extends Component
         'site.news' => [
             'es' => '/actualidad',
             'en' => '/news'
+        ],
+        'site.actualidad.show' => [
+            'es' => '/actualidad/{slug}',
+            'en' => '/news/{slug}'
+        ],
+        'site.news.show' => [
+            'es' => '/actualidad/{slug}',
+            'en' => '/news/{slug}'
         ]
     ];
 
@@ -51,50 +63,46 @@ class LanguageSwitcher extends Component
 
     public function switchLanguage($locale)
     {
-        Log::info('Switching language', [
-            'requested_locale' => $locale,
-            'saved_route' => $this->currentRouteName,
-            'current_path' => Request::path()
-        ]);
-
-        if (!in_array($locale, ['es', 'en'])) {
-            Log::warning('Invalid locale requested', ['locale' => $locale]);
+        if (!array_key_exists($locale, $this->locales)) {
             return;
         }
 
-        // Establecer el nuevo idioma
-        session()->put('locale', $locale);
+        $this->currentLocale = $locale;
+        session(['locale' => $locale]);
         App::setLocale($locale);
+
+        // Obtener los parámetros de la ruta actual
+        $currentRoute = Route::current();
+        $parameters = $currentRoute?->parameters() ?? [];
         
-        Log::info('Route info', [
-            'currentRoute' => $this->currentRouteName,
-            'hasMapping' => isset($this->routeMappings[$this->currentRouteName]),
-            'mappings' => $this->routeMappings
-        ]);
-        
-        if ($this->currentRouteName === 'site.home') {
-            session()->reflash();
-            return redirect('/');
-        }
-        
+        // Si tenemos un mapeo para la ruta actual
         if (isset($this->routeMappings[$this->currentRouteName][$locale])) {
             $newPath = $this->routeMappings[$this->currentRouteName][$locale];
-            Log::info('Redirecting to new path', ['newPath' => $newPath]);
-            session()->reflash();
-            return redirect()->to($newPath);
+            
+            // Reemplazar los parámetros en la URL
+            foreach ($parameters as $key => $value) {
+                $newPath = str_replace("{{$key}}", $value, $newPath);
+            }
+
+            // Asegurarnos de que la URL comienza con /
+            $newPath = '/' . ltrim($newPath, '/');
+
+            // Si es una ruta con dominio, mantener el dominio
+            if (isset($parameters['domain'])) {
+                $newPath = '/' . $parameters['domain'] . $newPath;
+            }
+            
+            $this->dispatch('language-changed');
+            return redirect($newPath);
         }
-        
-        session()->reflash();
-        return redirect()->to(Request::path());
+
+        // Si no hay mapeo, simplemente recarga la página
+        $this->dispatch('language-changed');
+        return redirect(Request::url());
     }
 
     public function render()
     {
-        return view('livewire.language-switcher', [
-            'locales' => [
-                'es' => 'Español',
-                'en' => 'English'
-            ]
-        ]);
+        return view('livewire.language-switcher');
     }
 }

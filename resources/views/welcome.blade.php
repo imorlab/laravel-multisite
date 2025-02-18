@@ -2,9 +2,9 @@
 
 @section('content')
 <livewire:show-page :page="$page" />
+
 <div class="container mx-auto py-4">
     <div class="w-full mx-auto">
-        
         <div class="mt-8">
             <livewire:shows-list />
         </div>

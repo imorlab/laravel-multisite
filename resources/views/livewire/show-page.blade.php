@@ -1,8 +1,8 @@
 <div>
     @if($site->is_main)
         <!-- Hero Section -->
-        <section class="h-screen sticky top-0 overflow-hidden bg-neutral-900 mx-4 md:mx-0 mt-0 md:mt-12">
-            <h1 class="title absolute inset-0 grid place-items-center text-white text-[clamp(3vw,2rem,4rem)] font-extrabold mix-blend-difference pointer-events-none z-50">
+        <section class="h-screen sticky top-0 overflow-hidden bg-neutral-900 mx-0 mt-0 md:mt-12">
+            <h1 class="title absolute inset-0 grid place-items-center text-white text-4xl md:text-7xl font-extrabold mix-blend-difference pointer-events-none z-50">
                 {!! __($title) !!}
             </h1>
 
@@ -10,7 +10,7 @@
                 @foreach($this->getGalleryImages() as $chunk)
                 <div class="col flex-1 flex flex-col w-full">
                     @foreach($chunk as $num)
-                    <div class="image-wrapper w-full p-4">
+                    <div class="image-wrapper w-full p-1 md:p-4">
                         <div class="group relative">
                             <div class="absolute -inset-2 opacity-0 group-hover:opacity-100 transition-all duration-500"
                                  style="background-image: url('{{ asset("sites/BEN/gallery/ben-{$num}.jpg") }}');

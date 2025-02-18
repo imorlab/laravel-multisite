@@ -4,49 +4,10 @@
 <article class="relative md:mt-12">
     <!-- Hero Section con Parallax -->
     <div class="relative h-[35vh] min-h-[350px] overflow-hidden bg-tertiary-500">
-        <!-- <div class="relative h-[40vh] min-h-[400px] overflow-hidden bg-tertiary-500"> -->
-            <img src="https://picsum.photos/seed/{{ $news->id }}/1920/1080"
-                 alt="{{ $news->getTitle() }}"
-                 class="w-full h-full object-cover">
-        <!-- </div> -->
+        <img src="https://picsum.photos/seed/{{ $news->id }}/1920/1080"
+                alt="{{ $news->getTitle() }}"
+                class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-tertiary-500"></div>
-
-        <!-- Contenedor del título -->
-        <!-- <div class="absolute bottom-10 left-0 right-0">
-            <div class="container mx-auto px-4 py-8">
-                <div class="max-w-4xl mx-auto">
-                    
-                    <nav class="flex items-center space-x-2 text-sm mb-4" aria-label="Breadcrumb">
-                        <a href="{{ $site->domain ? route('site.domain.news', ['domain' => $site->domain]) : route('site.news') }}"
-                           class="text-gray-300 hover:text-primary-500 transition-colors">
-                            {{ __('content.news') }}
-                        </a>
-                        <span class="text-gray-500">/</span>
-                        <span class="text-gray-300 truncate max-w-[200px]">{{ $news->getTitle() }}</span>
-                    </nav>
-
-                    <h1 class="text-white text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
-                        {{ $news->getTitle() }}
-                    </h1>
-
-                    
-                    <div class="flex items-center space-x-6 text-primary-500">
-                        <div class="flex items-center">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                            {{ $news->published_at->format('d/m/Y') }}
-                        </div>
-                        <div class="flex items-center" x-data="{ readingTime: Math.ceil(document.querySelector('.article-content')?.textContent.split(' ').length / 200) || 5 }">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span x-text="readingTime + ' min lectura'"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </div>
 
     <!-- Contenido Principal -->
@@ -55,7 +16,14 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
                 <!-- Columna Principal -->
                 <div class="lg:col-span-2">
-
+                    <nav class="flex items-center space-x-2 text-sm mb-4" aria-label="Breadcrumb">
+                        <a href="{{ $site->domain ? route('site.domain.news', ['domain' => $site->domain]) : route('site.news') }}"
+                           class="text-gray-300 hover:text-primary-500 transition-colors">
+                            {{ __('content.news') }}
+                        </a>
+                        <span class="text-gray-500">/</span>
+                        <span class="text-gray-300 truncate max-w-[200px]">{{ $news->getTitle() }}</span>
+                    </nav>
                     <!-- Título -->
                     <h1 class="text-white text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
                         {{ $news->getTitle() }}
@@ -124,7 +92,7 @@
                         <h3 class="text-white text-xl font-semibold mb-6">Más Noticias</h3>
                         <div class="space-y-6">
                             @foreach($relatedNews as $related)
-                            <a href="{{ route('site.news.show', $site->getRouteParams(['slug' => $related->slug])) }}"
+                            <a href="{{ route('site.news.show', $site->getRouteParams(['slug' => $related->getSlug()])) }}"
                                class="group block">
                                 <div class="relative h-48 rounded-lg overflow-hidden mb-3">
                                     <img src="https://picsum.photos/seed/{{ $related->id }}/800/600"
@@ -154,7 +122,7 @@
             <div class="max-w-7xl mx-auto">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     @if($previousNews)
-                    <a href="{{ route('site.news.show', $site->getRouteParams(['slug' => $previousNews->slug])) }}"
+                    <a href="{{ route('site.news.show', $site->getRouteParams(['slug' => $previousNews->getSlug()])) }}"
                        class="group flex items-center">
                         <svg class="w-6 h-6 text-gray-400 group-hover:text-primary-500 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -167,7 +135,7 @@
                     @endif
 
                     @if($nextNews)
-                    <a href="{{ route('site.news.show', $site->getRouteParams(['slug' => $nextNews->slug])) }}"
+                    <a href="{{ route('site.news.show', $site->getRouteParams(['slug' => $nextNews->getSlug()])) }}"
                        class="group flex items-center justify-end md:justify-end">
                         <div class="text-right">
                             <span class="block text-sm text-gray-400">Siguiente</span>

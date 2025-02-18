@@ -21,7 +21,7 @@ class NewsSeeder extends Seeder
                     'title' => json_encode($news['title']),
                     'content' => json_encode($news['content']),
                     'excerpt' => json_encode($news['excerpt']),
-                    'slug' => $news['slug'],
+                    'slug' => json_encode($news['slug']),
                     'is_published' => true,
                     'published_at' => now()->subDays($index * 2) // Cada noticia publicada con 2 días de diferencia
                 ]);
@@ -46,7 +46,10 @@ class NewsSeeder extends Seeder
                         'es' => 'Descubre los emocionantes musicales que llegarán esta temporada',
                         'en' => 'Discover the exciting musicals coming this season'
                     ],
-                    'slug' => 'nueva-temporada-teatral-2025'
+                    'slug' => [
+                        'es' => 'nueva-temporada-teatral-2025',
+                        'en' => 'new-theatrical-season-2025'
+                    ]
                 ],
                 [
                     'title' => [
@@ -61,7 +64,10 @@ class NewsSeeder extends Seeder
                         'es' => 'Record de ventas anticipadas para la nueva temporada',
                         'en' => 'Record pre-sales for the new season'
                     ],
-                    'slug' => 'exito-ventas-anticipadas'
+                    'slug' => [
+                        'es' => 'exito-ventas-anticipadas',
+                        'en' => 'record-pre-sales'
+                    ]
                 ],
                 [
                     'title' => [
@@ -76,7 +82,10 @@ class NewsSeeder extends Seeder
                         'es' => 'Nuevas alianzas internacionales para expandir nuestro alcance',
                         'en' => 'New international partnerships to expand our reach'
                     ],
-                    'slug' => 'expansion-internacional'
+                    'slug' => [
+                        'es' => 'expansion-internacional',
+                        'en' => 'international-expansion'
+                    ]
                 ]
             ];
         }
