@@ -13,7 +13,7 @@
     <!-- Contenido Principal -->
     <div class="bg-tertiary-500">
         <div class="container mx-auto px-4 py-12">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-8xl mx-auto">
                 <!-- Columna Principal -->
                 <div class="lg:col-span-2">
                     <nav class="flex items-center space-x-2 text-sm mb-4" aria-label="Breadcrumb">
@@ -119,7 +119,7 @@
     @if($previousNews || $nextNews)
     <div class="bg-tertiary-500 border-t border-gray-700">
         <div class="container mx-auto px-4 py-8">
-            <div class="max-w-7xl mx-auto">
+            <div class="max-w-8xl mx-auto">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     @if($previousNews)
                     <a href="{{ route('site.news.show', $site->getRouteParams(['slug' => $previousNews->getSlug()])) }}"
