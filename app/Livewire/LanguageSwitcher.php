@@ -77,7 +77,7 @@ class LanguageSwitcher extends Component
                 ->where('is_published', true)
                 ->get()
                 ->filter(function($news) {
-                    $slugs = json_decode($news->slug, true);
+                    $slugs = is_string($news->slug) ? json_decode($news->slug, true) : $news->slug;
                     // Buscar el slug en el idioma actual
                     return in_array($this->currentSlug, $slugs);
                 })

@@ -38,8 +38,8 @@ class News extends Model
 
     public function getTitle(): string
     {
-        $locale = app()->getLocale();
-        $title = json_decode($this->title, true);
+        $locale = session('locale', 'es');
+        $title = is_string($this->title) ? json_decode($this->title, true) : $this->title;
         return $title[$locale] ?? $title['en'] ?? $title['es'] ?? '';
     }
 

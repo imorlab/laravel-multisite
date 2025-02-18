@@ -87,7 +87,7 @@ class NewsController extends Controller
                 ->where('is_published', true)
                 ->get()
                 ->filter(function($news) use ($slug, $locale) {
-                    $slugs = json_decode($news->slug, true);
+                    $slugs = is_string($news->slug) ? json_decode($news->slug, true) : $news->slug;
                     return isset($slugs[$locale]) && $slugs[$locale] === $slug;
                 })
                 ->first();
