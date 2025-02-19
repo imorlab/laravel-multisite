@@ -3,7 +3,7 @@
         <h2 class="text-4xl font-bold mb-12 text-gray-100">{{ $translations['latest_news'] }}</h2>
 
         <div>
-            <div class="max-w-7xl mx-auto">
+            <div class="max-w-8xl mx-auto">
                 <x-news-grid :news="$news" />
             </div>
         </div>

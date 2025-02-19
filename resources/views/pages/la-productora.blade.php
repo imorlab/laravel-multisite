@@ -13,7 +13,7 @@
             
             <!-- Hero Content -->
             <div class="absolute inset-0 flex items-center">
-                <div class="container max-w-7xl mx-auto px-4">
+                <div class="container max-w-8xl mx-auto px-4">
                     <div class="max-w-4xl">
                         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
                             {{ __('producer.title') }}
@@ -30,7 +30,7 @@
 
     <!-- Main Content -->
     <div class="bg-tertiary-500 py-16">
-        <div class="container max-w-7xl mx-auto px-4">
+        <div class="container max-w-8xl mx-auto px-4">
             <!-- About Section -->
             <div class="container mx-auto mb-16">
                 <p class="text-4xl md:text-5xl text-primary-500 font-semibold mb-6">

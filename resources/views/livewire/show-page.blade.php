@@ -66,15 +66,14 @@
                                 <p class="text-xl md:text-2xl italic">{{ $content[$locale]['closing'] }}</p>
                             </div>
                         @else
-                            <div class="prose prose-lg prose-invert">
-                                {!! $content !!}
-                            </div>
+                            {!! $content !!}
                         @endif
                     </div>
                 </div>
-            </div>
-        <!-- </section> -->
-
+                <!-- Gradient Overlay -->
+                <div class="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-b from-transparent to-tertiary-500 pointer-events-none"></div>
+        </div>
+        
         @push('scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
