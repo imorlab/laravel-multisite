@@ -85,7 +85,7 @@ class LanguageSwitcher extends Component
 
             if ($news) {
                 // Obtener el slug en el nuevo idioma
-                $slugs = json_decode($news->slug, true);
+                $slugs = is_string($news->slug) ? json_decode($news->slug, true) : $news->slug;
                 $newSlug = $slugs[$locale] ?? $slugs['es'] ?? null;
 
                 if ($newSlug) {
